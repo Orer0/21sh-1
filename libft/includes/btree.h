@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/04 19:14:55 by ndubouil          #+#    #+#             */
-/*   Updated: 2018/09/14 16:26:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/14 22:45:15 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void				ft_btree_insert_data(t_btree **tree, t_btree **parent,
 						void *data, int (*cmpf)(void *, void *));
 void				*ft_btree_search_item(t_btree *tree, void *ref,
 						int (*cmpf)(void *, void *));
-void				ft_btree_del(t_btree *tree, void (*del)(void *));
+void				ft_btree_del(t_btree **tree, void (*del)(void *));
 void				ft_btree_apply_prefix(t_btree *tree, void (*func)(void *));
 void				ft_btree_apply_infix(t_btree *tree, void (*func)(void *));
 void				ft_btree_apply_rev_infix(t_btree *tree,
