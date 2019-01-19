@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/15 18:39:08 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/18 19:16:44 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
-CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
 
 # Directories
 
@@ -22,12 +22,19 @@ LIBFT	=	./libft/
 ILIBFT	=	./$(LIBFT)includes/
 H		=	./includes/
 SRC		=	./src/
+DEBUG	=	$(SRC)debug/
+PARS	=	$(SRC)parsing/
+LEX		=	$(PARS)lexer/
 
 #  Files
 
-HFILES	=	$(H)21sh.h
+HFILES	=	$(H)21sh.h														\
+			$(H)lexer.h
+
 MAIN	=	$(SRC)main.c
-SRCS	=	$(MAIN)
+SRCS	=	$(MAIN)															\
+			$(LEX)lexer.c													\
+			$(DEBUG)debug.c
 
 OBJ		=	$(patsubst %.c,%.o,$(SRCS))
 
