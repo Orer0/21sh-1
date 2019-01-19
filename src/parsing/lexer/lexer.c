@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/19 04:32:44 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/19 23:03:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,27 @@
 **	Retourne le type du token
 */
 
-static int			get_type_of_token(char *token, int last_state)
+static int			get_type_of_token(int last_state)
 {
-	// if (!token)
-	// 	return (END_TYPE);
-	// else if (token[0] >= 48 && token[0] <= 57)
-	// 	return (NUMBER_TYPE);
-	// else if (ft_strequ(token, "("))
-	// 	return (OPEN_BRACKET_TYPE);
-	// else if (ft_strequ(token, ")"))
-	// 	return (CLOSE_BRACKET_TYPE);
-	// else if (ft_strequ(token, "+"))
-	// 	return (PLUS_TYPE);
-	// else if (ft_strequ(token, "-"))
-	// 	return (MINUS_TYPE);
-	// else if (ft_strequ(token, "x"))
-	// 	return (MULTIPLY_TYPE);
-	// else if (ft_strequ(token, "/"))
-	// 	return (DIVISION_TYPE);
-	// return (NONE_TYPE);
-	(void)token;
-	return (last_state);
+	if (last_state == NUMBER_STATE)
+		return (NUMBER_TYPE);
+	else if (last_state == CHAR_STATE)
+		return (WORD_TYPE);
+	else if (last_state == PIPE_V_STATE)
+		return (PIPE_V_STATE);
+	else if (last_state == DOTCOMMA_V_STATE)
+		return (DOTCOMMA_TYPE);
+	else if (last_state == LEFT_REDIRECTION_STATE
+		|| last_state == RIGHT_REDIRECTION_STATE
+		|| last_state == DOUBLE_LEFT_REDIRECTION_STATE
+		|| last_state == DOUBLE_RIGHT_REDIRECTION_STATE)
+		return (REDIRECTION_TYPE);
+	else if (last_state == LEFT_AGGREGATION_V_STATE
+			|| last_state ==  RIGHT_AGGREGATION_V_STATE)
+		return (AGGREGATION_TYPE);
+	else if (last_state == TILDE_STATE)
+		return (TILDE_TYPE);
+	return (NONE_TYPE);
 }
 
 /*
@@ -47,7 +47,7 @@ static void 	create_token_struct(char *token, int last_state, t_token **tok)
 {
 	*tok = ft_memalloc(sizeof(t_token));
 	(*tok)->token = ft_strdup(token);
-	(*tok)->type = get_type_of_token(token, last_state);
+	(*tok)->type = get_type_of_token(last_state);
 }
 
 /*
@@ -109,7 +109,9 @@ static int	is_acceptor(int state)
 {
 	if (state == DOTCOMMA_V_STATE || state == SPACE_V_STATE
 		|| state == LEFT_REDIRECTION_V_STATE
-		|| state == RIGHT_REDIRECTION_V_STATE  || state == STAR_STATE)
+		|| state == RIGHT_REDIRECTION_V_STATE  || state == STAR_STATE
+		|| state == PIPE_V_STATE || state == LEFT_AGGREGATION_V_STATE
+		|| state == RIGHT_AGGREGATION_V_STATE)
 		return (TRUE);
 	return (FALSE);
 }
@@ -120,10 +122,22 @@ static int	is_acceptor(int state)
 
 static int	is_ignored(int current, int state)
 {
-	if (state == IGNORE_SPACE_STATE || state == IGNORE_SPACE_REDIRECTION_STATE || state == D_QUOTE_STATE
-		|| state == S_QUOTE_STATE || state == END_D_QUOTE_STATE
-		|| state == END_S_QUOTE_STATE || state == IGNORE_SPACE_PIPE_STATE
-		|| (current == BACKSLASH_D_QUOTE_STATE && state == CHAR_D_QUOTE_STATE)
+	if ((current == START_STATE && state == D_QUOTE_STATE)
+		|| (current == CHAR_STATE && state == D_QUOTE_STATE)
+		|| (current == NUMBER_STATE && state == D_QUOTE_STATE)
+		|| (current == TILDE_STATE && state == D_QUOTE_STATE)
+		|| (current == END_D_QUOTE_STATE && state == D_QUOTE_STATE)
+		|| (current == END_S_QUOTE_STATE && state == D_QUOTE_STATE)
+		|| (current == START_STATE && state == S_QUOTE_STATE)
+		|| (current == CHAR_STATE && state == S_QUOTE_STATE)
+		|| (current == NUMBER_STATE && state == S_QUOTE_STATE)
+		|| (current == TILDE_STATE && state == S_QUOTE_STATE)
+		|| (current == END_D_QUOTE_STATE && state == S_QUOTE_STATE)
+		|| (current == END_S_QUOTE_STATE && state == S_QUOTE_STATE)
+		|| (current == START_STATE && state == START_STATE)
+		|| state == END_D_QUOTE_STATE
+		|| state == END_S_QUOTE_STATE
+		|| (current == BACKSLASH_D_QUOTE_STATE && state == D_QUOTE_STATE)
 		|| state == BACKSLASH_STATE)
 		return (TRUE);
 	return (FALSE);
@@ -132,20 +146,20 @@ static int	is_ignored(int current, int state)
 /*
 **	Detecte si on ne pas peut pas terminer sur cette etat
 */
-
-static int	is_not_terminal(int state)
-{
-	if (state == D_QUOTE_STATE || state == S_QUOTE_STATE
-		|| state == CHAR_D_QUOTE_STATE || state == CHAR_S_QUOTE_STATE
-		|| state == LEFT_REDIRECTION_STATE || state == RIGHT_REDIRECTION_STATE
-		|| state == IGNORE_SPACE_REDIRECTION_STATE
-		|| state == DOUBLE_LEFT_REDIRECTION_STATE
-		|| state == DOUBLE_RIGHT_REDIRECTION_STATE
-		|| state == IGNORE_SPACE_PIPE_STATE
-		|| state == BACKSLASH_STATE)
-		return (TRUE);
-	return (FALSE);
-}
+//
+// static int	is_not_terminal(int state)
+// {
+// 	if (state == D_QUOTE_STATE || state == S_QUOTE_STATE
+// 		|| state == CHAR_D_QUOTE_STATE || state == CHAR_S_QUOTE_STATE
+// 		|| state == LEFT_REDIRECTION_STATE || state == RIGHT_REDIRECTION_STATE
+// 		|| state == IGNORE_SPACE_REDIRECTION_STATE
+// 		|| state == DOUBLE_LEFT_REDIRECTION_STATE
+// 		|| state == DOUBLE_RIGHT_REDIRECTION_STATE
+// 		|| state == IGNORE_SPACE_PIPE_STATE
+// 		|| state == BACKSLASH_STATE)
+// 		return (TRUE);
+// 	return (FALSE);
+// }
 
 /*
 **	Detecte si on ne pas peut pas terminer sur cette etat
@@ -155,10 +169,7 @@ static int	if_take_the_last(int state)
 {
 	if (state == NUMBER_STATE || state == CHAR_STATE
 		|| state == END_D_QUOTE_STATE
-		|| state == END_S_QUOTE_STATE
-		|| state == LEFT_AGGREGATION_NUMBER_STATE
-		|| state == RIGHT_AGGREGATION_NUMBER_STATE
-		|| state == RIGHT_AGGREGATION_DASH_STATE)
+		|| state == END_S_QUOTE_STATE)
 		return (TRUE);
 	return (FALSE);
 }
@@ -195,6 +206,35 @@ void 	delete_list_tokens(t_list **tokens_list)
 	ft_lstdel(tokens_list, free_token);
 }
 
+int 	first_check_tokens_list(t_list *lst)
+{
+	t_list		*tmp;
+
+	tmp = lst;
+	if (lst == NULL)
+		return (0);
+	//premier element
+	if (((t_token *)(tmp->content))->type == DOTCOMMA_TYPE || ((t_token *)(tmp->content))->type == PIPE_TYPE)
+	{
+		ft_printf("syntax error near unexpected token : %s\n", ((t_token *)(tmp->content))->token);
+		return (FALSE);
+	}
+	while (tmp != NULL)
+	{
+		// dernier element
+		if (tmp->next == NULL)
+		{
+			if (((t_token *)(tmp->content))->type == PIPE_TYPE || ((t_token *)(tmp->content))->type == NONE_TYPE)
+			{
+				ft_printf("syntax error, command not terminated in token : %s\n", ((t_token *)(tmp->content))->token);
+				return (0);
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
 /*
 **	The main function of the Lexer
 */
@@ -202,32 +242,21 @@ void 	delete_list_tokens(t_list **tokens_list)
 void lexer(char *line, t_list **tokens_list)
 {
 	char stack[512];
-	static int A[26][15] = {
-		{CHAR_STATE, NUMBER_STATE, IGNORE_SPACE_STATE, CHAR_STATE, BACKSLASH_STATE,TILDE_STATE, DOTCOMMA_V_STATE, PIPE_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE},
+	static int A[14][15] = {
+		{CHAR_STATE, NUMBER_STATE, START_STATE, CHAR_STATE, BACKSLASH_STATE, TILDE_STATE, DOTCOMMA_V_STATE, PIPE_V_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE},
 		{CHAR_STATE, CHAR_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE},
 		{CHAR_STATE, NUMBER_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE},
 		{CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, NONE_STATE},
 		{CHAR_STATE, CHAR_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE},
-		{STAR_STATE, STAR_STATE, IGNORE_SPACE_PIPE_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE},
-		{STAR_STATE, STAR_STATE, IGNORE_SPACE_PIPE_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE},
-		{CHAR_STATE, NUMBER_STATE, IGNORE_SPACE_STATE, CHAR_STATE, BACKSLASH_STATE, TILDE_STATE, DOTCOMMA_V_STATE, PIPE_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE},
-		{CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, BACKSLASH_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, END_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, NONE_STATE},
-		{CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, END_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, NONE_STATE},
+		{D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, BACKSLASH_D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, END_D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, NONE_STATE},
+		{S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, END_S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, NONE_STATE},
 		{CHAR_STATE, NUMBER_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE},
 		{CHAR_STATE, NUMBER_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE},
-		{CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, BACKSLASH_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, END_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, NONE_STATE},
-		{CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, CHAR_D_QUOTE_STATE, NONE_STATE},
-		{CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, END_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, CHAR_S_QUOTE_STATE, NONE_STATE},
-		{STAR_STATE, STAR_STATE, IGNORE_SPACE_REDIRECTION_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, DOUBLE_LEFT_REDIRECTION_STATE, NONE_STATE, RIGHT_AGGREGATION_STATE, NONE_STATE},
-		{STAR_STATE, STAR_STATE, IGNORE_SPACE_REDIRECTION_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, DOUBLE_RIGHT_REDIRECTION_STATE, RIGHT_AGGREGATION_STATE, NONE_STATE},
-		{STAR_STATE, STAR_STATE, IGNORE_SPACE_REDIRECTION_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE},
-		{STAR_STATE, STAR_STATE, IGNORE_SPACE_REDIRECTION_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE},
-		{STAR_STATE, STAR_STATE, IGNORE_SPACE_REDIRECTION_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE},
-		{NONE_STATE, LEFT_AGGREGATION_NUMBER_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE},
-		{NONE_STATE, RIGHT_AGGREGATION_NUMBER_STATE, NONE_STATE, RIGHT_AGGREGATION_DASH_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE},
-		{NONE_STATE, LEFT_AGGREGATION_NUMBER_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE},
-		{NONE_STATE, RIGHT_AGGREGATION_NUMBER_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE},
-		{NONE_STATE, NONE_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE}
+		{D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, NONE_STATE},
+		{STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, DOUBLE_LEFT_REDIRECTION_STATE, NONE_STATE, LEFT_AGGREGATION_V_STATE, NONE_STATE},
+		{STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, DOUBLE_RIGHT_REDIRECTION_STATE, RIGHT_AGGREGATION_V_STATE, NONE_STATE},
+		{STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE},
+		{STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE}
 	};
 	int current_state;
 	int next_state;
@@ -267,7 +296,7 @@ void lexer(char *line, t_list **tokens_list)
 				i--;
 			}
 			// Creer un token avec la stack
-			create_token_struct(stack, next_state, &token_struct);
+			create_token_struct(stack, current_state, &token_struct);
 			// Creer un maillon de liste avec ce token
 			token = ft_lstnew(&token_struct, sizeof(t_token));
 			// Ajoute a la liste des tokens
@@ -285,11 +314,11 @@ void lexer(char *line, t_list **tokens_list)
 		// L'etat courant devient le suivant
 		current_state = next_state;
 	} // Fin de la boucle
-	if (is_not_terminal(current_state))
-	{
-		ft_printf("Syntax error on token \"%s\" : not terminated\n", stack);
-		exit(0);
-	}
+	// if (is_not_terminal(current_state))
+	// {
+	// 	ft_printf("Syntax error on token \"%s\" : not terminated\n", stack);
+	// 	exit(0);
+	// }
 	// Si le dernier etat etait un nombre ou un caractere on doit prendre le dernier token
 	if (if_take_the_last(current_state))
 	{
@@ -303,6 +332,8 @@ void lexer(char *line, t_list **tokens_list)
 		else
 			ft_lstaddend(tokens_list, token);
 	}
+	if (!first_check_tokens_list(*tokens_list))
+		exit(0);
 	// create_token_struct(NULL, current_state, &token_struct);
 	// token = ft_lstnew(&token_struct, sizeof(t_token));
 	// ft_lstaddend(tokens_list, token);

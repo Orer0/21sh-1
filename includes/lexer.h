@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/19 04:16:02 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/19 22:37:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,22 @@ typedef enum 		e_states
 	NUMBER_STATE,
 	BACKSLASH_STATE,
 	TILDE_STATE,
-	PIPE_STATE,
-	IGNORE_SPACE_PIPE_STATE,
-	IGNORE_SPACE_STATE,
 	D_QUOTE_STATE,
 	S_QUOTE_STATE,
 	END_D_QUOTE_STATE,
 	END_S_QUOTE_STATE,
-	CHAR_D_QUOTE_STATE,
 	BACKSLASH_D_QUOTE_STATE,
-	CHAR_S_QUOTE_STATE,
 	LEFT_REDIRECTION_STATE,
 	RIGHT_REDIRECTION_STATE,
-	IGNORE_SPACE_REDIRECTION_STATE,
 	DOUBLE_LEFT_REDIRECTION_STATE,
 	DOUBLE_RIGHT_REDIRECTION_STATE,
-	LEFT_AGGREGATION_STATE,
-	RIGHT_AGGREGATION_STATE,
-	LEFT_AGGREGATION_NUMBER_STATE,
-	RIGHT_AGGREGATION_NUMBER_STATE,
-	RIGHT_AGGREGATION_DASH_STATE,
 	DOTCOMMA_V_STATE,
+	PIPE_V_STATE,
 	SPACE_V_STATE,
 	LEFT_REDIRECTION_V_STATE,
 	RIGHT_REDIRECTION_V_STATE,
+	LEFT_AGGREGATION_V_STATE,
+	RIGHT_AGGREGATION_V_STATE,
 	STAR_STATE,
 	NONE_STATE
 }					t_states;
@@ -67,6 +59,19 @@ typedef enum 		e_index
 	AMPERSAND_INDEX,
 	NONE_INDEX
 }					t_index;
+
+typedef enum 		e_token_types
+{
+	WORD_TYPE = 0,
+	NUMBER_TYPE,
+	PIPE_TYPE,
+	DOTCOMMA_TYPE,
+	REDIRECTION_TYPE,
+	AGGREGATION_TYPE,
+	TILDE_TYPE,
+	FILE_TYPE,
+	NONE_TYPE
+}					t_tokens_types;
 
 typedef struct	s_token
 {
