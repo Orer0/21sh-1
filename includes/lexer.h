@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/19 22:37:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/21 03:35:56 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define LEXER_H
 
 # include "21sh.h"
+# include <pwd.h>
+
+# define HEIGHT 15
+# define WIDTH 16
+
+# define STACK_SIZE 4096
 
 typedef enum 		e_states
 {
@@ -22,6 +28,7 @@ typedef enum 		e_states
 	NUMBER_STATE,
 	BACKSLASH_STATE,
 	TILDE_STATE,
+	DOLLAR_STATE,
 	D_QUOTE_STATE,
 	S_QUOTE_STATE,
 	END_D_QUOTE_STATE,
@@ -50,6 +57,7 @@ typedef enum 		e_index
 	DASH_INDEX,
 	BACKSLASH_INDEX,
 	TILDE_INDEX,
+	DOLLAR_INDEX,
 	DOTCOMMA_INDEX,
 	PIPE_INDEX,
 	D_QUOTE_INDEX,
@@ -69,7 +77,11 @@ typedef enum 		e_token_types
 	REDIRECTION_TYPE,
 	AGGREGATION_TYPE,
 	TILDE_TYPE,
-	FILE_TYPE,
+	REDIRECTION_ARG_TYPE,
+	AGGREGATION_ARG_TYPE,
+	D_QUOTE_TYPE,
+	S_QUOTE_TYPE,
+	COMMAND_TYPE,
 	NONE_TYPE
 }					t_tokens_types;
 
@@ -77,6 +89,26 @@ typedef struct	s_token
 {
 		char	*token;
 		int		type;
+		char 	**tab;
 }				t_token;
+
+int lexer(char *line, t_list **tokens_list);
+int 	first_check_tokens_list(t_list *lst);
+int 	build_command_token(t_list *lst);
+void 	delete_list_tokens(t_list **tokens_list);
+
+int					replace_tilde(char **str);
+void				put_str_in_stack(char (*stack)[STACK_SIZE], char *str);
+void				put_char_in_stack(char (*stack)[STACK_SIZE], char c);
+int					is_acceptor(int state);
+int					is_ignored(int current, int state);
+int					get_index_from_char(char *s, int i);
+char	*get_dollar(char *line, int *i, int state, int A[HEIGHT][WIDTH]);
+int 	build_command_token(t_list *lst);
+void 	free_token(void *content, size_t size);
+int					get_type_of_token(int next_state, int last_state);
+int 	create_token(char *token, int n_state, int l_state, t_token **t);
+int 	first_check_tokens_list(t_list *lst);
+void 	delete_list_tokens(t_list **tokens_list);
 
 #endif

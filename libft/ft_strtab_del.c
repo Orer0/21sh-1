@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strtab_del.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 03:36:06 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/20 20:34:01 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/20 20:34:25 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "libft.h"
 
-int		main(int ac, char **av)
+void	ft_strtab_del(char ***tab)
 {
-	if (ac != 2)
-		return (EXIT_SUCCESS);
-	shell_parser(av[1]);
-	return (EXIT_SUCCESS);
+	int		i;
+
+	if (!(*tab))
+		return ;
+	if (!(*tab)[0])
+	{
+		ft_memdel((void **)tab);
+		*tab = NULL;
+		return ;
+	}
+	i = -1;
+	while ((*tab)[++i])
+		ft_strdel(&(*tab)[i]);
+	ft_strdel(&(*tab)[i]);
+	ft_memdel((void **)tab);
+	*tab = NULL;
 }

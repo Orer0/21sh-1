@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/18 19:16:44 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/21 03:34:02 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,20 @@ HFILES	=	$(H)21sh.h														\
 
 MAIN	=	$(SRC)main.c
 SRCS	=	$(MAIN)															\
+			$(PARS)parser.c													\
 			$(LEX)lexer.c													\
+			$(LEX)replace_tilde.c											\
+			$(LEX)stack.c													\
+			$(LEX)is_acceptor.c												\
+			$(LEX)is_ignored.c												\
+			$(LEX)get_index_from_char.c										\
+			$(LEX)get_dollar.c										\
+			$(LEX)build_command_token.c										\
+			$(LEX)free_token.c										\
+			$(LEX)get_type_of_token.c										\
+			$(LEX)create_token.c										\
+			$(LEX)first_check_tokens_list.c										\
+			$(LEX)delete_list_tokens.c										\
 			$(DEBUG)debug.c
 
 OBJ		=	$(patsubst %.c,%.o,$(SRCS))

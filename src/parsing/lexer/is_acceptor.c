@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   is_acceptor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 03:36:06 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/20 23:26:41 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/20 23:27:30 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "lexer.h"
 
-int		main(int ac, char **av)
+/*
+**	Detecte si l'etat est accepteur ou pas
+*/
+
+int	is_acceptor(int state)
 {
-	if (ac != 2)
-		return (EXIT_SUCCESS);
-	shell_parser(av[1]);
-	return (EXIT_SUCCESS);
+	if (state == DOTCOMMA_V_STATE || state == SPACE_V_STATE
+		|| state == LEFT_REDIRECTION_V_STATE
+		|| state == RIGHT_REDIRECTION_V_STATE  || state == STAR_STATE
+		|| state == PIPE_V_STATE || state == LEFT_AGGREGATION_V_STATE
+		|| state == RIGHT_AGGREGATION_V_STATE)
+		return (TRUE);
+	return (FALSE);
 }

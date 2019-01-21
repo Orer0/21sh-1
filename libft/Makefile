@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/13 09:16:22 by ndubouil          #+#    #+#              #
-#    Updated: 2018/09/23 22:08:47 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/20 20:36:54 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,8 @@ SRC		=	ft_putchar.c			\
 	  	get_next_line.c				\
 		ft_itoa_base.c				\
 		ft_count.c					\
+		ft_strtab_del.c				\
+		ft_strtab_addend.c			\
 		$(T)/ft_btree_apply_infix.c		\
 		$(T)/ft_btree_apply_prefix.c		\
 		$(T)/ft_btree_apply_rev_infix.c	\

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   delete_list_tokens.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 03:36:06 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/21 00:26:32 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/21 00:26:48 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "lexer.h"
 
-int		main(int ac, char **av)
+/*
+**	Delete proprement la liste des tokens
+*/
+
+void 	delete_list_tokens(t_list **tokens_list)
 {
-	if (ac != 2)
-		return (EXIT_SUCCESS);
-	shell_parser(av[1]);
-	return (EXIT_SUCCESS);
+	ft_lstdel(tokens_list, free_token);
 }

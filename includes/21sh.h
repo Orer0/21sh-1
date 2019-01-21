@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/18 18:31:03 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/21 03:35:58 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@
 # include <fcntl.h>
 
 /*
+** PARSER
+*/
+
+int		shell_parser(char *line);
+
+/*
 **	LEXER
 */
 
-void lexer(char *line, t_list **tokens_list);
-void 	delete_list_tokens(t_list **tokens_list);
+// int lexer(char *line, t_list **tokens_list);
+// int 	first_check_tokens_list(t_list *lst);
+// int 	build_command_token(t_list *lst);
+// void 	delete_list_tokens(t_list **tokens_list);
 
 /*
 **	DEBUG

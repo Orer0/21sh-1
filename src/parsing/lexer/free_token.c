@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 03:36:06 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/20 23:58:18 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/20 23:58:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "lexer.h"
 
-int		main(int ac, char **av)
+/*
+**	Free un token
+*/
+
+void 	free_token(void *content, size_t size)
 {
-	if (ac != 2)
-		return (EXIT_SUCCESS);
-	shell_parser(av[1]);
-	return (EXIT_SUCCESS);
+	(void)size;
+	ft_strdel(&((*((t_token **)(content)))->token));
+	if ((*((t_token **)(content)))->type == COMMAND_TYPE)
+		ft_strtab_del(&(*((t_token **)(content)))->tab);
+	ft_memdel((void **)((t_token **)(content)));
+	ft_memdel(&content);
 }
