@@ -6,73 +6,82 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 00:25:23 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/22 03:51:26 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static int		unexpected_token_error(char *token)
+static void		unexpected_token_error(char *token)
 {
 	ft_printf("syntax error near unexpected token : \"%s\"\n", token);
-	return (FALSE);
+	quit_shell(EXIT_FAILURE, 0);
 }
 
-static int		not_terminal_type(t_list *lst)
+static void		not_terminal_type(t_list *lst)
 {
-	if ((*((t_token **)(lst->content)))->type == PIPE_TYPE
-		|| (*((t_token **)(lst->content)))->type == D_QUOTE_TYPE
-		|| (*((t_token **)(lst->content)))->type == S_QUOTE_TYPE)
-		return (unexpected_token_error((*((t_token **)(lst->content)))->token));
-	else
-		return (TRUE);
+	int		type;
+
+	type = get_type_token(lst);
+	if (type == PIPE_TYPE || type == D_QUOTE_TYPE || type == S_QUOTE_TYPE)
+		unexpected_token_error(get_token_token(lst));
 }
 
-static int		aggregations(t_list *lst)
+static void		aggregations(t_list *lst)
 {
-	if (lst->next && ((*((t_token **)(lst->next->content)))->type == NUMBER_TYPE
-		|| (*((t_token **)(lst->next->content)))->type == WORD_TYPE))
+	int		type;
+
+	if (lst->next)
 	{
-		(*((t_token **)(lst->next->content)))->type = AGGREGATION_ARG_TYPE;
-		return (TRUE);
+		type = get_type_token(lst->next);
+		if (type == NUMBER_TYPE || type == WORD_TYPE)
+		{
+			set_type_token(lst->next, AGGREGATION_ARG_TYPE);
+			return ;
+		}
 	}
-	return (unexpected_token_error((*((t_token **)(lst->content)))->token));
+	unexpected_token_error(get_token_token(lst));
 }
 
-static int		redirections(t_list *lst)
+static void		redirections(t_list *lst)
 {
-	if (lst->next && (*((t_token **)(lst->next->content)))->type == WORD_TYPE)
+	int		type;
+
+	if (lst->next)
 	{
-		(*((t_token **)(lst->next->content)))->type = REDIRECTION_ARG_TYPE;
-		return (TRUE);
+		type = get_type_token(lst->next);
+		if (type == WORD_TYPE)
+		{
+			set_type_token(lst->next, REDIRECTION_ARG_TYPE);
+			return ;
+		}
 	}
-	return (unexpected_token_error((*((t_token **)(lst->content)))->token));
+	unexpected_token_error(get_token_token(lst));
 }
 
-int 	first_check_tokens_list(t_list *lst)
+void 	first_check_tokens_list(t_list *lst)
 {
 	t_list		*tmp;
 
 	tmp = lst;
 	if (lst == NULL)
-		return (0);
-	if ((*((t_token **)(tmp->content)))->type == DOTCOMMA_TYPE
-		|| (*((t_token **)(tmp->content)))->type == PIPE_TYPE)
-		return (unexpected_token_error((*((t_token **)(tmp->content)))->token));
+		return ;
+	if (get_type_token(tmp) == DOTCOMMA_TYPE
+		|| get_type_token(tmp) == PIPE_TYPE)
+		return (unexpected_token_error(get_token_token(tmp)));
 	while (tmp != NULL)
 	{
-		if ((*((t_token **)(tmp->content)))->type == AGGREGATION_TYPE)
-			return (aggregations(tmp));
-		else if ((*((t_token **)(tmp->content)))->type == REDIRECTION_TYPE)
-			return (redirections(tmp));
-		else if (((*((t_token **)(tmp->content)))->token)[0] == '~')
+		if (is_aggregation(get_type_token(tmp)))
+			aggregations(tmp);
+		else if (is_redirection(get_type_token(tmp)))
+			redirections(tmp);
+		else if (get_token_token(tmp)[0] == '~')
 		{
 			replace_tilde(&(*((t_token **)(tmp->content)))->token);
-			(*((t_token **)(tmp->content)))->type = WORD_TYPE;
+			set_type_token(tmp, WORD_TYPE);
 		}
 		if (tmp->next == NULL)
 			return (not_terminal_type(tmp));
 		tmp = tmp->next;
 	}
-	return (TRUE);
 }

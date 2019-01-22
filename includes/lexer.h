@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 03:35:56 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/22 03:04:32 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define STACK_SIZE 4096
 
-typedef enum 		e_states
+typedef enum 	e_states
 {
 	START_STATE = 0,
 	CHAR_STATE,
@@ -47,9 +47,9 @@ typedef enum 		e_states
 	RIGHT_AGGREGATION_V_STATE,
 	STAR_STATE,
 	NONE_STATE
-}					t_states;
+}				t_states;
 
-typedef enum 		e_index
+typedef enum 	e_index
 {
 	CHAR_INDEX = 0,
 	NUMBER_INDEX,
@@ -66,49 +66,29 @@ typedef enum 		e_index
 	RIGHT_REDIRECTION_INDEX,
 	AMPERSAND_INDEX,
 	NONE_INDEX
-}					t_index;
+}				t_index;
 
-typedef enum 		e_token_types
+typedef struct	s_line
 {
-	WORD_TYPE = 0,
-	NUMBER_TYPE,
-	PIPE_TYPE,
-	DOTCOMMA_TYPE,
-	REDIRECTION_TYPE,
-	AGGREGATION_TYPE,
-	TILDE_TYPE,
-	REDIRECTION_ARG_TYPE,
-	AGGREGATION_ARG_TYPE,
-	D_QUOTE_TYPE,
-	S_QUOTE_TYPE,
-	COMMAND_TYPE,
-	NONE_TYPE
-}					t_tokens_types;
+	char		*line;
+	int			i;
+}				t_line;
 
-typedef struct	s_token
-{
-		char	*token;
-		int		type;
-		char 	**tab;
-}				t_token;
 
-int lexer(char *line, t_list **tokens_list);
-int 	first_check_tokens_list(t_list *lst);
-int 	build_command_token(t_list *lst);
-void 	delete_list_tokens(t_list **tokens_list);
-
-int					replace_tilde(char **str);
-void				put_str_in_stack(char (*stack)[STACK_SIZE], char *str);
-void				put_char_in_stack(char (*stack)[STACK_SIZE], char c);
-int					is_acceptor(int state);
-int					is_ignored(int current, int state);
-int					get_index_from_char(char *s, int i);
-char	*get_dollar(char *line, int *i, int state, int A[HEIGHT][WIDTH]);
-int 	build_command_token(t_list *lst);
-void 	free_token(void *content, size_t size);
-int					get_type_of_token(int next_state, int last_state);
-int 	create_token(char *token, int n_state, int l_state, t_token **t);
-int 	first_check_tokens_list(t_list *lst);
-void 	delete_list_tokens(t_list **tokens_list);
+int 			lexer(char *line);
+void 			first_check_tokens_list(t_list *lst);
+void 			build_command_token(t_list *lst);
+void 			delete_list_tokens(void);
+int				replace_tilde(char **str);
+void			put_str_in_stack(char (*stack)[STACK_SIZE], char *str);
+void			put_char_in_stack(char (*stack)[STACK_SIZE], char c);
+int				is_acceptor(int state);
+int				is_ignored(int current, int state);
+int				get_index_from_char(t_line *line);
+char			*get_dollar(t_line *line, int state);
+void 			free_token(void *content, size_t size);
+int				get_type_of_token(int next_state, int last_state);
+void 			token_constructor(char *token, int type, t_token **t);
+int				automaton_transition(int x, int y);
 
 #endif

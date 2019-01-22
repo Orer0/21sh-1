@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 21:38:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 02:25:10 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/21 18:24:15 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,30 +21,32 @@ static char		*get_env_var(char *name)
 		var = ft_strdup(var);
 	else
 		var = ft_strdup("");
+	if (!var)
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	return (var);
 }
 
-char	*get_dollar(char *line, int *i, int state, int A[HEIGHT][WIDTH])
+char	*get_dollar(t_line *line, int state)
 {
 	int		next_state;
 	char	stack[STACK_SIZE];
 
 	ft_bzero((void *)&stack, STACK_SIZE);
-	while (line[++(*i)])
+	while (line->line[++(line->i)])
 	{
-		next_state = A[state][get_index_from_char(line, (*i))];
+		next_state = automaton_transition(state, get_index_from_char(line));
 		if (is_acceptor(next_state))
 		{
-			(*i)--;
+			(line->i)--;
 			return (get_env_var(stack));
 		}
 		else
 		{
 			if (!is_ignored(state, next_state))
-				put_char_in_stack(&stack, line[(*i)]);
+				put_char_in_stack(&stack, line->line[line->i]);
 		}
 		state = next_state;
 	}
-	(*i)--;
+	(line->i)--;
 	return (get_env_var(stack));
 }

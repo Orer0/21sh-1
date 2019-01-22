@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_list_tokens.c                               :+:      :+:    :+:   */
+/*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/21 00:26:32 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 17:45:04 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/22 01:53:21 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/22 02:08:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#ifndef AST_H
+# define AST_H
 
-/*
-**	Delete proprement la liste des tokens
-*/
+# include "21sh.h"
+# include "st.h"
 
-void 	delete_list_tokens(void)
+typedef struct		s_ast_token
 {
-	t_shell_data *data;
+	int				type;
+	char			*data;
+}					t_ast_token;
 
-	data = shell_data_singleton();
-	ft_lstdel(&(data->tokens_list), free_token);
-}
+t_btree		*get_ast(t_ptree **parsing_tree);
+void 		delete_ast(t_btree *ast);
+
+#endif

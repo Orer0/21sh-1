@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:31:22 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/20 23:52:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/21 17:03:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 static int	get_index_from_char_2(char *s, int i)
 {
-	if (ft_isspace(s[i]))
+	if (s[i] == '>' && s[i + 1])
+		return (RIGHT_REDIRECTION_INDEX);
+	else if (s[i] == '&')
+		return (AMPERSAND_INDEX);
+	else if (s[i] == '$')
+		return (DOLLAR_INDEX);
+	else if (ft_isspace(s[i]))
 		return (SPACES_INDEX);
 	else if (ft_isdigit(s[i]))
 		return (NUMBER_INDEX);
@@ -29,8 +35,13 @@ static int	get_index_from_char_2(char *s, int i)
 **	Retourne l'index de la colonne du tableau automate correspondant au caractere
 */
 
-int get_index_from_char(char *s, int i)
+int get_index_from_char(t_line *line)
 {
+	int i;
+	char *s;
+
+	s = line->line;
+	i = line->i;
 	if (s[i] == '-')
 		return (DASH_INDEX);
 	else if (s[i] == '~')
@@ -47,11 +58,5 @@ int get_index_from_char(char *s, int i)
 		return (BACKSLASH_INDEX);
 	else if (s[i] == '<' && s[i + 1])
 		return (LEFT_REDIRECTION_INDEX);
-	else if (s[i] == '>' && s[i + 1])
-		return (RIGHT_REDIRECTION_INDEX);
-	else if (s[i] == '&')
-		return (AMPERSAND_INDEX);
-	else if (s[i] == '$')
-		return (DOLLAR_INDEX);
 	return (get_index_from_char_2(s, i));
 }

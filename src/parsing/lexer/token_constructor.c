@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_token.c                                       :+:      :+:    :+:   */
+/*   token_constructor.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/20 23:58:18 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/20 23:58:52 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/22 03:03:07 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/22 03:25:48 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 /*
-**	Free un token
+**	Initialise une structure representant le token
 */
 
-void 	free_token(void *content, size_t size)
+void 	token_constructor(char *token, int type, t_token **t)
 {
-	(void)size;
-	ft_strdel(&((*((t_token **)(content)))->token));
-	if ((*((t_token **)(content)))->type == COMMAND_TYPE)
-		ft_strtab_del(&(*((t_token **)(content)))->tab);
-	ft_memdel((void **)((t_token **)(content)));
-	ft_memdel(&content);
+	if (type == CMD_TYPE)
+		*t = ft_memalloc(sizeof(t_cmd_token));
+	else
+		*t = ft_memalloc(sizeof(t_token));
+	if (!(*t))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);;
+	if (!((*t)->token = ft_strdup(token)))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);;
+	(*t)->type = type;
 }

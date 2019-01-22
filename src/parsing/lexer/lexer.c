@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 03:28:30 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/22 03:06:26 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,88 +41,81 @@ static int is_star(int state)
 	return (FALSE);
 }
 
-
-
-int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, t_list **lst)
+int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state)
 {
 	t_list	*token;
 	t_token	*token_struct;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	if (stack[0])
 	{
-		if (!create_token(stack, n_state, c_state, &token_struct))
-			return (FALSE);
+		token_constructor(
+			stack, get_type_of_token(n_state, c_state), &token_struct
+		);
 		if (!(token = ft_lstnew(&token_struct, sizeof(t_token))))
 			return (FALSE);
-		if ((*lst) == NULL)
-			(*lst) = token;
+		if (data->tokens_list == NULL)
+			data->tokens_list = token;
 		else
-			ft_lstaddend(lst, token);
+			ft_lstaddend(&(data->tokens_list), token);
 	}
 	return (TRUE);
 }
 
-static int		dollar_case(char (*stack)[STACK_SIZE], int n_state, char *line, int *i, int a[HEIGHT][WIDTH])
+static int		dollar_case(char (*stack)[STACK_SIZE], int n_state, t_line *line)
 {
 	char	*dollar;
 
-	if (!is_acceptor(a[n_state][get_index_from_char(line, *i + 1)]) && line[*i + 1])
+	if (!is_acceptor(
+			automaton_transition(
+				n_state, get_index_from_char(line))
+			) && line->line[line->i + 1]
+		)
 		*stack[ft_strlen(*stack) - 1] = 0;
-	if (!(dollar = get_dollar(line, i, n_state, a)))
-		return (FALSE);
+	dollar = get_dollar(line, n_state);
 	put_str_in_stack(stack, dollar);
 	ft_strdel(&dollar);
 	return (TRUE);
 }
 
-static int	acceptor_case(char (*stack)[STACK_SIZE], int *i, int n_state,
-				int c_state, t_list **tokens_list)
+static int	acceptor_case(char (*stack)[STACK_SIZE], t_line *line, int n_state,
+				int c_state)
 {
 	if (is_star(n_state))
 	{
 		(*stack)[ft_strlen(*stack) - 1] = 0;
-		(*i)--;
+		(line->i)--;
 	}
-	if (!add_new_token(*stack, n_state, c_state, tokens_list))
+	if (!add_new_token(*stack, n_state, c_state))
 		return (FALSE);
 	ft_strclr(*stack);
 	return (TRUE);
 }
 
-// int 	**get_automata(void)
-// {
-// 	int		**automata;
-// 	int		i;
-//
-// 	automata = ft_memalloc(HEIGHT * sizeof(int *));
-// 	i = -1;
-// 	while (++i < WIDTH)
-// 		automata[i] = ft_memalloc(WIDTH * sizeof(int));
-// 	automata[0] = {CHAR_STATE, NUMBER_STATE, START_STATE, CHAR_STATE, BACKSLASH_STATE, TILDE_STATE, DOLLAR_STATE, DOTCOMMA_V_STATE, PIPE_V_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[1] = {CHAR_STATE, CHAR_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[2] = {CHAR_STATE, NUMBER_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[3] = {CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[4] = {CHAR_STATE, CHAR_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[5] = {CHAR_STATE, CHAR_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[6] = {D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, BACKSLASH_D_QUOTE_STATE, D_QUOTE_STATE, DOLLAR_STATE, D_QUOTE_STATE, D_QUOTE_STATE, END_D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, NONE_STATE};
-// 	automata[7] = {S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, END_S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, S_QUOTE_STATE, NONE_STATE};
-// 	automata[8] = {CHAR_STATE, NUMBER_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[9] = {CHAR_STATE, NUMBER_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE};
-// 	automata[10] = {D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, D_QUOTE_STATE, NONE_STATE};
-// 	automata[11] = {STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, DOUBLE_LEFT_REDIRECTION_STATE, NONE_STATE, LEFT_AGGREGATION_V_STATE, NONE_STATE};
-// 	automata[12] = {STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, DOUBLE_RIGHT_REDIRECTION_STATE, RIGHT_AGGREGATION_V_STATE, NONE_STATE};
-// 	automata[13] = {STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE};
-// 	automata[14] = {STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE};
-// 	return (automata);
-// }
-
 /*
-**	The main function of the Lexer
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
+**
 */
 
-int lexer(char *line, t_list **tokens_list)
+int	automaton_transition(int x, int y)
 {
-	static int A[HEIGHT][WIDTH] = {
+	static int automaton[HEIGHT][WIDTH] = {
 		{CHAR_STATE, NUMBER_STATE, START_STATE, CHAR_STATE, BACKSLASH_STATE, TILDE_STATE, DOLLAR_STATE, DOTCOMMA_V_STATE, PIPE_V_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE},
 		{CHAR_STATE, CHAR_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, STAR_STATE, STAR_STATE, CHAR_STATE, NONE_STATE},
 		{CHAR_STATE, NUMBER_STATE, STAR_STATE, CHAR_STATE, BACKSLASH_STATE, CHAR_STATE, DOLLAR_STATE, STAR_STATE, STAR_STATE, D_QUOTE_STATE, S_QUOTE_STATE, LEFT_REDIRECTION_STATE, RIGHT_REDIRECTION_STATE, CHAR_STATE, NONE_STATE},
@@ -139,41 +132,72 @@ int lexer(char *line, t_list **tokens_list)
 		{STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE},
 		{STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, STAR_STATE, STAR_STATE, NONE_STATE, NONE_STATE, NONE_STATE, NONE_STATE}
 	};
+
+	return (automaton[x][y]);
+}
+
+int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_state, t_line *line)
+{
+	if (!is_ignored(current_state, next_state))
+		put_char_in_stack(stack, line->line[line->i]);
+	if (next_state == NONE_STATE)
+	{
+		ft_printf(
+			"Syntax error near character %c at position %d\n",
+			line->line[line->i], line->i + 1
+		);
+		quit_shell(EXIT_FAILURE, 0);
+	}
+	else if (next_state == DOLLAR_STATE)
+	{
+		if (!(dollar_case(stack, next_state, line)))
+			return (FALSE);
+		return (next_state);
+	}
+	else if (is_acceptor(next_state))
+	{
+		if (!acceptor_case(stack, line, next_state, current_state))
+			return (FALSE);
+		return (START_STATE);
+	}
+	return (next_state);
+}
+
+int	constructor_line_struct(char *str, t_line **line)
+{
+	if (!(*line = ft_memalloc(sizeof(t_line))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	(*line)->line = str;
+	(*line)->i = -1;
+	return (TRUE);
+}
+
+/*
+**	The main function of the Lexer
+*/
+
+int lexer(char *line)
+{
 	char stack[STACK_SIZE];
+	t_line	*line_s;
 	int current_state;
 	int next_state;
-	int i;
 
+	constructor_line_struct(line, &line_s);
 	current_state = START_STATE;
 	ft_bzero((void *)&stack, STACK_SIZE);
-	i = -1;
-	while (line[++i])
+	while (line_s->line[++(line_s->i)])
 	{
-		next_state = A[current_state][get_index_from_char(line, i)];
-		if (!is_ignored(current_state, next_state))
-			put_char_in_stack(&stack, line[i]);
-		if (next_state == NONE_STATE)
-		{
-			ft_printf("Syntax error near character %c at position %d\n", line[i], i + 1);
-			delete_list_tokens(tokens_list);
-			exit(0);
-		}
-		else if (next_state == DOLLAR_STATE)
-		{
-			if (!(dollar_case(&stack, next_state, line, &i, A)))
-				return (FALSE);
-		}
-		else if (is_acceptor(next_state))
-		{
-			if (!acceptor_case(&stack, &i, next_state, current_state, tokens_list))
-				return (FALSE);
-			current_state = START_STATE;
-			continue;
-		}
-		current_state = next_state;
+		next_state = automaton_transition(
+						current_state, get_index_from_char(line_s)
+					);
+		current_state = routine_next_state(
+							&stack, current_state, next_state, line_s
+						);
 	}
 	if (if_take_the_last(current_state))
-		if (!add_new_token(stack, next_state, current_state, tokens_list))
+		if (!add_new_token(stack, next_state, current_state))
 			return (FALSE);
+	ft_memdel((void **)&line_s);
 	return (TRUE);
 }

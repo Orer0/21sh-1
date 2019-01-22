@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/21 03:34:02 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/22 03:09:55 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,17 @@ SRC		=	./src/
 DEBUG	=	$(SRC)debug/
 PARS	=	$(SRC)parsing/
 LEX		=	$(PARS)lexer/
+ST		=	$(PARS)syntax_tree/
+AST		=	$(PARS)ast/
+TK		=	$(SRC)tokens/
 
 #  Files
 
 HFILES	=	$(H)21sh.h														\
-			$(H)lexer.h
+			$(H)lexer.h														\
+			$(H)ast.h														\
+			$(H)tokens.h													\
+			$(H)st.h
 
 MAIN	=	$(SRC)main.c
 SRCS	=	$(MAIN)															\
@@ -40,13 +46,17 @@ SRCS	=	$(MAIN)															\
 			$(LEX)is_acceptor.c												\
 			$(LEX)is_ignored.c												\
 			$(LEX)get_index_from_char.c										\
-			$(LEX)get_dollar.c										\
+			$(LEX)get_dollar.c												\
 			$(LEX)build_command_token.c										\
-			$(LEX)free_token.c										\
 			$(LEX)get_type_of_token.c										\
-			$(LEX)create_token.c										\
-			$(LEX)first_check_tokens_list.c										\
+			$(LEX)first_check_tokens_list.c									\
 			$(LEX)delete_list_tokens.c										\
+			$(LEX)token_constructor.c										\
+			$(ST)syntax_tree.c												\
+			$(TK)free_token.c												\
+			$(TK)tokens.c													\
+			$(AST)ast.c														\
+			$(SRC)quit_shell.c												\
 			$(DEBUG)debug.c
 
 OBJ		=	$(patsubst %.c,%.o,$(SRCS))

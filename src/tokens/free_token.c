@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_list_tokens.c                               :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/21 00:26:32 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 17:45:04 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/20 23:58:18 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/21 19:43:27 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 /*
-**	Delete proprement la liste des tokens
+**	Free un token
 */
 
-void 	delete_list_tokens(void)
+void 	free_token(void *content, size_t size)
 {
-	t_shell_data *data;
+	int type;
 
-	data = shell_data_singleton();
-	ft_lstdel(&(data->tokens_list), free_token);
+	type = (*((t_token **)(content)))->type;
+	(void)size;
+	ft_strdel(&((*((t_token **)(content)))->token));
+	if (type == CMD_TYPE)
+		ft_strtab_del(&(*((t_cmd_token **)(content)))->tab);
+	ft_memdel((void **)((t_token **)(content)));
+	ft_memdel(&content);
 }
