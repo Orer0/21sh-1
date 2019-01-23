@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 03:03:07 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 03:25:48 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:22:58 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void 	token_constructor(char *token, int type, t_token **t)
 {
 	if (type == CMD_TYPE)
 		*t = ft_memalloc(sizeof(t_cmd_token));
+	else if (type == VAR_TYPE)
+		*t = ft_memalloc(sizeof(t_var_token));
 	else
 		*t = ft_memalloc(sizeof(t_token));
 	if (!(*t))

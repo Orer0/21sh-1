@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 03:58:16 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:11:09 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,19 @@ typedef struct	s_token
 	int			type;
 }				t_token;
 
+typedef struct	s_var_token
+{
+	char		*token;
+	int			type;
+	char		*value;
+}				t_var_token;
+
 typedef	struct	s_cmd_token
 {
 	char		*token;
 	int			type;
 	char 		**tab;
+	t_list		*assign;
 }				t_cmd_token;
 
 /*
@@ -43,6 +51,7 @@ typedef enum 	e_token_types
 	WORD_TYPE,
 	NUMBER_TYPE,
 	PIPE_TYPE,
+	VAR_TYPE,
 	DOTCOMMA_TYPE,
 	REDIRECTION_TYPE,
 	AGGREGATION_TYPE,
@@ -58,6 +67,8 @@ typedef enum 	e_token_types
 	D_QUOTE_TYPE,
 	S_QUOTE_TYPE,
 	CMD_TYPE,
+	AND_TYPE,
+	OR_TYPE,
 	NONE_TYPE
 }				t_tokens_types;
 
@@ -65,6 +76,8 @@ typedef enum 	e_token_types
 **	TOKENS functions
 */
 
+char 	*get_value_token(t_list *lst);
+void 	set_value_token(t_list *lst, char *value);
 int 			get_type_token(t_list *lst);
 void 			set_type_token(t_list *lst, int type);
 char 			*get_token_token(t_list *lst);
@@ -72,6 +85,7 @@ void 			set_tab_token(t_list *lst, char **tab);
 char 			**get_tab_token(t_list *lst);
 int				is_redirection(int type);
 int				is_aggregation(int type);
-int				type_cmp(int first, int second);		
+int				is_operator(int type);
+int				type_cmp(int first, int second);
 
 #endif

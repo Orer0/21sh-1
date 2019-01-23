@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:55:46 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 05:24:40 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 20:04:09 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,39 @@ static void		manage_commands(t_list *lst)
 
 void 	build_command_token(void)
 {
-	t_list		*tmp;
-	t_shell_data *data;
+	t_list			*tmp;
+	t_shell_data 	*data;
+	// t_list			*variables;
+	// t_list			*next;
 
+	// variables = NULL;
 	data = shell_data_singleton();
 	tmp = data->tokens_list;
 	if (tmp == NULL)
 		return ;
 	while (tmp)
 	{
+		// if (get_type_token(tmp) == VAR_TYPE)
+		// {
+		// 	if (!variables)
+		// 		variables = ft_lstnew(&tmp, sizeof(tmp));
+		// 	else
+		// 		ft_lstaddend(&variables, ft_lstnew(&tmp, sizeof(tmp)));
+		// 	if (tmp->prev)
+		// 	{
+		// 		tmp->prev->next = tmp->next;
+		// 		if (tmp->next)
+		// 			tmp->next->prev = tmp->prev;
+		// 	}
+		// 	next = tmp->next;
+		// 	// ft_lstdelone(&tmp, free_token);
+		// 	tmp = next;
+		// 	continue ;
+		// }
 		if (get_type_token(tmp) == WORD_TYPE)
 		{
 			manage_commands(tmp);
+			// (*((t_cmd_token **)(tmp->content)))->assign = variables;
 		}
 		tmp = tmp->next;
 	}

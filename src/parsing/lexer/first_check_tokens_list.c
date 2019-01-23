@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 05:27:33 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:26:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		not_terminal_type(t_list *lst)
 	int		type;
 
 	type = get_type_token(lst);
-	if (type == PIPE_TYPE || type == D_QUOTE_TYPE || type == S_QUOTE_TYPE)
+	if (type == PIPE_TYPE || type == D_QUOTE_TYPE || type == S_QUOTE_TYPE || type == AND_TYPE || type == OR_TYPE)
 		unexpected_token_error(get_token_token(lst));
 }
 
@@ -59,6 +59,45 @@ static void		redirections(t_list *lst)
 	unexpected_token_error(get_token_token(lst));
 }
 
+static void		variables(t_list *lst)
+{
+	int		type;
+	t_list	*tmp;
+	char	*value;
+
+	if (lst->next)
+	{
+		type = get_type_token(lst->next);
+		if (type == WORD_TYPE)
+		{
+			if (get_token_token(lst->next)[0] == '=')
+			{
+				value = get_token_token(lst->next);
+				set_value_token(lst, ft_strdup(&(value[1])));
+				tmp = lst->next;
+				lst->next = lst->next->next;
+				if (lst->next && lst->next->next)
+					lst->next->next->prev = lst;
+				ft_lstdelone(&tmp, free_token);
+			}
+			return ;
+		}
+	}
+	unexpected_token_error(get_token_token(lst));
+}
+
+static void		operators(t_list *lst)
+{
+	int		type;
+
+	if (lst->next)
+	{
+		type = get_type_token(lst->next);
+		if (is_operator(type))
+			unexpected_token_error(get_token_token(lst));
+	}
+}
+
 void 	first_check_tokens_list(t_list *lst)
 {
 	t_list		*tmp;
@@ -67,7 +106,9 @@ void 	first_check_tokens_list(t_list *lst)
 	if (lst == NULL)
 		return ;
 	if (get_type_token(tmp) == DOTCOMMA_TYPE
-		|| get_type_token(tmp) == PIPE_TYPE)
+		|| get_type_token(tmp) == PIPE_TYPE
+		|| get_type_token(tmp) == AND_TYPE
+		|| get_type_token(tmp) == OR_TYPE)
 		return (unexpected_token_error(get_token_token(tmp)));
 	while (tmp != NULL)
 	{
@@ -75,6 +116,10 @@ void 	first_check_tokens_list(t_list *lst)
 			aggregations(tmp);
 		else if (is_redirection(get_type_token(tmp)))
 			redirections(tmp);
+		else if (get_type_token(tmp) == VAR_TYPE)
+			variables(tmp);
+		else if (is_operator(get_type_token(tmp)))
+			operators(tmp);
 		else if (get_token_token(tmp)[0] == '~')
 		{
 			replace_tilde(&(*((t_token **)(tmp->content)))->token);

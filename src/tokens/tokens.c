@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:06:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 19:42:13 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:16:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ int		is_redirection(int type)
 int		is_aggregation(int type)
 {
 	if (type == DUP_IN_FD_TYPE || type == DUP_OUT_FD_TYPE)
+		return (TRUE);
+	return (FALSE);
+}
+
+int		is_operator(int type)
+{
+	if (type == DOTCOMMA_TYPE || type == PIPE_TYPE || type == AND_TYPE || type == OR_TYPE)
 		return (TRUE);
 	return (FALSE);
 }
@@ -45,6 +52,16 @@ int		type_cmp(int first, int second)
 void 	set_type_token(t_list *lst, int type)
 {
 	(*((t_token **)(lst->content)))->type = type;
+}
+
+void 	set_value_token(t_list *lst, char *value)
+{
+	(*((t_var_token **)(lst->content)))->value = value;
+}
+
+char 	*get_value_token(t_list *lst)
+{
+	return ((*((t_var_token **)(lst->content)))->value);
 }
 
 int 	get_type_token(t_list *lst)

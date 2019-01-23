@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 20:47:47 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 03:58:22 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 17:41:54 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,6 +364,20 @@ static int		S_prime_function(t_tokens_list **tokens_list_struct, t_ptree **tree)
 	save_index = (*tokens_list_struct)->index;
 	// Premiere regle de la grammaire
 	if (test_current_token(tokens_list_struct, DOTCOMMA_TYPE, tree) && S_function(tokens_list_struct, tree) && S_prime_function(tokens_list_struct, tree))
+	{
+		return (TRUE);
+	}
+	// La regle a rate -> retourne sur l'index d'avant
+	(*tokens_list_struct)->index = save_index;
+	// Deuxieme regle de la grammaire
+	if (test_current_token(tokens_list_struct, AND_TYPE, tree) && S_function(tokens_list_struct, tree) && S_prime_function(tokens_list_struct, tree))
+	{
+		return (TRUE);
+	}
+	// La regle a rate -> retourne sur l'index d'avant
+	(*tokens_list_struct)->index = save_index;
+	// Troisieme regle de la grammaire
+	if (test_current_token(tokens_list_struct, OR_TYPE, tree) && S_function(tokens_list_struct, tree) && S_prime_function(tokens_list_struct, tree))
 	{
 		return (TRUE);
 	}

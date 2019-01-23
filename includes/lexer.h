@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 02:58:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 18:50:17 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 # include "21sh.h"
 # include <pwd.h>
-
-# define HEIGHT 15
-# define WIDTH 16
 
 # define STACK_SIZE 4096
 
@@ -29,6 +26,10 @@ typedef enum 	e_states
 	BACKSLASH_STATE,
 	TILDE_STATE,
 	DOLLAR_STATE,
+	PIPE_STATE,
+	AMPERSAND_STATE,
+	AND_STATE,
+	OR_STATE,
 	D_QUOTE_STATE,
 	S_QUOTE_STATE,
 	END_D_QUOTE_STATE,
@@ -39,7 +40,7 @@ typedef enum 	e_states
 	DOUBLE_LEFT_REDIRECTION_STATE,
 	DOUBLE_RIGHT_REDIRECTION_STATE,
 	DOTCOMMA_V_STATE,
-	PIPE_V_STATE,
+	VAR_V_STAR_STATE,
 	SPACE_V_STATE,
 	LEFT_REDIRECTION_V_STATE,
 	RIGHT_REDIRECTION_V_STATE,
@@ -56,6 +57,7 @@ typedef enum 	e_index
 	SPACES_INDEX,
 	DASH_INDEX,
 	BACKSLASH_INDEX,
+	EQUAL_INDEX,
 	TILDE_INDEX,
 	DOLLAR_INDEX,
 	DOTCOMMA_INDEX,

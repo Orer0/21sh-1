@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 03:58:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 19:28:20 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ static char		*get_str_type(int type)
 		return ("V RULE");
 	else if (type == F_RULE)
 		return ("F RULE");
+	else if (type == AND_TYPE)
+		return ("AND TYPE");
+	else if (type == OR_TYPE)
+		return ("OR TYPE");
+	else if (type == VAR_TYPE)
+		return ("VAR TYPE");
 	else if (type == START_TYPE)
 		return ("START");
 	else
@@ -87,6 +93,8 @@ void 	ft_print_tokens()
 		// if (tmp->prev)
 		// 	ft_printf("prev = %s, ", (*((t_token **)(tmp->prev->content)))->token);
 		ft_printf("token = %s, type = %s\n", (*((t_token **)(tmp->content)))->token, get_str_type((*((t_token **)(tmp->content)))->type));
+		if ((*((t_token **)(tmp->content)))->type == VAR_TYPE)
+			ft_printf("\t\t value = %s\n", (*((t_var_token **)(tmp->content)))->value);
 		if ((*((t_token **)(tmp->content)))->type == CMD_TYPE)
 		{
 			i = -1;
