@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 03:51:26 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 05:27:33 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void 	first_check_tokens_list(t_list *lst)
 			replace_tilde(&(*((t_token **)(tmp->content)))->token);
 			set_type_token(tmp, WORD_TYPE);
 		}
+		else if (get_type_token(tmp) == NUMBER_TYPE)
+			set_type_token(tmp, WORD_TYPE);
 		if (tmp->next == NULL)
 			return (not_terminal_type(tmp));
 		tmp = tmp->next;

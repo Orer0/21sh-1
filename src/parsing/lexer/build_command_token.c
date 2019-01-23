@@ -6,21 +6,22 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:55:46 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 04:28:38 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 05:24:40 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static void		add_command_in_tab(char ***tab, t_list *lst, t_list *tmp)
+static void		add_command_in_tab(char ***tab, t_list *tmp)
 {
-	t_list	*del;
-
 	if (!(ft_strtab_addend(tab, get_token_token(tmp))))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	del = tmp;
-	lst->next = tmp->next;
-	ft_lstdelone(&del, free_token);
+	if (tmp->prev)
+	{
+		tmp->prev->next = tmp->next;
+		if (tmp->next)
+			tmp->next->prev = tmp->prev;
+	}
 }
 
 static void		manage_commands(t_list *lst)
@@ -28,6 +29,7 @@ static void		manage_commands(t_list *lst)
 	char **tab;
 	t_list	*tmp;
 	t_cmd_token *token;
+	t_list	*next;
 
 	tmp = lst;
 	if (!(tab = ft_memalloc(sizeof(char *) * 2))
@@ -36,19 +38,17 @@ static void		manage_commands(t_list *lst)
 	tmp = tmp->next;
 	while (tmp)
 	{
-		// if (is_aggregation(get_type_token(tmp)))
-		// {
-		// 	if (tmp->next->next)
-		// 	{
-		// 		tmp = tmp->next->next;
-		// 		continue ;
-		// 	}
-		//
-		// }
+		if (is_aggregation(get_type_token(tmp)) || get_type_token(tmp) == HEREDOC_TYPE)
+		{
+			tmp = tmp->next->next;
+			continue ;
+		}
 		if (get_type_token(tmp) == WORD_TYPE)
 		{
-			add_command_in_tab(&tab, lst, tmp);
-			tmp = lst->next;
+			add_command_in_tab(&tab, tmp);
+			next = tmp->next;
+			ft_lstdelone(&tmp, free_token);
+			tmp = next;
 		}
 		else
 			break ;
@@ -61,17 +61,21 @@ static void		manage_commands(t_list *lst)
 	set_tab_token(lst, tab);
 }
 
-void 	build_command_token(t_list *lst)
+void 	build_command_token(void)
 {
 	t_list		*tmp;
+	t_shell_data *data;
 
-	tmp = lst;
-	if (lst == NULL)
+	data = shell_data_singleton();
+	tmp = data->tokens_list;
+	if (tmp == NULL)
 		return ;
-	while (tmp != NULL)
+	while (tmp)
 	{
 		if (get_type_token(tmp) == WORD_TYPE)
+		{
 			manage_commands(tmp);
+		}
 		tmp = tmp->next;
 	}
 }

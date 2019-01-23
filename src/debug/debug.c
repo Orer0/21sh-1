@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 04:01:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 03:58:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void 	ft_print_tokens()
 	tmp = data->tokens_list;
 	while (tmp)
 	{
+		// if (tmp->prev)
+		// 	ft_printf("prev = %s, ", (*((t_token **)(tmp->prev->content)))->token);
 		ft_printf("token = %s, type = %s\n", (*((t_token **)(tmp->content)))->token, get_str_type((*((t_token **)(tmp->content)))->type));
 		if ((*((t_token **)(tmp->content)))->type == CMD_TYPE)
 		{

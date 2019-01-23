@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 03:06:26 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/22 18:57:47 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,11 +189,9 @@ int lexer(char *line)
 	while (line_s->line[++(line_s->i)])
 	{
 		next_state = automaton_transition(
-						current_state, get_index_from_char(line_s)
-					);
+						current_state, get_index_from_char(line_s));
 		current_state = routine_next_state(
-							&stack, current_state, next_state, line_s
-						);
+							&stack, current_state, next_state, line_s);
 	}
 	if (if_take_the_last(current_state))
 		if (!add_new_token(stack, next_state, current_state))

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 08:37:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2017/12/14 09:23:29 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/22 19:22:54 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 		result->content_size = content_size;
 	}
 	result->next = NULL;
+	result->prev = NULL;
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 02:21:58 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 04:07:08 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int		shell_parser(char *line)
 	lexer(line);
 	// first check
 	first_check_tokens_list(data->tokens_list);
+
 	// rassembler les commandes
-	build_command_token(data->tokens_list);
+	build_command_token();
 	// Print la liste des tokens
 	ft_print_tokens();
 
