@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:55:46 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 20:04:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/24 02:46:30 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ static void		add_command_in_tab(char ***tab, t_list *tmp)
 	if (!(ft_strtab_addend(tab, get_token_token(tmp))))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	if (tmp->prev)
-	{
 		tmp->prev->next = tmp->next;
-		if (tmp->next)
-			tmp->next->prev = tmp->prev;
-	}
+	if (tmp->next)
+		tmp->next->prev = tmp->prev;
 }
 
 static void		manage_commands(t_list *lst)
@@ -65,37 +63,67 @@ void 	build_command_token(void)
 {
 	t_list			*tmp;
 	t_shell_data 	*data;
-	// t_list			*variables;
-	// t_list			*next;
+	t_var_token			*t;
+	t_list			*del;
+	t_list			*tmpp;
+	t_list			*new;
 
-	// variables = NULL;
 	data = shell_data_singleton();
 	tmp = data->tokens_list;
 	if (tmp == NULL)
 		return ;
 	while (tmp)
 	{
-		// if (get_type_token(tmp) == VAR_TYPE)
-		// {
-		// 	if (!variables)
-		// 		variables = ft_lstnew(&tmp, sizeof(tmp));
-		// 	else
-		// 		ft_lstaddend(&variables, ft_lstnew(&tmp, sizeof(tmp)));
-		// 	if (tmp->prev)
-		// 	{
-		// 		tmp->prev->next = tmp->next;
-		// 		if (tmp->next)
-		// 			tmp->next->prev = tmp->prev;
-		// 	}
-		// 	next = tmp->next;
-		// 	// ft_lstdelone(&tmp, free_token);
-		// 	tmp = next;
-		// 	continue ;
-		// }
+		// ft_printf("tout debut [%s]\n", get_token_token(tmp));
+
 		if (get_type_token(tmp) == WORD_TYPE)
 		{
 			manage_commands(tmp);
-			// (*((t_cmd_token **)(tmp->content)))->assign = variables;
+			// ft_printf("sortant de manage command [%s]\n", get_token_token(tmp));
+			if (tmp->prev)
+			{
+				if (get_type_token(tmp->prev) == VAR_TYPE)
+				{
+					tmpp = tmp->prev;
+					while (tmpp && get_type_token(tmpp) == VAR_TYPE)
+					{
+						token_constructor((*((t_token **)(tmpp->content)))->token, (*((t_token **)(tmpp->content)))->type, (t_token **)&t);
+						new = ft_lstnew(&t, sizeof(t_var_token));
+						set_value_token(new, ft_strdup((*((t_var_token **)(tmpp->content)))->value));
+						if (!(*((t_cmd_token **)(tmp->content)))->assign)
+							(*((t_cmd_token **)(tmp->content)))->assign = new;
+						else
+							ft_lstadd(&((*((t_cmd_token **)(tmp->content)))->assign), new);
+						// ft_printf("PREV = %s\n", get_token_token(tmpp));
+						if (!tmpp->prev)
+							break ;
+						if (tmpp->prev)
+							tmpp->prev->next = tmpp->next;
+						if (tmpp->next)
+							tmpp->next->prev = tmpp->prev;
+						del = tmpp;
+						tmpp = tmpp->prev;
+						// ft_printf("PREV fin = %s\n", get_token_token(tmpp));
+						ft_lstdelone(&del, free_token);
+					}
+					if (tmpp == data->tokens_list)
+					{
+						del = data->tokens_list;
+						data->tokens_list = data->tokens_list->next;
+						ft_lstdelone(&del, free_token);
+					}
+
+						// ft_printf("TEST [%s]\n", get_token_token(data->tokens_list->next));
+						// if (!data->tokens_list)
+							// ft_printf("LAAAAAA\n");
+						// data->tokens_list = data->tokens_list->next;
+					// ft_printf("tmpp : %s\n", );
+					// ft_printf("tmpp : %s\n", get_token_token(tmpp));
+					// ft_printf("tmp prev = %s\n", get_token_token(tmp->prev));
+					// ft_printf("tmp = %s\n", get_token_token(tmp));
+					tmp->prev = NULL;
+				}
+			}
 		}
 		tmp = tmp->next;
 	}

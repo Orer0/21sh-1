@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 19:26:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/23 23:54:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ static void		variables(t_list *lst)
 				value = get_token_token(lst->next);
 				set_value_token(lst, ft_strdup(&(value[1])));
 				tmp = lst->next;
-				lst->next = lst->next->next;
-				if (lst->next && lst->next->next)
-					lst->next->next->prev = lst;
+				if (tmp->prev)
+					tmp->prev->next = tmp->next;
+				if (tmp->next)
+					tmp->next->prev = tmp->prev;
 				ft_lstdelone(&tmp, free_token);
 			}
 			return ;

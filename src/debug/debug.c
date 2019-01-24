@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 19:28:20 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/24 04:48:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static char		*get_str_type(int type)
 		return ("V RULE");
 	else if (type == F_RULE)
 		return ("F RULE");
+	else if (type == A_RULE)
+		return ("A RULE");
 	else if (type == AND_TYPE)
 		return ("AND TYPE");
 	else if (type == OR_TYPE)
@@ -85,6 +87,7 @@ void 	ft_print_tokens()
 	t_list		*tmp;
 	int			i;
 	t_shell_data *data;
+	t_list		*tmp2;
 
 	data = shell_data_singleton();
 	tmp = data->tokens_list;
@@ -102,6 +105,15 @@ void 	ft_print_tokens()
 			{
 				while (((*((t_cmd_token **)(tmp->content)))->tab)[++i])
 					ft_printf("\t\t content tab = %s\n", (*((t_cmd_token **)(tmp->content)))->tab[i]);
+			}
+			if ((*((t_cmd_token **)(tmp->content)))->assign)
+			{
+				tmp2 = (*((t_cmd_token **)(tmp->content)))->assign;
+				while (tmp2)
+				{
+					ft_printf("\t\t variable : name = %s, value = %s\n", (*((t_var_token **)(tmp2->content)))->token, (*((t_var_token **)(tmp2->content)))->value);
+					tmp2 = tmp2->next;
+				}
 			}
 		}
 		// ft_printf("token = %s, type = \n", (*((t_token **)(tmp->content)))->token, (*((t_token **)(tmp->content)))->type);

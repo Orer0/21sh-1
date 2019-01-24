@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 22:59:58 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 02:23:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/24 04:48:41 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ static void 		rules_procedure(t_ptree **tree)
 
 static void 		execute_post_order_procedure(t_ptree **tree)
 {
-	if ((*tree)->type == CMD_TYPE || (*tree)->type == REDIRECTION_ARG_TYPE || (*tree)->type == AGGREGATION_ARG_TYPE)
+	if ((*tree)->type == CMD_TYPE || (*tree)->type == VAR_TYPE || (*tree)->type == REDIRECTION_ARG_TYPE || (*tree)->type == AGGREGATION_ARG_TYPE)
 		cmd_procedure(tree);
 	else if ((*tree)->type == DOTCOMMA_TYPE || (*tree)->type == PIPE_TYPE || (*tree)->type == REDIRECTION_TYPE || (*tree)->type == AGGREGATION_TYPE)
 		operator_procedure(tree);
 	// else if ((*tree)->type == U_RULE)
 	// 	U_procedure(tree);
-	else if ((*tree)->type == S_RULE || (*tree)->type == T_RULE || (*tree)->type == START_TYPE || (*tree)->type == U_RULE || (*tree)->type == V_RULE || (*tree)->type == F_RULE)
+	else if ((*tree)->type == S_RULE || (*tree)->type == T_RULE || (*tree)->type == START_TYPE || (*tree)->type == U_RULE || (*tree)->type == V_RULE || (*tree)->type == F_RULE || (*tree)->type == A_RULE)
 		rules_procedure(tree);
 }
 

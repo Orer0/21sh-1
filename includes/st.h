@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 20:48:21 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/22 03:23:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/24 04:44:05 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define	V_RULE						905
 # define	V_PRIME_RULE				905
 # define	F_RULE						905
+# define	A_RULE						906
+# define	A_PRIME_RULE				907
 
 typedef struct			s_ptree
 {
