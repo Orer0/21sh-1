@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:58:18 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 05:58:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 18:38:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,27 @@ void 	free_token(void *content, size_t size)
 				tmp = next;
 			}
 		}
-		ft_strdel(&(*((t_cmd_token **)(content)))->variables->value);
+		if ((*((t_cmd_token **)(content)))->variables)
+			ft_strdel(&(*((t_cmd_token **)(content)))->variables->value);
 		ft_memdel(((void **)&((*((t_cmd_token **)(content)))->variables)));
 		// ft_lstdel(&(*((t_cmd_token **)(content)))->assign, free_token);
 	}
 	else if (type == VAR_TYPE)
 	{
+		if ((*((t_var_token **)(content)))->next)
+		{
+			tmp = (*((t_var_token **)(content)))->next;
+			while (tmp)
+			{
+				next = tmp->next;
+				ft_strdel(&tmp->value);
+				ft_memdel((void **)((t_token **)(tmp)));
+				// free_token(tmp, 0);
+				tmp = next;
+			}
+		}
 		ft_strdel(&(*((t_var_token **)(content)))->value);
-		ft_memdel((void **)((t_token **)(content)));
+		// ft_memdel((void **)((t_token **)(content)));
 		// if ((*((t_var_token **)(content)))->next)
 		// 	free_token(&(*((t_var_token **)(content)))->next, 0);
 		// ft_memdel((void **)((t_token **)(content)));

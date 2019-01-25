@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 04:49:55 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 18:35:55 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void 	ft_lstremoveone(t_list	**lst, void (*del)(void *, size_t))
 		tmp->prev->next = tmp->next;
 	if (tmp->next)
 		tmp->next->prev = tmp->prev;
-	if (del)
-		ft_lstdelone(&tmp, del);
+	(void)del;
+	// ft_lstdelone(&tmp, del);
 }
 
 static t_var_token		*variables(t_list *lst)
@@ -93,7 +93,7 @@ static t_var_token		*variables(t_list *lst)
 	{
 		value = get_token_token(lst->next);
 		set_value_token(lst, ft_strdup(&(value[1])));
-		ft_lstremoveone(&lst->next, free_token);
+		ft_lstremoveone(&(lst->next), free_token);
 	}
 	if (lst->next)
 	{
@@ -101,6 +101,7 @@ static t_var_token		*variables(t_list *lst)
 		{
 			(*((t_var_token **)(lst->content)))->next = variables(lst->next);
 			ft_lstremoveone(&(lst->next), NULL);
+			// ft_memdel((void **)&lst->next);
 		}
 	}
 	return ((*((t_var_token **)(lst->content))));
@@ -139,12 +140,12 @@ void 	first_check_tokens_list(t_list *lst)
 	while (tmp)
 	{
 		ft_printf("TEST [%s]\n", get_token_token(tmp));
-		!is_aggregation(get_type_token(tmp)) ?: aggregations(tmp);
-		!is_redirection(get_type_token(tmp)) ?: redirections(tmp);
-		!(get_type_token(tmp) == VAR_TYPE) ?: (void)variables(tmp);
-		!is_operator(get_type_token(tmp)) ?: operators(tmp);
-		!(get_token_token(tmp)[0] == '~') ?: set_expansion_token(tmp, TRUE);
-		!(get_type_token(tmp) == NUMBER_TYPE) ?: set_type_token(tmp, WORD_TYPE);
+		!is_aggregation(get_type_token(tmp)) ?0: aggregations(tmp);
+		!is_redirection(get_type_token(tmp)) ?0: redirections(tmp);
+		!(get_type_token(tmp) == VAR_TYPE) ?0: (void)variables(tmp);
+		!is_operator(get_type_token(tmp)) ?0: operators(tmp);
+		!(get_token_token(tmp)[0] == '~') ?0: set_expansion_token(tmp, TRUE);
+		!(get_type_token(tmp) == NUMBER_TYPE) ?0: set_type_token(tmp, WORD_TYPE);
 		if (tmp->next == NULL)
 			return (not_terminal_type(tmp));
 		tmp = tmp->next;

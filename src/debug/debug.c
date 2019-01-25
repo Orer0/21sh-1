@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 03:55:14 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 16:53:43 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static char		*get_str_type(int type)
 void 	ft_print_tokens()
 {
 	t_list		*tmp;
-	int			i;
+	// int			i;
 	t_shell_data *data;
 	t_list		*tmp3;
 	t_var_token *tmpvar;
@@ -109,7 +109,7 @@ void 	ft_print_tokens()
 		}
 		else if ((*((t_token **)(tmp->content)))->type == CMD_TYPE)
 		{
-			i = -1;
+			// i = -1;
 			if (get_type_token(tmp) == CMD_TYPE)
 			{
 				// while (((*((t_cmd_token **)(tmp->content)))->tab)[++i])
