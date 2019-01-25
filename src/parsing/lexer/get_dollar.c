@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 21:38:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/21 18:24:15 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 00:17:51 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ static char		*get_env_var(char *name)
 	return (var);
 }
 
-char	*get_dollar(t_line *line, int state)
+char	*get_dollar(t_line *line)
 {
 	int		next_state;
 	char	stack[STACK_SIZE];
+	int		state;
 
+	state = DOLLAR_STATE;
 	ft_bzero((void *)&stack, STACK_SIZE);
 	while (line->line[++(line->i)])
 	{

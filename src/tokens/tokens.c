@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:06:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 19:16:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 02:08:01 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,16 @@ void 	set_type_token(t_list *lst, int type)
 	(*((t_token **)(lst->content)))->type = type;
 }
 
+void 	set_expansion_token(t_list *lst, int expansion)
+{
+	(*((t_token **)(lst->content)))->is_expansion = expansion;
+}
+
+int 	get_expansion_token(t_list *lst)
+{
+	return ((*((t_token **)(lst->content)))->is_expansion);
+}
+
 void 	set_value_token(t_list *lst, char *value)
 {
 	(*((t_var_token **)(lst->content)))->value = value;
@@ -74,12 +84,23 @@ char 	*get_token_token(t_list *lst)
 	return ((*((t_token **)(lst->content)))->token);
 }
 
-void 	set_tab_token(t_list *lst, char **tab)
+void 	set_args_token(t_list *lst, t_list *args)
 {
-	(*((t_cmd_token **)(lst->content)))->tab = tab;
+	(*((t_cmd_token **)(lst->content)))->args = args;
 }
 
-char 	**get_tab_token(t_list *lst)
+t_list 	*get_args_token(t_list *lst)
 {
-	return ((*((t_cmd_token **)(lst->content)))->tab);
+	return ((*((t_cmd_token **)(lst->content)))->args);
 }
+
+
+// void 	set_tab_token(t_list *lst, char **tab)
+// {
+// 	(*((t_cmd_token **)(lst->content)))->tab = tab;
+// }
+//
+// char 	**get_tab_token(t_list *lst)
+// {
+// 	return ((*((t_cmd_token **)(lst->content)))->tab);
+// }

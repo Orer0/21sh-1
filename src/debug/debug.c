@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/24 04:48:12 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 03:55:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void 	ft_print_tokens()
 	t_list		*tmp;
 	int			i;
 	t_shell_data *data;
-	t_list		*tmp2;
+	t_list		*tmp3;
+	t_var_token *tmpvar;
 
 	data = shell_data_singleton();
 	tmp = data->tokens_list;
@@ -95,24 +96,37 @@ void 	ft_print_tokens()
 	{
 		// if (tmp->prev)
 		// 	ft_printf("prev = %s, ", (*((t_token **)(tmp->prev->content)))->token);
-		ft_printf("token = %s, type = %s\n", (*((t_token **)(tmp->content)))->token, get_str_type((*((t_token **)(tmp->content)))->type));
+		ft_printf("token = %s, type = %s, is expansion [%d]\n", (*((t_token **)(tmp->content)))->token, get_str_type((*((t_token **)(tmp->content)))->type), (*((t_token **)(tmp->content)))->is_expansion);
 		if ((*((t_token **)(tmp->content)))->type == VAR_TYPE)
+		{
 			ft_printf("\t\t value = %s\n", (*((t_var_token **)(tmp->content)))->value);
-		if ((*((t_token **)(tmp->content)))->type == CMD_TYPE)
+			tmpvar = (*((t_var_token **)(tmp->content)))->next;
+			while (tmpvar)
+			{
+				ft_printf("\t\t suivante = name: %s, value: %s\n", tmpvar->token, tmpvar->value);
+				tmpvar = tmpvar->next;
+			}
+		}
+		else if ((*((t_token **)(tmp->content)))->type == CMD_TYPE)
 		{
 			i = -1;
 			if (get_type_token(tmp) == CMD_TYPE)
 			{
-				while (((*((t_cmd_token **)(tmp->content)))->tab)[++i])
-					ft_printf("\t\t content tab = %s\n", (*((t_cmd_token **)(tmp->content)))->tab[i]);
-			}
-			if ((*((t_cmd_token **)(tmp->content)))->assign)
-			{
-				tmp2 = (*((t_cmd_token **)(tmp->content)))->assign;
-				while (tmp2)
+				// while (((*((t_cmd_token **)(tmp->content)))->tab)[++i])
+				tmp3 = (*((t_cmd_token **)(tmp->content)))->args;
+				while (tmp3)
 				{
-					ft_printf("\t\t variable : name = %s, value = %s\n", (*((t_var_token **)(tmp2->content)))->token, (*((t_var_token **)(tmp2->content)))->value);
-					tmp2 = tmp2->next;
+					ft_printf("\t\t ARG! token = %s, type = %s, is expansion [%d]\n", (*((t_cmd_token **)(tmp3->content)))->token, get_str_type((*((t_cmd_token **)(tmp3->content)))->type), (*((t_cmd_token **)(tmp3->content)))->is_expansion);
+					tmp3 = tmp3->next;
+				}
+			}
+			if ((*((t_cmd_token **)(tmp->content)))->variables)
+			{
+				tmpvar = (*((t_var_token **)(tmp->content)))->next;
+				while (tmpvar)
+				{
+					ft_printf("\t\t variable = name: %s, value: %s\n", tmpvar->token, tmpvar->value);
+					tmpvar = tmpvar->next;
 				}
 			}
 		}

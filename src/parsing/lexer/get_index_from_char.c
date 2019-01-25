@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:31:22 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 18:44:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 03:22:16 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int get_index_from_char(t_line *line)
 		return (DOTCOMMA_INDEX);
 	else if (s[i] == '=')
 		return (EQUAL_INDEX);
-	else if (s[i] == '|' && s[i + 1])
+	else if (s[i] == '|')
 		return (PIPE_INDEX);
 	else if (s[i] == '"')
 		return (D_QUOTE_INDEX);
 	else if (s[i] == '\'')
 		return (S_QUOTE_INDEX);
-	else if (s[i] == '\\' && s[i + 1])
+	else if (s[i] == '\\')
 		return (BACKSLASH_INDEX);
 	else if (s[i] == '<' && s[i + 1])
 		return (LEFT_REDIRECTION_INDEX);

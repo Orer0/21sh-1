@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 18:50:17 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 03:36:20 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct	s_line
 	int			i;
 }				t_line;
 
+void 	ft_lstremoveone(t_list	**lst, void (*del)(void *, size_t));
 
 int 			lexer(char *line);
 void 			first_check_tokens_list(t_list *lst);
@@ -87,7 +88,7 @@ void			put_char_in_stack(char (*stack)[STACK_SIZE], char c);
 int				is_acceptor(int state);
 int				is_ignored(int current, int state);
 int				get_index_from_char(t_line *line);
-char			*get_dollar(t_line *line, int state);
+char			*get_dollar(t_line *line);
 void 			free_token(void *content, size_t size);
 int				get_type_of_token(int next_state, int last_state);
 void 			token_constructor(char *token, int type, t_token **t);

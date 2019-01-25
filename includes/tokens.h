@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 19:11:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 03:37:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ typedef struct	s_token
 {
 	char		*token;
 	int			type;
+	int			is_expansion;
 }				t_token;
 
 typedef struct	s_var_token
 {
 	char		*token;
 	int			type;
+	int			is_expansion;
+	struct s_var_token	*next;
 	char		*value;
 }				t_var_token;
 
@@ -37,8 +40,11 @@ typedef	struct	s_cmd_token
 {
 	char		*token;
 	int			type;
-	char 		**tab;
-	t_list		*assign;
+	int			is_expansion;
+	t_var_token	*variables;
+	// char 		**tab;
+	t_list		*args;
+	// t_list		*assign;
 }				t_cmd_token;
 
 /*
@@ -76,13 +82,15 @@ typedef enum 	e_token_types
 **	TOKENS functions
 */
 
-char 	*get_value_token(t_list *lst);
-void 	set_value_token(t_list *lst, char *value);
+int 	get_expansion_token(t_list *lst);
+void 	set_expansion_token(t_list *lst, int expansion);
+char 			*get_value_token(t_list *lst);
+void 			set_value_token(t_list *lst, char *value);
 int 			get_type_token(t_list *lst);
 void 			set_type_token(t_list *lst, int type);
 char 			*get_token_token(t_list *lst);
-void 			set_tab_token(t_list *lst, char **tab);
-char 			**get_tab_token(t_list *lst);
+void 			set_args_token(t_list *lst, t_list *tab);
+t_list 			*get_args_token(t_list *lst);
 int				is_redirection(int type);
 int				is_aggregation(int type);
 int				is_operator(int type);

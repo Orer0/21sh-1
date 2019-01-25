@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 23:54:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 04:49:55 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ static void		not_terminal_type(t_list *lst)
 	int		type;
 
 	type = get_type_token(lst);
-	if (type == PIPE_TYPE || type == D_QUOTE_TYPE || type == S_QUOTE_TYPE || type == AND_TYPE || type == OR_TYPE)
+	if (type == PIPE_TYPE
+		|| type == D_QUOTE_TYPE
+		|| type == S_QUOTE_TYPE
+		|| type == AND_TYPE
+		|| type == OR_TYPE)
 		unexpected_token_error(get_token_token(lst));
 }
 
@@ -59,32 +63,47 @@ static void		redirections(t_list *lst)
 	unexpected_token_error(get_token_token(lst));
 }
 
-static void		variables(t_list *lst)
+void 	ft_lstremoveone(t_list	**lst, void (*del)(void *, size_t))
+{
+	t_list	*tmp;
+
+	ft_printf("test = %s\n", get_token_token(*lst));
+	tmp = *lst;
+	if (!tmp)
+		return ;
+	if (tmp->prev)
+		tmp->prev->next = tmp->next;
+	if (tmp->next)
+		tmp->next->prev = tmp->prev;
+	if (del)
+		ft_lstdelone(&tmp, del);
+}
+
+static t_var_token		*variables(t_list *lst)
 {
 	int		type;
-	t_list	*tmp;
 	char	*value;
 
+	if (!lst->next)
+		return (NULL);
+	type = get_type_token(lst->next);
+	if (type != WORD_TYPE)
+		return (NULL);
+	if (get_token_token(lst->next)[0] == '=')
+	{
+		value = get_token_token(lst->next);
+		set_value_token(lst, ft_strdup(&(value[1])));
+		ft_lstremoveone(&lst->next, free_token);
+	}
 	if (lst->next)
 	{
-		type = get_type_token(lst->next);
-		if (type == WORD_TYPE)
+		if (get_type_token(lst->next) == VAR_TYPE)
 		{
-			if (get_token_token(lst->next)[0] == '=')
-			{
-				value = get_token_token(lst->next);
-				set_value_token(lst, ft_strdup(&(value[1])));
-				tmp = lst->next;
-				if (tmp->prev)
-					tmp->prev->next = tmp->next;
-				if (tmp->next)
-					tmp->next->prev = tmp->prev;
-				ft_lstdelone(&tmp, free_token);
-			}
-			return ;
+			(*((t_var_token **)(lst->content)))->next = variables(lst->next);
+			ft_lstremoveone(&(lst->next), NULL);
 		}
 	}
-	unexpected_token_error(get_token_token(lst));
+	return ((*((t_var_token **)(lst->content))));
 }
 
 static void		operators(t_list *lst)
@@ -97,37 +116,35 @@ static void		operators(t_list *lst)
 		if (is_operator(type))
 			unexpected_token_error(get_token_token(lst));
 	}
+	else
+	{
+		if (is_operator(get_type_token(lst)))
+			unexpected_token_error(get_token_token(lst));
+	}
 }
+
+
 
 void 	first_check_tokens_list(t_list *lst)
 {
 	t_list		*tmp;
+	int			t;
 
 	tmp = lst;
 	if (lst == NULL)
 		return ;
-	if (get_type_token(tmp) == DOTCOMMA_TYPE
-		|| get_type_token(tmp) == PIPE_TYPE
-		|| get_type_token(tmp) == AND_TYPE
-		|| get_type_token(tmp) == OR_TYPE)
+	t = get_type_token(tmp);
+	if (t == DOTCOMMA_TYPE || t == PIPE_TYPE || t == AND_TYPE || t == OR_TYPE)
 		return (unexpected_token_error(get_token_token(tmp)));
-	while (tmp != NULL)
+	while (tmp)
 	{
-		if (is_aggregation(get_type_token(tmp)))
-			aggregations(tmp);
-		else if (is_redirection(get_type_token(tmp)))
-			redirections(tmp);
-		else if (get_type_token(tmp) == VAR_TYPE)
-			variables(tmp);
-		else if (is_operator(get_type_token(tmp)))
-			operators(tmp);
-		else if (get_token_token(tmp)[0] == '~')
-		{
-			replace_tilde(&(*((t_token **)(tmp->content)))->token);
-			set_type_token(tmp, WORD_TYPE);
-		}
-		else if (get_type_token(tmp) == NUMBER_TYPE)
-			set_type_token(tmp, WORD_TYPE);
+		ft_printf("TEST [%s]\n", get_token_token(tmp));
+		!is_aggregation(get_type_token(tmp)) ?: aggregations(tmp);
+		!is_redirection(get_type_token(tmp)) ?: redirections(tmp);
+		!(get_type_token(tmp) == VAR_TYPE) ?: (void)variables(tmp);
+		!is_operator(get_type_token(tmp)) ?: operators(tmp);
+		!(get_token_token(tmp)[0] == '~') ?: set_expansion_token(tmp, TRUE);
+		!(get_type_token(tmp) == NUMBER_TYPE) ?: set_type_token(tmp, WORD_TYPE);
 		if (tmp->next == NULL)
 			return (not_terminal_type(tmp));
 		tmp = tmp->next;

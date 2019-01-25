@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:01:53 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 18:54:17 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 03:28:54 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int			get_type_of_token_2(int next_state, int last_state)
 	else if (last_state == OR_STATE || next_state == OR_STATE)
 		return (OR_TYPE);
 	else if (last_state == TILDE_STATE || next_state == TILDE_STATE)
-		return (TILDE_TYPE);
+		return (WORD_TYPE);
 	else if (last_state == D_QUOTE_STATE || next_state == D_QUOTE_STATE)
 		return (D_QUOTE_TYPE);
 	else if (last_state == S_QUOTE_STATE || next_state == S_QUOTE_STATE)

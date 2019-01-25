@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 18:51:51 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 04:45:02 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	if_take_the_last(int state)
 		|| state == S_QUOTE_STATE
 		|| state == D_QUOTE_STATE
 		|| state == DOLLAR_STATE
+		|| state == AND_STATE
+		|| state == OR_STATE
 		|| state == TILDE_STATE)
 		return (TRUE);
 	return (FALSE);
@@ -41,7 +43,7 @@ static int is_star(int state)
 	return (FALSE);
 }
 
-int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state)
+int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansion)
 {
 	t_list	*token;
 	t_token	*token_struct;
@@ -55,6 +57,8 @@ int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state)
 		);
 		if (!(token = ft_lstnew(&token_struct, sizeof(t_token))))
 			return (FALSE);
+		if (expansion)
+			set_expansion_token(token, expansion);
 		if (data->tokens_list == NULL)
 			data->tokens_list = token;
 		else
@@ -63,31 +67,31 @@ int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state)
 	return (TRUE);
 }
 
-static int		dollar_case(char (*stack)[STACK_SIZE], int n_state, t_line *line)
-{
-	char	*dollar;
-
-	if (!is_acceptor(
-			automaton_transition(
-				n_state, get_index_from_char(line))
-			) && line->line[line->i + 1]
-		)
-		*stack[ft_strlen(*stack) - 1] = 0;
-	dollar = get_dollar(line, n_state);
-	put_str_in_stack(stack, dollar);
-	ft_strdel(&dollar);
-	return (TRUE);
-}
+// static int		dollar_case(char (*stack)[STACK_SIZE], int n_state, t_line *line)
+// {
+// 	char	*dollar;
+//
+// 	if (!is_acceptor(
+// 			automaton_transition(
+// 				n_state, get_index_from_char(line))
+// 			) && line->line[line->i + 1]
+// 		)
+// 		*stack[ft_strlen(*stack) - 1] = 0;
+// 	dollar = get_dollar(line, n_state);
+// 	put_str_in_stack(stack, dollar);
+// 	ft_strdel(&dollar);
+// 	return (TRUE);
+// }
 
 static int	acceptor_case(char (*stack)[STACK_SIZE], t_line *line, int n_state,
-				int c_state)
+				int c_state, int expansion)
 {
 	if (is_star(n_state))
 	{
 		(*stack)[ft_strlen(*stack) - 1] = 0;
 		(line->i)--;
 	}
-	if (!add_new_token(*stack, n_state, c_state))
+	if (!add_new_token(*stack, n_state, c_state, expansion))
 		return (FALSE);
 	ft_strclr(*stack);
 	return (TRUE);
@@ -122,8 +126,8 @@ int	automaton_transition(int x, int y)
 		{CHAR_STATE,	CHAR_STATE,		CHAR_STATE,		CHAR_STATE, 	CHAR_STATE, 				CHAR_STATE,			CHAR_STATE, 	CHAR_STATE, 	CHAR_STATE, 		CHAR_STATE, 	CHAR_STATE, 		CHAR_STATE, 		CHAR_STATE, 					CHAR_STATE, 						CHAR_STATE, 				NONE_STATE},
 		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
 		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		AND_STATE, 		STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		NONE_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			NONE_STATE, 	DOLLAR_STATE, 	NONE_STATE, 		NONE_STATE, 	NONE_STATE, 		NONE_STATE, 		NONE_STATE, 					NONE_STATE, 						OR_STATE, 					NONE_STATE},
+		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		OR_STATE, 		STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
+		{CHAR_STATE,	CHAR_STATE,		NONE_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			NONE_STATE, 	DOLLAR_STATE, 	NONE_STATE, 		NONE_STATE, 	NONE_STATE, 		NONE_STATE, 		NONE_STATE, 					NONE_STATE, 						AND_STATE, 					NONE_STATE},
 		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE,					STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		NONE_STATE, 	STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
 		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		NONE_STATE, 	STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						NONE_STATE, 				NONE_STATE},
 		{D_QUOTE_STATE,	D_QUOTE_STATE,	D_QUOTE_STATE,	D_QUOTE_STATE, 	BACKSLASH_D_QUOTE_STATE,	D_QUOTE_STATE,		D_QUOTE_STATE, 	DOLLAR_STATE, 	D_QUOTE_STATE, 		D_QUOTE_STATE, 	END_D_QUOTE_STATE, 	D_QUOTE_STATE, 		D_QUOTE_STATE, 					D_QUOTE_STATE, 						D_QUOTE_STATE, 				NONE_STATE},
@@ -140,12 +144,13 @@ int	automaton_transition(int x, int y)
 	return (automaton[x][y]);
 }
 
-int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_state, t_line *line)
+int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_state, t_line *line, int *expansion)
 {
 	if (!is_ignored(current_state, next_state))
 		put_char_in_stack(stack, line->line[line->i]);
 	if (next_state == NONE_STATE)
 	{
+		ft_printf("current = %d\n", current_state);
 		ft_printf(
 			"Syntax error near character %c at position %d\n",
 			line->line[line->i], line->i + 1
@@ -154,14 +159,16 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_st
 	}
 	else if (next_state == DOLLAR_STATE)
 	{
-		if (!(dollar_case(stack, next_state, line)))
-			return (FALSE);
+		// if (!(dollar_case(stack, next_state, line)))
+		// 	return (FALSE);
+		(*expansion) = TRUE;
 		return (next_state);
 	}
 	else if (is_acceptor(next_state))
 	{
-		if (!acceptor_case(stack, line, next_state, current_state))
+		if (!acceptor_case(stack, line, next_state, current_state, *expansion))
 			return (FALSE);
+		(*expansion) = FALSE;
 		return (START_STATE);
 	}
 	return (next_state);
@@ -186,6 +193,7 @@ int lexer(char *line)
 	t_line	*line_s;
 	int current_state;
 	int next_state;
+	int	expansion;
 
 	constructor_line_struct(line, &line_s);
 	current_state = START_STATE;
@@ -195,10 +203,10 @@ int lexer(char *line)
 		next_state = automaton_transition(
 						current_state, get_index_from_char(line_s));
 		current_state = routine_next_state(
-							&stack, current_state, next_state, line_s);
+							&stack, current_state, next_state, line_s, &expansion);
 	}
 	if (if_take_the_last(current_state))
-		if (!add_new_token(stack, next_state, current_state))
+		if (!add_new_token(stack, next_state, current_state, expansion))
 			return (FALSE);
 	ft_memdel((void **)&line_s);
 	return (TRUE);
