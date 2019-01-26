@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/26 05:56:57 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:10:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void 	ft_print_tokens()
 			}
 			if ((*((t_cmd_token **)(tmp->content)))->variables)
 			{
-				tmpvar = (*((t_cmd_token **)(tmp->content)))->variables->vars;
+				tmpvar = (*(*((t_cmd_token **)(tmp->content)))->variables)->vars;
 				while (tmpvar)
 				{
 					ft_printf("\t\t variable = name: %s, value: %s, expansion[%d]\n", (*((t_var **)(tmpvar->content)))->name, (*((t_var **)(tmpvar->content)))->value, (*((t_var **)(tmpvar->content)))->value_is_expansion);

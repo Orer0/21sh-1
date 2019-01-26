@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/26 05:19:34 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:09:33 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef	struct	s_cmd_token
 	char		*token;
 	int			type;
 	int			is_expansion;
-	t_var_token	*variables;
+	t_var_token	**variables;
 	// char 		**tab;
 	t_list		*args;
 	// t_list		*assign;

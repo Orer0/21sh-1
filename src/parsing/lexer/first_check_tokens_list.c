@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/26 06:00:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 18:41:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ static void		variables(t_list *lst)
 	t_list	*next;
 	t_list	*del;
 	t_list	*new;
-	t_list	*new_lst;
+	// t_list	*new_lst;
 
-	new_lst = NULL;
+	// new_lst = NULL;
 	// creation de la structure var
 	var = ft_memalloc(sizeof(t_var));
 	// set du name
@@ -114,10 +114,10 @@ static void		variables(t_list *lst)
 	}
 	// ft_printf("Apres la premiere value, lst = %s, lst next = %s\n", get_token_token(lst), lst->next);
 	new = ft_lstnew(&var, sizeof(t_var *));
-	if (!new_lst)
-		new_lst = new;
+	if (!(*((t_var_token **)(lst->content)))->vars)
+		(*((t_var_token **)(lst->content)))->vars = new;
 	else
-		ft_lstaddend(&new_lst, new);
+		ft_lstaddend(&(*((t_var_token **)(lst->content)))->vars, new);
 	// Boucle pour les var suivants
 	tmp = lst->next;
 	while (tmp)
@@ -125,6 +125,8 @@ static void		variables(t_list *lst)
 		// if (!tmp)
 			// return ;
 		// creation de la structure var
+		if (get_type_token(tmp) != VAR_TYPE)
+			break ;
 		var = ft_memalloc(sizeof(t_var));
 		// set du name
 		var->name = ft_strdup((*((t_var_token **)(tmp->content)))->token);
@@ -142,13 +144,13 @@ static void		variables(t_list *lst)
 			ft_lstdelone(&del, free_token);
 		}
 		new = ft_lstnew(&var, sizeof(t_var *));
-		ft_lstaddend(&new_lst, new);
+		ft_lstaddend(&(*((t_var_token **)(lst->content)))->vars, new);
 		next = tmp->next;
 		ft_lstremoveone(&tmp);
 		ft_lstdelone(&tmp, free_token);
 		tmp = next;
 	}
-	(*((t_var_token **)(lst->content)))->vars = new_lst;
+	// (*((t_var_token **)(lst->content)))->vars = new_lst;
 }
 
 static void		operators(t_list *lst)
