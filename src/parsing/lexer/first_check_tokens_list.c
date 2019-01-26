@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 18:35:55 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 06:00:35 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ static void		redirections(t_list *lst)
 	unexpected_token_error(get_token_token(lst));
 }
 
-void 	ft_lstremoveone(t_list	**lst, void (*del)(void *, size_t))
+void 	ft_lstremoveone(t_list	**lst)
 {
 	t_list	*tmp;
 
-	ft_printf("test = %s\n", get_token_token(*lst));
 	tmp = *lst;
 	if (!tmp)
 		return ;
@@ -75,36 +74,81 @@ void 	ft_lstremoveone(t_list	**lst, void (*del)(void *, size_t))
 		tmp->prev->next = tmp->next;
 	if (tmp->next)
 		tmp->next->prev = tmp->prev;
-	(void)del;
-	// ft_lstdelone(&tmp, del);
+	// tmp->prev = NULL;
+	// tmp->next = NULL;
+	// (void)del;
+	// ft_lstdelone(&tmp, free_token);
 }
 
-static t_var_token		*variables(t_list *lst)
+static void		variables(t_list *lst)
 {
 	int		type;
 	char	*value;
+	t_list	*tmp;
+	t_var	*var;
+	t_list	*next;
+	t_list	*del;
+	t_list	*new;
+	t_list	*new_lst;
 
-	if (!lst->next)
-		return (NULL);
+	new_lst = NULL;
+	// creation de la structure var
+	var = ft_memalloc(sizeof(t_var));
+	// set du name
+	var->name = ft_strdup((*((t_var_token **)(lst->content)))->token);
+	// if (!lst->next)
+	// 	return ;
 	type = get_type_token(lst->next);
 	if (type != WORD_TYPE)
-		return (NULL);
+		return ;
+	tmp = lst->next;
 	if (get_token_token(lst->next)[0] == '=')
 	{
 		value = get_token_token(lst->next);
-		set_value_token(lst, ft_strdup(&(value[1])));
-		ft_lstremoveone(&(lst->next), free_token);
+		var->value = ft_strdup(&(value[1]));
+		var->value_is_expansion = (*((t_var_token **)(lst->next->content)))->is_expansion;
+		// set_value_token(lst, ft_strdup(&(value[1])));
+		del = lst->next;
+		ft_lstremoveone(&lst->next);
+		ft_lstdelone(&del, free_token);
 	}
-	if (lst->next)
+	// ft_printf("Apres la premiere value, lst = %s, lst next = %s\n", get_token_token(lst), lst->next);
+	new = ft_lstnew(&var, sizeof(t_var *));
+	if (!new_lst)
+		new_lst = new;
+	else
+		ft_lstaddend(&new_lst, new);
+	// Boucle pour les var suivants
+	tmp = lst->next;
+	while (tmp)
 	{
-		if (get_type_token(lst->next) == VAR_TYPE)
+		// if (!tmp)
+			// return ;
+		// creation de la structure var
+		var = ft_memalloc(sizeof(t_var));
+		// set du name
+		var->name = ft_strdup((*((t_var_token **)(tmp->content)))->token);
+		if (!tmp->next)
+			break ;
+		type = get_type_token(tmp->next);
+		if (get_token_token(tmp->next)[0] == '=')
 		{
-			(*((t_var_token **)(lst->content)))->next = variables(lst->next);
-			ft_lstremoveone(&(lst->next), NULL);
-			// ft_memdel((void **)&lst->next);
+			value = get_token_token(tmp->next);
+			var->value = ft_strdup(&(value[1]));
+			var->value_is_expansion = (*((t_var_token **)(tmp->next->content)))->is_expansion;
+			// set_value_token(lst, ft_strdup(&(value[1])));
+			del = tmp->next;
+			ft_lstremoveone(&(tmp->next));
+			ft_lstdelone(&del, free_token);
 		}
+		new = ft_lstnew(&var, sizeof(t_var *));
+		ft_lstaddend(&new_lst, new);
+		next = tmp->next;
+		ft_lstremoveone(&tmp);
+		ft_lstdelone(&tmp, free_token);
+		tmp = next;
 	}
-	return ((*((t_var_token **)(lst->content))));
+	(*((t_var_token **)(lst->content)))->vars = new_lst;
 }
 
 static void		operators(t_list *lst)
@@ -139,10 +183,11 @@ void 	first_check_tokens_list(t_list *lst)
 		return (unexpected_token_error(get_token_token(tmp)));
 	while (tmp)
 	{
-		ft_printf("TEST [%s]\n", get_token_token(tmp));
 		!is_aggregation(get_type_token(tmp)) ?0: aggregations(tmp);
 		!is_redirection(get_type_token(tmp)) ?0: redirections(tmp);
-		!(get_type_token(tmp) == VAR_TYPE) ?0: (void)variables(tmp);
+		// !(get_type_token(tmp) == VAR_TYPE) ?0: (void)variables(tmp);
+		if (get_type_token(tmp) == VAR_TYPE)
+			variables(tmp);
 		!is_operator(get_type_token(tmp)) ?0: operators(tmp);
 		!(get_token_token(tmp)[0] == '~') ?0: set_expansion_token(tmp, TRUE);
 		!(get_type_token(tmp) == NUMBER_TYPE) ?0: set_type_token(tmp, WORD_TYPE);

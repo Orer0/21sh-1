@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 03:37:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 05:19:34 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@
 **	Tokens structures
 */
 
+typedef struct	s_var
+{
+	char		*name;
+	char		*value;
+	int			value_is_expansion;
+} 				t_var;
+
 typedef struct	s_token
 {
 	char		*token;
@@ -32,8 +39,8 @@ typedef struct	s_var_token
 	char		*token;
 	int			type;
 	int			is_expansion;
-	struct s_var_token	*next;
-	char		*value;
+	t_list		*vars;
+	// char		*value;
 }				t_var_token;
 
 typedef	struct	s_cmd_token
@@ -84,8 +91,8 @@ typedef enum 	e_token_types
 
 int 	get_expansion_token(t_list *lst);
 void 	set_expansion_token(t_list *lst, int expansion);
-char 			*get_value_token(t_list *lst);
-void 			set_value_token(t_list *lst, char *value);
+// char 			*get_value_token(t_list *lst);
+// void 			set_value_token(t_list *lst, char *value);
 int 			get_type_token(t_list *lst);
 void 			set_type_token(t_list *lst, int type);
 char 			*get_token_token(t_list *lst);

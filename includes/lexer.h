@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 03:36:20 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/25 20:55:51 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct	s_line
 	int			i;
 }				t_line;
 
-void 	ft_lstremoveone(t_list	**lst, void (*del)(void *, size_t));
+void 	ft_lstremoveone(t_list	**lst);
 
 int 			lexer(char *line);
 void 			first_check_tokens_list(t_list *lst);

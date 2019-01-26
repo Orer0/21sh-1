@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:06:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 02:08:01 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 05:19:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,24 @@ int 	get_expansion_token(t_list *lst)
 	return ((*((t_token **)(lst->content)))->is_expansion);
 }
 
-void 	set_value_token(t_list *lst, char *value)
-{
-	(*((t_var_token **)(lst->content)))->value = value;
-}
-
-char 	*get_value_token(t_list *lst)
-{
-	return ((*((t_var_token **)(lst->content)))->value);
-}
+// void 	set_value_token(t_list *lst, char *value)
+// {
+// 	(*((t_var_token **)(lst->content)))->value = value;
+// }
+//
+// char 	*get_value_token(t_list *lst)
+// {
+// 	return ((*((t_var_token **)(lst->content)))->value);
+// }
 
 int 	get_type_token(t_list *lst)
 {
 	return ((*((t_token **)(lst->content)))->type);
+}
+
+void 	set_token_token(t_list *lst, char *token)
+{
+	(*((t_token **)(lst->content)))->token = token;
 }
 
 char 	*get_token_token(t_list *lst)

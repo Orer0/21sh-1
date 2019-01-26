@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:55:46 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 17:58:29 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 06:11:23 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,33 @@ static void		manage_commands(t_list *lst)
 	set_args_token(lst, args_list);
 }
 
+void 	ft_lstremoveone2(t_list	**lst)
+{
+	t_list	*tmp;
+
+	tmp = *lst;
+	if (!tmp)
+		return ;
+	if (tmp->prev)
+		tmp->prev->next = tmp->next;
+	if (tmp->next)
+		tmp->next->prev = tmp->prev;
+	// ft_strdel(&(*((t_var_token **)(tmp->content)))->token);
+	// ft_strdel(&(*((t_var_token **)(tmp->content)))->value);
+	// ft_memdel(&tmp->content);
+	// ft_memdel((void **)lst);
+	// tmp->prev = NULL;
+	// tmp->next = NULL;
+	// (void)del;
+	// ft_lstdelone(&tmp, del);
+}
+
 void 	build_command_token(void)
 {
 	t_list			*tmp;
 	t_shell_data 	*data;
-	// t_var_token			*t;
-	// t_list			*del;
-	// t_list			*tmpp;
-	// t_list			*new;
+	// t_var_token			*tmpp;
+	// t_var_token			*new;
 
 	data = shell_data_singleton();
 	tmp = data->tokens_list;
@@ -77,35 +96,23 @@ void 	build_command_token(void)
 			{
 				if (get_type_token(tmp->prev) == VAR_TYPE)
 				{
+					// tmpp = (*((t_var_token **)(tmp->prev->content)));
+					// tmpp->prev = NULL;
+					// tmpp->next = NULL;
+					// token_constructor((*((t_var_token **)(tmp->prev->content)))->token, (*((t_var_token **)(tmp->prev->content)))->type, (t_token **)&new);
+					// new->vars = (*((t_var_token **)(tmp->prev->content)))->vars;
+					// new->value = ft_strdup((*((t_var_token **)(tmp->prev->content)))->value);
+					// (*((t_var_token **)(tmpp)))->next_vars = NULL;
 					(*((t_cmd_token **)(tmp->content)))->variables = (*((t_var_token **)(tmp->prev->content)));
-					ft_lstremoveone(&(tmp->prev), NULL);
-					// tmpp = tmp->prev;
-					// while (tmpp && get_type_token(tmpp) == VAR_TYPE)
-					// {
-					// 	token_constructor((*((t_token **)(tmpp->content)))->token, (*((t_token **)(tmpp->content)))->type, (t_token **)&t);
-					// 	new = ft_lstnew(&t, sizeof(t_var_token));
-					// 	set_value_token(new, ft_strdup((*((t_var_token **)(tmpp->content)))->value));
-					// 	if (!(*((t_cmd_token **)(tmp->content)))->assign)
-					// 		(*((t_cmd_token **)(tmp->content)))->assign = new;
-					// 	else
-					// 		ft_lstadd(&((*((t_cmd_token **)(tmp->content)))->assign), new);
-					// 	if (!tmpp->prev)
-					// 		break ;
-					// 	if (tmpp->prev)
-					// 		tmpp->prev->next = tmpp->next;
-					// 	if (tmpp->next)
-					// 		tmpp->next->prev = tmpp->prev;
-					// 	del = tmpp;
-					// 	tmpp = tmpp->prev;
-					// 	ft_lstdelone(&del, free_token);
-					// }
-					// if (tmpp == data->tokens_list)
-					// {
-					// 	del = data->tokens_list;
-					// 	data->tokens_list = data->tokens_list->next;
-					// 	ft_lstdelone(&del, free_token);
-					// }
-					// tmp->prev = NULL;
+					ft_lstremoveone2(&(tmp->prev));
+
+					// ft_memcpy((*((t_cmd_token **)(tmp->content)))->variables, (*((t_var_token **)(tmpp->content))), sizeof(sizeof(t_var_token)));
+					// (*((t_cmd_token **)(tmp->content)))->variables = (*((t_var_token **)(tmpp->content)));
+					// ft_memdel((void **)&tmpp);
+					// (*((t_cmd_token **)(tmp->content)))->variables->prev = NULL;
+					// tmpp = (*((t_cmd_token **)(tmp->content)))->variables;
+					// ft_printf("TEST ICI = %s\n", get_token_token((*((t_cmd_token **)(tmp->content)))->variables->next));
+					// (*((t_cmd_token **)(tmp->content)))->variables->next = NULL;
 				}
 			}
 		}

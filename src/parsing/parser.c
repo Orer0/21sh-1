@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 17:53:43 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/26 05:58:30 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int		shell_parser(char *line)
 	ft_printf("chaine recu : %s\n", line);
 	// Lexer call
 	lexer(line);
-
 	// first check
 	first_check_tokens_list(data->tokens_list);
 
+	ft_print_tokens();
+	// quit_shell(EXIT_SUCCESS, 0);
+	ft_printf("\n\n\n");
 	// rassembler les commandes
 	build_command_token();
 	// Print la liste des tokens
