@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 20:55:51 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/27 05:03:56 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum 	e_states
 	BACKSLASH_STATE,
 	TILDE_STATE,
 	DOLLAR_STATE,
+	EQUAL_STATE,
 	PIPE_STATE,
 	AMPERSAND_STATE,
 	AND_STATE,
@@ -40,7 +41,6 @@ typedef enum 	e_states
 	DOUBLE_LEFT_REDIRECTION_STATE,
 	DOUBLE_RIGHT_REDIRECTION_STATE,
 	DOTCOMMA_V_STATE,
-	VAR_V_STAR_STATE,
 	SPACE_V_STATE,
 	LEFT_REDIRECTION_V_STATE,
 	RIGHT_REDIRECTION_V_STATE,
@@ -76,7 +76,7 @@ typedef struct	s_line
 	int			i;
 }				t_line;
 
-void 	ft_lstremoveone(t_list	**lst);
+void		unexpected_token_error(char *token);
 
 int 			lexer(char *line);
 void 			first_check_tokens_list(t_list *lst);

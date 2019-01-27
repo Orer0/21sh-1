@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/26 18:09:33 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/27 01:58:03 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ typedef struct	s_var_token
 	char		*token;
 	int			type;
 	int			is_expansion;
-	t_list		*vars;
-	// char		*value;
+	t_list		*var_lst;
 }				t_var_token;
 
 typedef	struct	s_cmd_token
@@ -48,10 +47,8 @@ typedef	struct	s_cmd_token
 	char		*token;
 	int			type;
 	int			is_expansion;
-	t_var_token	**variables;
-	// char 		**tab;
+	t_var_token	**var_token;
 	t_list		*args;
-	// t_list		*assign;
 }				t_cmd_token;
 
 /*
@@ -89,15 +86,17 @@ typedef enum 	e_token_types
 **	TOKENS functions
 */
 
-int 	get_expansion_token(t_list *lst);
-void 	set_expansion_token(t_list *lst, int expansion);
-// char 			*get_value_token(t_list *lst);
-// void 			set_value_token(t_list *lst, char *value);
-int 			get_type_token(t_list *lst);
-void 			set_type_token(t_list *lst, int type);
-char 			*get_token_token(t_list *lst);
-void 			set_args_token(t_list *lst, t_list *tab);
-t_list 			*get_args_token(t_list *lst);
+t_list 	*get_var_list_in_cmd_token(void *token);
+t_list 			*get_var_list_token(void *token);
+void 			set_var_list_token(void *token, t_list *vars);
+int 			get_expansion_token(void *token);
+void 			set_expansion_token(void *token, int expansion);
+int 			get_type_token(void *token);
+void 			set_type_token(void *token, int type);
+char 			*get_token_token(void *token);
+void 			set_token_token(void *token, char *str);
+void 			set_args_token(void *token, t_list *tab);
+t_list 			*get_args_token(void *token);
 int				is_redirection(int type);
 int				is_aggregation(int type);
 int				is_operator(int type);

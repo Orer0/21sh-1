@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/25 04:45:02 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/27 05:40:57 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	if_take_the_last(int state)
 		|| state == DOLLAR_STATE
 		|| state == AND_STATE
 		|| state == OR_STATE
+		|| state == EQUAL_STATE
 		|| state == TILDE_STATE)
 		return (TRUE);
 	return (FALSE);
@@ -38,7 +39,7 @@ static int	if_take_the_last(int state)
 
 static int is_star(int state)
 {
-	if (state == STAR_STATE || state == VAR_V_STAR_STATE)
+	if (state == STAR_STATE)
 		return (TRUE);
 	return (FALSE);
 }
@@ -58,7 +59,7 @@ int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansi
 		if (!(token = ft_lstnew(&token_struct, sizeof(t_token))))
 			return (FALSE);
 		if (expansion)
-			set_expansion_token(token, expansion);
+			set_expansion_token(token->content, expansion);
 		if (data->tokens_list == NULL)
 			data->tokens_list = token;
 		else
@@ -119,13 +120,14 @@ static int	acceptor_case(char (*stack)[STACK_SIZE], t_line *line, int n_state,
 
 int	automaton_transition(int x, int y)
 {
-	static int automaton[20][16] = {
+	static int automaton[21][16] = {
 		{CHAR_STATE,	NUMBER_STATE,	START_STATE,	CHAR_STATE,		BACKSLASH_STATE,			CHAR_STATE,	 		TILDE_STATE, 	DOLLAR_STATE, 	DOTCOMMA_V_STATE, 	PIPE_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		LEFT_REDIRECTION_STATE, 		RIGHT_REDIRECTION_STATE, 			AMPERSAND_STATE, 			NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE,			VAR_V_STAR_STATE,	CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	NUMBER_STATE,	STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE,			VAR_V_STAR_STATE,	CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		LEFT_REDIRECTION_STATE, 		RIGHT_REDIRECTION_STATE, 			STAR_STATE, 				NONE_STATE},
+		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE,			EQUAL_STATE,		CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
+		{CHAR_STATE,	NUMBER_STATE,	STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE,			EQUAL_STATE,		CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		LEFT_REDIRECTION_STATE, 		RIGHT_REDIRECTION_STATE, 			STAR_STATE, 				NONE_STATE},
 		{CHAR_STATE,	CHAR_STATE,		CHAR_STATE,		CHAR_STATE, 	CHAR_STATE, 				CHAR_STATE,			CHAR_STATE, 	CHAR_STATE, 	CHAR_STATE, 		CHAR_STATE, 	CHAR_STATE, 		CHAR_STATE, 		CHAR_STATE, 					CHAR_STATE, 						CHAR_STATE, 				NONE_STATE},
 		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
 		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
+		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE,		BACKSLASH_STATE,			CHAR_STATE,		TILDE_STATE,	DOLLAR_STATE,	STAR_STATE,			STAR_STATE,		D_QUOTE_STATE,		S_QUOTE_STATE,		STAR_STATE,						STAR_STATE,							STAR_STATE,					NONE_STATE},
 		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		OR_STATE, 		STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
 		{CHAR_STATE,	CHAR_STATE,		NONE_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			NONE_STATE, 	DOLLAR_STATE, 	NONE_STATE, 		NONE_STATE, 	NONE_STATE, 		NONE_STATE, 		NONE_STATE, 					NONE_STATE, 						AND_STATE, 					NONE_STATE},
 		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE,					STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		NONE_STATE, 	STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
@@ -157,7 +159,7 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_st
 		);
 		quit_shell(EXIT_FAILURE, 0);
 	}
-	else if (next_state == DOLLAR_STATE)
+	else if ((next_state == DOLLAR_STATE || next_state == TILDE_STATE) && current_state != DOLLAR_STATE)
 	{
 		// if (!(dollar_case(stack, next_state, line)))
 		// 	return (FALSE);

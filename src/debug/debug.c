@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/26 18:10:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/27 02:13:54 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,18 @@ static char		*get_str_type(int type)
 	return ("bad type");
 }
 
+void 	print_var_token(t_var_token *token)
+{
+	t_list		*tmp;
+
+	tmp = get_var_list_token(token);
+	while (tmp)
+	{
+		ft_printf("\t\t variable = name: %s, value: %s, expansion[%d]\n", (*((t_var **)(tmp->content)))->name, (*((t_var **)(tmp->content)))->value, (*((t_var **)(tmp->content)))->value_is_expansion);
+		tmp = tmp->next;
+	}
+}
+
 /*
 ** Print la liste des tokens pour debug
 */
@@ -85,52 +97,39 @@ static char		*get_str_type(int type)
 void 	ft_print_tokens()
 {
 	t_list		*tmp;
-	// int			i;
+	t_list		*tmp2;
 	t_shell_data *data;
-	t_list		*tmp3;
-	t_list *tmpvar;
 
 	data = shell_data_singleton();
 	tmp = data->tokens_list;
+	// Pour chaque token
 	while (tmp)
 	{
-		// if (tmp->prev)
-		// 	ft_printf("prev = %s, ", (*((t_token **)(tmp->prev->content)))->token);
-		ft_printf("token = %s, type = %s, is expansion [%d]\n", (*((t_token **)(tmp->content)))->token, get_str_type((*((t_token **)(tmp->content)))->type), (*((t_token **)(tmp->content)))->is_expansion);
-		if ((*((t_token **)(tmp->content)))->type == VAR_TYPE)
-		{
-			// ft_printf("\t\t value = %s\n", (*((t_var_token **)(tmp->content)))->value);
-			tmpvar = (*((t_var_token **)(tmp->content)))->vars;
-			while (tmpvar)
-			{
-				ft_printf("\t\t variable = name: %s, value: %s, expansion[%d]\n", (*((t_var **)(tmpvar->content)))->name, (*((t_var **)(tmpvar->content)))->value, (*((t_var **)(tmpvar->content)))->value_is_expansion);
-				tmpvar = tmpvar->next;
-			}
-		}
+		ft_printf("token = %s, type = %s, is expansion [%d]\n", get_token_token(tmp->content), get_str_type(get_type_token(tmp->content)), get_expansion_token(tmp->content));
+		if (get_type_token(tmp->content) == VAR_TYPE)
+			print_var_token(((t_var_token *)(tmp->content)));
 		else if ((*((t_token **)(tmp->content)))->type == CMD_TYPE)
 		{
-			// i = -1;
-			if (get_type_token(tmp) == CMD_TYPE)
+			if (get_type_token(tmp->content) == CMD_TYPE)
 			{
-				// while (((*((t_cmd_token **)(tmp->content)))->tab)[++i])
-				tmp3 = (*((t_cmd_token **)(tmp->content)))->args;
-				while (tmp3)
+				tmp2 = get_args_token(tmp->content);
+				while (tmp2)
 				{
-					ft_printf("\t\t ARG! token = %s, type = %s, is expansion [%d]\n", get_token_token(tmp3), get_str_type(get_type_token(tmp3)), get_expansion_token(tmp3));
-					tmp3 = tmp3->next;
+					ft_printf("\t\t ARG! token = %s, type = %s, is expansion [%d]\n", get_token_token(tmp2->content), get_str_type(get_type_token(tmp2->content)), get_expansion_token(tmp2->content));
+					tmp2 = tmp2->next;
 				}
 			}
-			if ((*((t_cmd_token **)(tmp->content)))->variables)
+			if ((*((t_cmd_token **)(tmp->content)))->var_token)
+			if (get_var_list_in_cmd_token(tmp->content))
 			{
-				tmpvar = (*(*((t_cmd_token **)(tmp->content)))->variables)->vars;
-				while (tmpvar)
+				tmp2 = get_var_list_in_cmd_token(tmp->content);
+				while (tmp2)
 				{
-					ft_printf("\t\t variable = name: %s, value: %s, expansion[%d]\n", (*((t_var **)(tmpvar->content)))->name, (*((t_var **)(tmpvar->content)))->value, (*((t_var **)(tmpvar->content)))->value_is_expansion);
-					tmpvar = tmpvar->next;
+					ft_printf("\t\t variable = name: %s, value: %s, expansion[%d]\n", (*((t_var **)(tmp2->content)))->name, (*((t_var **)(tmp2->content)))->value, (*((t_var **)(tmp2->content)))->value_is_expansion);
+					tmp2 = tmp2->next;
 				}
 			}
 		}
-		// ft_printf("token = %s, type = \n", (*((t_token **)(tmp->content)))->token, (*((t_token **)(tmp->content)))->type);
 		tmp = tmp->next;
 	}
 }
