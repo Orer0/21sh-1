@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 08:21:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2017/11/22 14:01:06 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/27 08:53:57 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 void	ft_strclr(char *s)
 {
-	size_t i;
+	int i;
 
-	if (s != NULL)
+	if (s != NULL && s[0])
 	{
-		i = 0;
-		while (s[i] != '\0')
-		{
+		i = -1;
+		while (s[++i])
 			s[i] = '\0';
-			i++;
-		}
 	}
 }

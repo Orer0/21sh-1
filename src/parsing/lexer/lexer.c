@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 05:40:57 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/28 07:33:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansi
 			stack, get_type_of_token(n_state, c_state), &token_struct
 		);
 		if (!(token = ft_lstnew(&token_struct, sizeof(t_token))))
-			return (FALSE);
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
 		if (expansion)
 			set_expansion_token(token->content, expansion);
 		if (data->tokens_list == NULL)
@@ -68,22 +68,6 @@ int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansi
 	return (TRUE);
 }
 
-// static int		dollar_case(char (*stack)[STACK_SIZE], int n_state, t_line *line)
-// {
-// 	char	*dollar;
-//
-// 	if (!is_acceptor(
-// 			automaton_transition(
-// 				n_state, get_index_from_char(line))
-// 			) && line->line[line->i + 1]
-// 		)
-// 		*stack[ft_strlen(*stack) - 1] = 0;
-// 	dollar = get_dollar(line, n_state);
-// 	put_str_in_stack(stack, dollar);
-// 	ft_strdel(&dollar);
-// 	return (TRUE);
-// }
-
 static int	acceptor_case(char (*stack)[STACK_SIZE], t_line *line, int n_state,
 				int c_state, int expansion)
 {
@@ -92,8 +76,7 @@ static int	acceptor_case(char (*stack)[STACK_SIZE], t_line *line, int n_state,
 		(*stack)[ft_strlen(*stack) - 1] = 0;
 		(line->i)--;
 	}
-	if (!add_new_token(*stack, n_state, c_state, expansion))
-		return (FALSE);
+	add_new_token(*stack, n_state, c_state, expansion);
 	ft_strclr(*stack);
 	return (TRUE);
 }
@@ -161,15 +144,12 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_st
 	}
 	else if ((next_state == DOLLAR_STATE || next_state == TILDE_STATE) && current_state != DOLLAR_STATE)
 	{
-		// if (!(dollar_case(stack, next_state, line)))
-		// 	return (FALSE);
 		(*expansion) = TRUE;
 		return (next_state);
 	}
 	else if (is_acceptor(next_state))
 	{
-		if (!acceptor_case(stack, line, next_state, current_state, *expansion))
-			return (FALSE);
+		acceptor_case(stack, line, next_state, current_state, *expansion);
 		(*expansion) = FALSE;
 		return (START_STATE);
 	}
@@ -200,6 +180,7 @@ int lexer(char *line)
 	constructor_line_struct(line, &line_s);
 	current_state = START_STATE;
 	ft_bzero((void *)&stack, STACK_SIZE);
+	expansion = FALSE;
 	while (line_s->line[++(line_s->i)])
 	{
 		next_state = automaton_transition(
@@ -208,8 +189,7 @@ int lexer(char *line)
 							&stack, current_state, next_state, line_s, &expansion);
 	}
 	if (if_take_the_last(current_state))
-		if (!add_new_token(stack, next_state, current_state, expansion))
-			return (FALSE);
+		add_new_token(stack, next_state, current_state, expansion);
 	ft_memdel((void **)&line_s);
 	return (TRUE);
 }

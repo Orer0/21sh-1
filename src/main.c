@@ -6,23 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/23 03:01:26 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/28 07:39:48 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-
-t_shell_data	*shell_data_singleton()
-{
-	static t_shell_data *data;
-
-	if (!data)
-	{
-		if (!(data = ft_memalloc(sizeof(t_shell_data))))
-			quit_shell(EXIT_SUCCESS, MALLOC_ERR);
-	}
-	return (data);
-}
 
 int		main(int ac, char **av)
 {

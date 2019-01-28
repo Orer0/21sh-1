@@ -6,11 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:06:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 02:09:40 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/28 07:47:20 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "tokens.h"
 
 int		is_redirection(int type)
 {
@@ -96,7 +96,21 @@ void 	set_args_token(void *token, t_list *args)
 
 t_list 	*get_var_list_in_cmd_token(void *token)
 {
+	if (!(*((t_cmd_token **)(token)))->var_token)
+		return (NULL);
 	return (get_var_list_token((*((t_cmd_token **)(token)))->var_token));
+}
+
+t_var_token *get_var_token_in_cmd_token(void *token)
+{
+	if (!(*((t_cmd_token **)(token)))->var_token)
+		return (NULL);
+	return ((*(*((t_cmd_token **)(token)))->var_token));
+}
+
+void	set_var_token_in_cmd_token(void *token, void *var)
+{
+	(*((t_cmd_token **)(token)))->var_token = (t_var_token **)var;
 }
 
 t_list 	*get_args_token(void *token)

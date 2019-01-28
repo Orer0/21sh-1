@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 05:03:56 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/28 07:10:11 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		unexpected_token_error(char *token);
 int 			lexer(char *line);
 void 			first_check_tokens_list(t_list *lst);
 void 			build_command_token(void);
-void 			delete_list_tokens(void);
+void 			delete_list_tokens(t_list **lst);
 int				replace_tilde(char **str);
 void			put_str_in_stack(char (*stack)[STACK_SIZE], char *str);
 void			put_char_in_stack(char (*stack)[STACK_SIZE], char c);

@@ -6,19 +6,12 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:58:18 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 01:20:34 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/27 23:26:23 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-// void 	free_t_var(void *content, size_t size)
-// {
-// 	(void)size;
-// 	ft_strdel(&(*((t_var **)(content)))->value);
-// 	ft_strdel(&(*((t_var **)(content)))->name);
-// 	ft_memdel(&content);
-// }
 
 void 	free_var(void *content, size_t size)
 {
@@ -32,9 +25,8 @@ void 	free_var(void *content, size_t size)
 		tmp = (*((t_var_token **)(content)))->var_lst;
 		while (tmp)
 		{
-			ft_strdel(&(*((t_var **)(tmp->content)))->value);
-			ft_strdel(&(*((t_var **)(tmp->content)))->name);
-			ft_memdel((void **)((t_var **)(tmp->content)));
+			ft_strdel(&(*((t_var_token **)(tmp->content)))->token);
+			ft_memdel((void **)((t_var_token **)(tmp->content)));
 			ft_memdel((void **)&tmp->content);
 			next = tmp->next;
 			ft_memdel((void **)&tmp);

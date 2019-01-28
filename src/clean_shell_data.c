@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.h                                              :+:      :+:    :+:   */
+/*   clean_shell_data.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/22 01:53:21 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:49:08 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/28 07:12:43 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/28 07:13:37 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AST_H
-# define AST_H
+#include "21sh.h"
+#include "lexer.h"
+#include "st.h"
+#include "ast.h"
 
-# include "21sh.h"
-# include "st.h"
+void 	clean_shell_data(void)
+{
+	t_shell_data *data;
 
-void 		execute_post_order_procedure(t_ptree **tree);
-t_btree		*get_ast(t_ptree **parsing_tree);
-void 		delete_ast(t_btree **ast);
-
-#endif
+	data = shell_data_singleton();
+	if (data->tokens_list)
+		delete_list_tokens(&data->tokens_list);
+	if (data->parse_tree)
+		delete_parsing_tree(&data->parse_tree);
+	if (data->ast)
+		delete_ast(&data->ast);
+}

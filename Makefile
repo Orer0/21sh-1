@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/27 02:02:54 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/28 07:14:11 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
-CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
 
 # Directories
 
@@ -35,6 +35,7 @@ HFILES	=	$(H)21sh.h														\
 			$(H)lexer.h														\
 			$(H)ast.h														\
 			$(H)tokens.h													\
+			$(H)shell_data.h												\
 			$(H)st.h
 
 MAIN	=	$(SRC)main.c
@@ -53,10 +54,23 @@ SRCS	=	$(MAIN)															\
 			$(LEX)delete_list_tokens.c										\
 			$(LEX)token_constructor.c										\
 			$(ST)syntax_tree.c												\
+			$(ST)delete_parsing_tree.c										\
+			$(ST)ft_ptree.c													\
+			$(ST)test_current_token.c										\
+			$(ST)s_rule.c													\
+			$(ST)t_rule.c													\
+			$(ST)u_rule.c													\
+			$(ST)v_rule.c													\
+			$(ST)f_rule.c													\
+			$(ST)a_rule.c													\
+			$(AST)ast.c														\
+			$(AST)delete_ast.c												\
+			$(AST)procedures.c												\
 			$(TK)free_token.c												\
 			$(TK)tokens.c													\
-			$(AST)ast.c														\
 			$(SRC)quit_shell.c												\
+			$(SRC)shell_data_singleton.c												\
+			$(SRC)clean_shell_data.c												\
 			$(DEBUG)debug.c
 
 OBJ		=	$(patsubst %.c,%.o,$(SRCS))
