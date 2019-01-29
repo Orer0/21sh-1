@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 02:22:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 02:29:45 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/29 06:09:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 
 typedef struct		s_shell_data
 {
+	pid_t			pid;
+	int				last_status;
+	char			*shell;
+	int				options;
+	t_list			*env_lst;
+	char			**env_tab;
+	t_list			*intern_env_lst;
 	t_list			*tokens_list;
 	t_ptree			*parse_tree;
 	t_btree			*ast;

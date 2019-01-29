@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 07:33:14 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/28 23:01:03 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,6 @@ static int is_star(int state)
 	return (FALSE);
 }
 
-int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansion)
-{
-	t_list	*token;
-	t_token	*token_struct;
-	t_shell_data	*data;
-
-	data = shell_data_singleton();
-	if (stack[0])
-	{
-		token_constructor(
-			stack, get_type_of_token(n_state, c_state), &token_struct
-		);
-		if (!(token = ft_lstnew(&token_struct, sizeof(t_token))))
-			quit_shell(EXIT_FAILURE, MALLOC_ERR);
-		if (expansion)
-			set_expansion_token(token->content, expansion);
-		if (data->tokens_list == NULL)
-			data->tokens_list = token;
-		else
-			ft_lstaddend(&(data->tokens_list), token);
-	}
-	return (TRUE);
-}
-
 static int	acceptor_case(char (*stack)[STACK_SIZE], t_line *line, int n_state,
 				int c_state, int expansion)
 {
@@ -81,55 +57,8 @@ static int	acceptor_case(char (*stack)[STACK_SIZE], t_line *line, int n_state,
 	return (TRUE);
 }
 
-/*
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-**
-*/
-
-int	automaton_transition(int x, int y)
-{
-	static int automaton[21][16] = {
-		{CHAR_STATE,	NUMBER_STATE,	START_STATE,	CHAR_STATE,		BACKSLASH_STATE,			CHAR_STATE,	 		TILDE_STATE, 	DOLLAR_STATE, 	DOTCOMMA_V_STATE, 	PIPE_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		LEFT_REDIRECTION_STATE, 		RIGHT_REDIRECTION_STATE, 			AMPERSAND_STATE, 			NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE,			EQUAL_STATE,		CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	NUMBER_STATE,	STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE,			EQUAL_STATE,		CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		LEFT_REDIRECTION_STATE, 		RIGHT_REDIRECTION_STATE, 			STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		CHAR_STATE,		CHAR_STATE, 	CHAR_STATE, 				CHAR_STATE,			CHAR_STATE, 	CHAR_STATE, 	CHAR_STATE, 		CHAR_STATE, 	CHAR_STATE, 		CHAR_STATE, 		CHAR_STATE, 					CHAR_STATE, 						CHAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		STAR_STATE,		CHAR_STATE,		BACKSLASH_STATE,			CHAR_STATE,		TILDE_STATE,	DOLLAR_STATE,	STAR_STATE,			STAR_STATE,		D_QUOTE_STATE,		S_QUOTE_STATE,		STAR_STATE,						STAR_STATE,							STAR_STATE,					NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		OR_STATE, 		STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	CHAR_STATE,		NONE_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			NONE_STATE, 	DOLLAR_STATE, 	NONE_STATE, 		NONE_STATE, 	NONE_STATE, 		NONE_STATE, 		NONE_STATE, 					NONE_STATE, 						AND_STATE, 					NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE,					STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		NONE_STATE, 	STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		NONE_STATE, 	STAR_STATE, 		STAR_STATE, 		STAR_STATE, 					STAR_STATE, 						NONE_STATE, 				NONE_STATE},
-		{D_QUOTE_STATE,	D_QUOTE_STATE,	D_QUOTE_STATE,	D_QUOTE_STATE, 	BACKSLASH_D_QUOTE_STATE,	D_QUOTE_STATE,		D_QUOTE_STATE, 	DOLLAR_STATE, 	D_QUOTE_STATE, 		D_QUOTE_STATE, 	END_D_QUOTE_STATE, 	D_QUOTE_STATE, 		D_QUOTE_STATE, 					D_QUOTE_STATE, 						D_QUOTE_STATE, 				NONE_STATE},
-		{S_QUOTE_STATE,	S_QUOTE_STATE,	S_QUOTE_STATE,	S_QUOTE_STATE, 	S_QUOTE_STATE, 				S_QUOTE_STATE,		S_QUOTE_STATE, 	S_QUOTE_STATE, 	S_QUOTE_STATE, 		S_QUOTE_STATE, 	S_QUOTE_STATE, 		END_S_QUOTE_STATE, 	S_QUOTE_STATE, 					S_QUOTE_STATE, 						S_QUOTE_STATE, 				NONE_STATE},
-		{CHAR_STATE,	NUMBER_STATE,	STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE, 			CHAR_STATE,			CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{CHAR_STATE,	NUMBER_STATE,	STAR_STATE,		CHAR_STATE, 	BACKSLASH_STATE,			CHAR_STATE, 		CHAR_STATE, 	DOLLAR_STATE, 	STAR_STATE, 		STAR_STATE, 	D_QUOTE_STATE, 		S_QUOTE_STATE, 		STAR_STATE, 					STAR_STATE, 						STAR_STATE, 				NONE_STATE},
-		{D_QUOTE_STATE,	D_QUOTE_STATE,	D_QUOTE_STATE,	D_QUOTE_STATE, 	D_QUOTE_STATE, 				D_QUOTE_STATE,		D_QUOTE_STATE, 	D_QUOTE_STATE, 	D_QUOTE_STATE, 		D_QUOTE_STATE, 	D_QUOTE_STATE, 		D_QUOTE_STATE, 		D_QUOTE_STATE, 					D_QUOTE_STATE, 						D_QUOTE_STATE, 				NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE,		STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		STAR_STATE, 	STAR_STATE, 		STAR_STATE, 		DOUBLE_LEFT_REDIRECTION_STATE, 	NONE_STATE, 						LEFT_AGGREGATION_V_STATE, 	NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		STAR_STATE, 	STAR_STATE, 		STAR_STATE, 		NONE_STATE, 					DOUBLE_RIGHT_REDIRECTION_STATE, 	RIGHT_AGGREGATION_V_STATE, 	NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		STAR_STATE, 	STAR_STATE, 		STAR_STATE, 		NONE_STATE, 					NONE_STATE, 						STAR_STATE, 				NONE_STATE},
-		{STAR_STATE,	STAR_STATE,		STAR_STATE,		STAR_STATE, 	STAR_STATE, 				STAR_STATE,			STAR_STATE, 	STAR_STATE, 	STAR_STATE, 		STAR_STATE, 	STAR_STATE, 		STAR_STATE, 		NONE_STATE, 					NONE_STATE, 						STAR_STATE, 				NONE_STATE}
-	};
-
-	return (automaton[x][y]);
-}
-
-int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_state, t_line *line, int *expansion)
+int	routine_next_state(char (*stack)[STACK_SIZE], int current_state,
+	int next_state, t_line *line, int *expansion)
 {
 	if (!is_ignored(current_state, next_state))
 		put_char_in_stack(stack, line->line[line->i]);
@@ -142,7 +71,8 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_st
 		);
 		quit_shell(EXIT_FAILURE, 0);
 	}
-	else if ((next_state == DOLLAR_STATE || next_state == TILDE_STATE) && current_state != DOLLAR_STATE)
+	else if ((next_state == DOLLAR_STATE || next_state == TILDE_STATE)
+		&& current_state != DOLLAR_STATE)
 	{
 		(*expansion) = TRUE;
 		return (next_state);
@@ -154,15 +84,6 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state, int next_st
 		return (START_STATE);
 	}
 	return (next_state);
-}
-
-int	constructor_line_struct(char *str, t_line **line)
-{
-	if (!(*line = ft_memalloc(sizeof(t_line))))
-		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	(*line)->line = str;
-	(*line)->i = -1;
-	return (TRUE);
 }
 
 /*
@@ -186,7 +107,7 @@ int lexer(char *line)
 		next_state = automaton_transition(
 						current_state, get_index_from_char(line_s));
 		current_state = routine_next_state(
-							&stack, current_state, next_state, line_s, &expansion);
+						&stack, current_state, next_state, line_s, &expansion);
 	}
 	if (if_take_the_last(current_state))
 		add_new_token(stack, next_state, current_state, expansion);

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:52:26 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:02:54 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/29 07:16:50 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int		a_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 	int		save_index;
 
 	save_index = (*tokens_list_struct)->index;
-	if (test_current_token(tokens_list_struct, AND_TYPE, tree)
-		&& a_rule(tokens_list_struct, tree)
-		&& a_prime_rule(tokens_list_struct, tree))
+	if (test_current_token(tokens_list_struct, OR_TYPE, tree)
+	&& a_rule(tokens_list_struct, tree)
+	&& a_prime_rule(tokens_list_struct, tree))
 	{
 		return (TRUE);
 	}
 	(*tokens_list_struct)->index = save_index;
-	if (test_current_token(tokens_list_struct, OR_TYPE, tree)
+	if (test_current_token(tokens_list_struct, AND_TYPE, tree)
 		&& a_rule(tokens_list_struct, tree)
 		&& a_prime_rule(tokens_list_struct, tree))
 	{

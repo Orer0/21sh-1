@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:31:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/29 06:26:08 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,7 @@ int				is_redirection(int type);
 int				is_aggregation(int type);
 int				is_operator(int type);
 int				type_cmp(int first, int second);
+char 	**get_cmd_tab(t_cmd_token *token);
+
 
 #endif

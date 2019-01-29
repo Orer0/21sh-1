@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_shell_data.c                                 :+:      :+:    :+:   */
+/*   unexpected_token_error.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 07:12:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 01:31:39 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/28 22:49:27 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/28 22:49:45 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
 #include "lexer.h"
-#include "st.h"
-#include "ast.h"
 
-void 	clean_parsing(void)
+void		unexpected_token_error(char *token)
 {
-	t_shell_data *data;
-
-	data = shell_data_singleton();
-	if (data->tokens_list)
-		delete_list_tokens(&data->tokens_list);
-	if (data->parse_tree)
-		delete_parsing_tree(&data->parse_tree);
-	if (data->ast)
-		delete_ast(&data->ast);
+	ft_printf("syntax error near unexpected token : \"%s\"\n", token);
+	quit_shell(EXIT_FAILURE, 0);
 }

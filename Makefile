@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/28 07:14:11 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/29 08:37:39 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,18 @@ LIBFT	=	./libft/
 ILIBFT	=	./$(LIBFT)includes/
 H		=	./includes/
 SRC		=	./src/
+ENV		=	$(SRC)environment/
+EXE		=	$(SRC)exec/
+MIN		=	$(SRC)minimal_shell/
 DEBUG	=	$(SRC)debug/
 PARS	=	$(SRC)parsing/
 LEX		=	$(PARS)lexer/
 ST		=	$(PARS)syntax_tree/
 AST		=	$(PARS)ast/
 TK		=	$(SRC)tokens/
+BT		=	$(SRC)builtins/
+CD		=	$(BT)cd/
+ENVBT	=	$(BT)env/
 
 #  Files
 
@@ -42,6 +48,7 @@ MAIN	=	$(SRC)main.c
 SRCS	=	$(MAIN)															\
 			$(PARS)parser.c													\
 			$(LEX)lexer.c													\
+			$(LEX)lexer_tools.c												\
 			$(LEX)replace_tilde.c											\
 			$(LEX)stack.c													\
 			$(LEX)is_acceptor.c												\
@@ -49,10 +56,14 @@ SRCS	=	$(MAIN)															\
 			$(LEX)get_index_from_char.c										\
 			$(LEX)get_dollar.c												\
 			$(LEX)build_command_token.c										\
+			$(LEX)build_command_token_tools.c								\
 			$(LEX)get_type_of_token.c										\
 			$(LEX)first_check_tokens_list.c									\
+			$(LEX)first_check_tokens_list_tools.c							\
 			$(LEX)delete_list_tokens.c										\
 			$(LEX)token_constructor.c										\
+			$(LEX)unexpected_token_error.c									\
+			$(LEX)automaton_transition.c									\
 			$(ST)syntax_tree.c												\
 			$(ST)delete_parsing_tree.c										\
 			$(ST)ft_ptree.c													\
@@ -68,9 +79,39 @@ SRCS	=	$(MAIN)															\
 			$(AST)procedures.c												\
 			$(TK)free_token.c												\
 			$(TK)tokens.c													\
+			$(TK)get_cmd_tab.c												\
+			$(ENV)get_env_var_by_name.c										\
+			$(ENV)env_lst_to_tab.c											\
+			$(ENV)env_tab_to_lst.c											\
+			$(ENV)change_env_var.c											\
+			$(ENV)remove_env_var.c											\
+			$(ENV)add_env_var.c												\
+			$(ENV)create_varenv.c											\
+			$(ENV)del_env_var.c												\
+			$(ENV)create_minimal_env.c										\
+			$(EXE)exec_command.c											\
+			$(EXE)get_path_of_bin.c											\
+			$(MIN)read_prompt.c												\
 			$(SRC)quit_shell.c												\
-			$(SRC)shell_data_singleton.c												\
-			$(SRC)clean_shell_data.c												\
+			$(SRC)shell_data_singleton.c									\
+			$(SRC)clean_shell_data.c										\
+			$(BT)exit_builtin.c												\
+			$(BT)setenv_builtin.c											\
+			$(BT)unsetenv_builtin.c											\
+			$(BT)echo_builtin.c												\
+			$(ENVBT)env_builtin.c											\
+			$(ENVBT)ft_lstcpy.c												\
+			$(ENVBT)manage_envvar_args.c									\
+			$(SRC)options.c													\
+			$(BT)manage_builtins.c											\
+			$(CD)get_final_path.c											\
+			$(CD)get_pwd_for_cd.c											\
+			$(CD)check_path_errors.c										\
+			$(CD)ft_stringtab_len.c											\
+			$(CD)ft_strjointab.c											\
+			$(CD)ft_realloc_addend_tab.c									\
+			$(CD)build_pwd_tab.c											\
+			$(CD)cd_builtin.c												\
 			$(DEBUG)debug.c
 
 OBJ		=	$(patsubst %.c,%.o,$(SRCS))

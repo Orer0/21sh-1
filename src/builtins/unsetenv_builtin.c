@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_shell_data.c                                 :+:      :+:    :+:   */
+/*   unsetenv_builtin.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 07:12:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 01:31:39 by ndubouil         ###   ########.fr       */
+/*   Created: 2018/12/18 21:07:14 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/29 08:13:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "lexer.h"
-#include "st.h"
-#include "ast.h"
 
-void 	clean_parsing(void)
+int		unsetenv_builtin(char **args)
 {
-	t_shell_data *data;
+	t_shell_data 	*data;
 
 	data = shell_data_singleton();
-	if (data->tokens_list)
-		delete_list_tokens(&data->tokens_list);
-	if (data->parse_tree)
-		delete_parsing_tree(&data->parse_tree);
-	if (data->ast)
-		delete_ast(&data->ast);
+	if (args[1])
+		remove_env_var(&data->env_lst, args[1]);
+	else
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

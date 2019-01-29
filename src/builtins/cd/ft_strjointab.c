@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_shell_data.c                                 :+:      :+:    :+:   */
+/*   ft_strjointab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 07:12:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 01:31:39 by ndubouil         ###   ########.fr       */
+/*   Created: 2018/12/16 19:39:34 by ndubouil          #+#    #+#             */
+/*   Updated: 2018/12/20 02:35:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "lexer.h"
-#include "st.h"
-#include "ast.h"
 
-void 	clean_parsing(void)
+char	*ft_strjointab(char **tab, char sep)
 {
-	t_shell_data *data;
+	int		i;
+	int		len;
+	char	*result;
+	char	sepp[2];
 
-	data = shell_data_singleton();
-	if (data->tokens_list)
-		delete_list_tokens(&data->tokens_list);
-	if (data->parse_tree)
-		delete_parsing_tree(&data->parse_tree);
-	if (data->ast)
-		delete_ast(&data->ast);
+	i = -1;
+	len = 0;
+	sepp[0] = sep;
+	sepp[1] = '\0';
+	if (tab == NULL || !tab[0])
+		return (ft_strdup(sepp));
+	while (tab[++i])
+		len += ft_strlen(tab[i]);
+	len += i;
+	if (!(result = ft_strnew(len)))
+		return (NULL);
+	i = -1;
+	while (tab[++i])
+	{
+		ft_strcat(result, sepp);
+		ft_strcat(result, tab[i]);
+	}
+	return (result);
 }

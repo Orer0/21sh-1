@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_shell_data.c                                 :+:      :+:    :+:   */
+/*   get_cmd_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 07:12:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 01:31:39 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/29 06:19:59 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/29 06:26:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "lexer.h"
-#include "st.h"
-#include "ast.h"
+#include "tokens.h"
 
-void 	clean_parsing(void)
+char 	**get_cmd_tab(t_cmd_token *token)
 {
-	t_shell_data *data;
+	char	**tab;
+	t_list	*tmp;
 
-	data = shell_data_singleton();
-	if (data->tokens_list)
-		delete_list_tokens(&data->tokens_list);
-	if (data->parse_tree)
-		delete_parsing_tree(&data->parse_tree);
-	if (data->ast)
-		delete_ast(&data->ast);
+	if (!(tab = ft_memalloc(sizeof(char *) * 2)))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	tab[0] = ft_strdup(token->token);
+	tab[1] = NULL;
+	tmp = token->args;
+	while (tmp)
+	{
+		ft_strtab_addend(&tab, get_token_token(tmp->content));
+		tmp = tmp->next;
+	}
+	return (tab);
 }

@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_shell_data.c                                 :+:      :+:    :+:   */
+/*   setenv_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 07:12:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 01:31:39 by ndubouil         ###   ########.fr       */
+/*   Created: 2018/12/18 21:03:19 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/29 08:13:09 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include "lexer.h"
-#include "st.h"
-#include "ast.h"
 
-void 	clean_parsing(void)
+int		setenv_builtin(char **args)
 {
-	t_shell_data *data;
+	int		i;
+	t_shell_data 	*data;
 
 	data = shell_data_singleton();
-	if (data->tokens_list)
-		delete_list_tokens(&data->tokens_list);
-	if (data->parse_tree)
-		delete_parsing_tree(&data->parse_tree);
-	if (data->ast)
-		delete_ast(&data->ast);
+	if (args[1])
+		change_env_var(&data->env_lst, args[1], args[2]);
+	else
+	{
+		i = -1;
+		while (data->env_tab[++i])
+			ft_printf("%s\n", data->env_tab[i]);
+	}
+	return (EXIT_SUCCESS);
 }

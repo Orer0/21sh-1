@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_shell_data.c                                 :+:      :+:    :+:   */
+/*   build_command_token_tools.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 07:12:43 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 01:31:39 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/28 22:47:18 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/28 22:47:44 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
 #include "lexer.h"
-#include "st.h"
-#include "ast.h"
 
-void 	clean_parsing(void)
+void		put_arg_in_cmd_list(t_list **lst, t_list **args_list)
 {
-	t_shell_data *data;
+	t_list	*next;
+	t_list	*cpy;
 
-	data = shell_data_singleton();
-	if (data->tokens_list)
-		delete_list_tokens(&data->tokens_list);
-	if (data->parse_tree)
-		delete_parsing_tree(&data->parse_tree);
-	if (data->ast)
-		delete_ast(&data->ast);
+	next = (*lst)->next;
+	if  ((*lst)->prev)
+	 (*lst)->prev->next = (*lst)->next;
+	if ((*lst)->next)
+	 (*lst)->next->prev = (*lst)->prev;
+	cpy = (*lst);
+	cpy->next = NULL;
+	if (!(*args_list))
+		*args_list = cpy;
+	else
+		ft_lstaddend(args_list, cpy);
+ 	(*lst) = next;
 }

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:55:46 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:34:50 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/28 22:48:02 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,6 @@ static void		replace_content(t_list *lst)
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	ft_memcpy(lst->content, &token, sizeof(t_cmd_token));
 	lst->content_size = sizeof(t_cmd_token);
-}
-
-static void		put_arg_in_cmd_list(t_list **lst, t_list **args_list)
-{
-	t_list	*next;
-	t_list	*cpy;
-
-	next = (*lst)->next;
-	if  ((*lst)->prev)
-	 (*lst)->prev->next = (*lst)->next;
-	if ((*lst)->next)
-	 (*lst)->next->prev = (*lst)->prev;
-	cpy = (*lst);
-	cpy->next = NULL;
-	if (!(*args_list))
-		*args_list = cpy;
-	else
-		ft_lstaddend(args_list, cpy);
- 	(*lst) = next;
 }
 
 static void		manage_commands(t_list *lst)

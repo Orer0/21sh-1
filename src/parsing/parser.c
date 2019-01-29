@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 07:38:59 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/29 04:48:35 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 **	Fin DEBUG
 */
 
+/*
+**	Prends une ligne et genere l'ast pour remplir la structure shell_data
+*/
+
 int		shell_parser(char *line)
 {
 	t_shell_data *data;
@@ -42,7 +46,7 @@ int		shell_parser(char *line)
 	// ft_print_tokens();
 	build_command_token();
 	// ft_printf("\n\n APRES BUILD COMMAND \n\n");
-	// ft_print_tokens();
+	ft_print_tokens();
 	// Arbre de syntaxe
 	syntax_tree(&data->tokens_list, &data->parse_tree);
 	ft_printf("\n\n");
@@ -56,8 +60,7 @@ int		shell_parser(char *line)
 	ft_print_ast(data->ast);
 	ft_printf("\n\n");
 	// Delete all
-	delete_ast(&data->ast);
-
+	// delete_ast(&data->ast);
 
 	return (TRUE);
 }

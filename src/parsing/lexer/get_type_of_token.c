@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:01:53 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 05:23:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/28 22:54:30 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static int			get_type_of_token_2(int next_state, int last_state)
 
 int			get_type_of_token(int next_state, int last_state)
 {
-	// if (last_state == EQUAL_STATE || next_state == EQUAL_STATE)
-	// 	return (VAR_TYPE);
 	if (last_state == NUMBER_STATE || next_state == NUMBER_STATE)
 		return (NUMBER_TYPE);
 	else if (last_state == CHAR_STATE || next_state == CHAR_STATE
