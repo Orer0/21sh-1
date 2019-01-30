@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:09:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 06:13:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/30 04:29:40 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static char		*search_path(char ***env_paths, char *path)
 	{
 		cmp_path = get_complete_path((*env_paths)[i], path);
 		if (access(cmp_path, F_OK) == 0)
-			return (check_file_exist_in_path(&st, &cmp_path, env_paths, path));
+			return(check_file_exist_in_path(&st, &cmp_path, env_paths, path));
 		else
 		{
 			if (!(*env_paths)[i + 1])
@@ -132,6 +132,7 @@ char			*get_path_of_bin(char *path)
 	char		**env_paths;
 	struct stat	st;
 	char		*result;
+	char		*new_path;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
@@ -141,7 +142,7 @@ char			*get_path_of_bin(char *path)
 		if (access(path, X_OK) == 0)
 		{
 			if (S_ISREG(st.st_mode) && (path[0] == '.' || path[0] == '/'))
-				return (path);
+				return (ft_strdup(path));
 		}
 		else
 			return (perm_denied(path));
@@ -149,7 +150,9 @@ char			*get_path_of_bin(char *path)
 	env_paths = get_env_paths(data->env_lst);
 	if (!env_paths)
 		return (cmd_not_found(path));
-	result = search_path(&env_paths, path);
+	new_path = search_path(&env_paths, path);
+	result = ft_strdup(new_path);
+	ft_strdel(&new_path);
 	ft_strtab_del(&env_paths);
 	return (result);
 }

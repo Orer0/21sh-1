@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 02:21:06 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 06:30:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/30 04:25:48 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int				exec_command(char **command, char **env)
 		waitpid(data->pid, &status, 0);
 		data->last_status = status;
 	}
-	if (command[0][0] != '/')
-		ft_strdel(&final_path);
+	ft_strdel(&final_path);
 	return (TRUE);
 }

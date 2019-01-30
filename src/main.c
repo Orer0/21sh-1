@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 08:38:24 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/30 04:02:41 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,36 @@ static int		set_options(char *ops, int *options, int pos)
 }
 
 
-void 	exec_ast(t_btree *tree)
+void 	exec_ast(t_btree *tree, int exec_next)
 {
 	char	**tab;
 	t_shell_data	*data;
+	int			exec;
 
 	data = shell_data_singleton();
 	if (tree == NULL)
 		return ;
-	if (tree->left != NULL)
-		exec_ast(tree->left);
+	exec = TRUE;
+	ft_printf("noeud [%s], exec next [%d]\n", get_token_token(tree->data), exec_next);
+	if (exec_next)
+		if (tree->left != NULL)
+			exec_ast(tree->left, exec);
 	// &&
 	if (get_type_token(tree->data) == AND_TYPE)
 	{
 		// if (tree->left != NULL)
 		// 	exec_ast(tree->left);
-		if (WEXITSTATUS(data->last_status) == EXIT_SUCCESS)
-		{
-			if (tree->right != NULL)
-				exec_ast(tree->right);
-		}
+		if (WEXITSTATUS(data->last_status) != EXIT_SUCCESS)
+			exec = FALSE;
 	}
 	// ||
 	else if (get_type_token(tree->data) == OR_TYPE)
 	{
-		// if (tree->left != NULL)
-		// 	exec_ast(tree->left);
-		if (WEXITSTATUS(data->last_status) == EXIT_FAILURE)
-		{
-			if (tree->right != NULL)
-				exec_ast(tree->right);
-		}
+		if (WEXITSTATUS(data->last_status) == EXIT_SUCCESS)
+			exec = FALSE;
 	}
 	// COMMANDE
-	else if (get_type_token(tree->data) == CMD_TYPE)
+	else if (get_type_token(tree->data) == CMD_TYPE && exec_next)
 	{
 		tab = get_cmd_tab((*((t_cmd_token **)(tree->data))));
 		if (!manage_builtins(tab))
@@ -71,13 +67,8 @@ void 	exec_ast(t_btree *tree)
 		// ft_printf("retour de la cmd [%d]\n", WEXITSTATUS(data->last_status));
 		ft_strtab_del(&tab);
 	}
-	else
-	{
-		// if (tree->left != NULL)
-		// 	exec_ast(tree->left);
-		if (tree->right != NULL)
-			exec_ast(tree->right);
-	}
+	if (tree->right != NULL)
+		exec_ast(tree->right, exec);
 }
 
 void 	ft_minimal_shell(void)
@@ -94,7 +85,7 @@ void 	ft_minimal_shell(void)
 			quit_shell(EXIT_FAILURE, 0);
 		shell_parser(line);
 		// Executer
-		exec_ast(data->ast);
+		exec_ast(data->ast, 1);
 		ft_strdel(&line);
 	}
 }
