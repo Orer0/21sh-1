@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsetenv_builtin.c                                 :+:      :+:    :+:   */
+/*   get_var_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/18 21:07:14 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 08:13:42 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/01/31 04:32:56 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+#include "tokens.h"
 
-int		unsetenv_builtin(char **args)
+char 	**get_var_tab(t_var_token *token)
 {
-	t_shell_data 	*data;
+	char	**tab;
+	t_list	*tmp;
 
-	data = shell_data_singleton();
-	if (args[1])
-		remove_env_var(&data->env_lst, args[1]);
-	else
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	if (!(tab = ft_memalloc(sizeof(char *) * 2)))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	tab[0] = ft_strdup(token->token);
+	tab[1] = NULL;
+	tmp = token->var_lst;
+	while (tmp)
+	{
+		ft_strtab_addend(&tab, get_token_token(tmp->content));
+		tmp = tmp->next;
+	}
+	return (tab);
 }

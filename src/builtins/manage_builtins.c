@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 20:58:16 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 08:00:37 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 04:38:25 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,19 @@ int					manage_builtins(char **command)
 		data->last_status = cd_builtin(command);
 		reset_env_tab();
 	}
-	else if (ft_strequ(command[0], "env"))
-		data->last_status = env_builtin(command);
-	else if (ft_strequ(command[0], "setenv"))
+	else if (ft_strequ(command[0], "set"))
 	{
-		data->last_status = setenv_builtin(command);
+		data->last_status = set_builtin(&command[1]);
 		reset_env_tab();
 	}
-	else if (ft_strequ(command[0], "unsetenv"))
+	else if (ft_strequ(command[0], "export"))
 	{
-		data->last_status = unsetenv_builtin(command);
+		data->last_status = export_builtin(&command[1]);
+		reset_env_tab();
+	}
+	else if (ft_strequ(command[0], "unset"))
+	{
+		data->last_status = unset_builtin(&command[1]);
 		reset_env_tab();
 	}
 	else if (ft_strequ(command[0], "echo"))

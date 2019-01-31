@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/30 03:40:34 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/31 04:29:09 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ AST		=	$(PARS)ast/
 TK		=	$(SRC)tokens/
 BT		=	$(SRC)builtins/
 CD		=	$(BT)cd/
-ENVBT	=	$(BT)env/
 
 #  Files
 
@@ -80,6 +79,7 @@ SRCS	=	$(MAIN)															\
 			$(TK)free_token.c												\
 			$(TK)tokens.c													\
 			$(TK)get_cmd_tab.c												\
+			$(TK)get_var_tab.c												\
 			$(ENV)get_env_var_by_name.c										\
 			$(ENV)env_lst_to_tab.c											\
 			$(ENV)env_tab_to_lst.c											\
@@ -96,12 +96,10 @@ SRCS	=	$(MAIN)															\
 			$(SRC)shell_data_singleton.c									\
 			$(SRC)clean_shell_data.c										\
 			$(BT)exit_builtin.c												\
-			$(BT)setenv_builtin.c											\
-			$(BT)unsetenv_builtin.c											\
+			$(BT)set_builtin.c												\
+			$(BT)export_builtin.c											\
+			$(BT)unset_builtin.c											\
 			$(BT)echo_builtin.c												\
-			$(ENVBT)env_builtin.c											\
-			$(ENVBT)ft_lstcpy.c												\
-			$(ENVBT)manage_envvar_args.c									\
 			$(SRC)options.c													\
 			$(BT)manage_builtins.c											\
 			$(CD)get_final_path.c											\

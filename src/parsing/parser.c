@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 04:48:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 01:34:18 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int		shell_parser(char *line)
 	ft_printf("chaine recu : %s\n", line);
 	// Lexer call
 	lexer(line);
-	// ft_printf("\n\n APRES LE LEXER \n\n");
-	// ft_print_tokens();
+	ft_printf("\n\n APRES LE LEXER \n\n");
+	ft_print_tokens();
 	first_check_tokens_list(data->tokens_list);
-	// ft_printf("\n\n APRES FIRST CHECK \n\n");
-	// ft_print_tokens();
+	ft_printf("\n\n APRES FIRST CHECK \n\n");
+	ft_print_tokens();
 	build_command_token();
-	// ft_printf("\n\n APRES BUILD COMMAND \n\n");
+	ft_printf("\n\n APRES BUILD COMMAND \n\n");
 	ft_print_tokens();
 	// Arbre de syntaxe
 	syntax_tree(&data->tokens_list, &data->parse_tree);

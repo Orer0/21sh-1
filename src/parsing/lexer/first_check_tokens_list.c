@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 22:53:12 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 01:40:56 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static void		manage_type(t_list **tmp, int *end_vars)
 	}
 	else if (type_cmp(get_type_token((*tmp)->content), NUMBER_TYPE))
 		set_type_token((*tmp)->content, WORD_TYPE);
+	else
+		*end_vars = TRUE;
 }
 
 void 	first_check_tokens_list(t_list *lst)

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/30 04:02:41 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 04:40:56 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void 	exec_ast(t_btree *tree, int exec_next)
 	// &&
 	if (get_type_token(tree->data) == AND_TYPE)
 	{
-		// if (tree->left != NULL)
-		// 	exec_ast(tree->left);
 		if (WEXITSTATUS(data->last_status) != EXIT_SUCCESS)
 			exec = FALSE;
 	}
@@ -64,7 +62,13 @@ void 	exec_ast(t_btree *tree, int exec_next)
 		tab = get_cmd_tab((*((t_cmd_token **)(tree->data))));
 		if (!manage_builtins(tab))
 		exec_command(tab, data->env_tab);
-		// ft_printf("retour de la cmd [%d]\n", WEXITSTATUS(data->last_status));
+		ft_strtab_del(&tab);
+	}
+	// VARIABLES
+	else if (get_type_token(tree->data) == VAR_TYPE && exec_next)
+	{
+		tab = get_var_tab((*((t_var_token **)(tree->data))));
+		set_builtin(tab);
 		ft_strtab_del(&tab);
 	}
 	if (tree->right != NULL)
