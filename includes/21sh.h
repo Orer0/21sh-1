@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 01:59:20 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:18:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ enum	e_err
 	MALLOC_ERR = -999,
 };
 
+t_list		*ft_lstcpy(t_list *src, t_list **dest);
+
 
 /*
 ** PARSER functions
 */
 
-int		shell_parser(char *line);
+int		shell_parser(char **line);
 
 /*
 **	Environement

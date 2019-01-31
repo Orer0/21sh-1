@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/31 04:29:09 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/31 18:13:02 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
-CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
 
 # Directories
 
@@ -80,6 +80,7 @@ SRCS	=	$(MAIN)															\
 			$(TK)tokens.c													\
 			$(TK)get_cmd_tab.c												\
 			$(TK)get_var_tab.c												\
+			$(TK)get_var_tab_for_unset.c									\
 			$(ENV)get_env_var_by_name.c										\
 			$(ENV)env_lst_to_tab.c											\
 			$(ENV)env_tab_to_lst.c											\
@@ -101,6 +102,7 @@ SRCS	=	$(MAIN)															\
 			$(BT)unset_builtin.c											\
 			$(BT)echo_builtin.c												\
 			$(SRC)options.c													\
+			$(SRC)ft_lstcpy.c												\
 			$(BT)manage_builtins.c											\
 			$(CD)get_final_path.c											\
 			$(CD)get_pwd_for_cd.c											\

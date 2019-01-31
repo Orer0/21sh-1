@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 04:40:56 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:20:22 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void 	exec_ast(t_btree *tree, int exec_next)
 {
 	char	**tab;
 	t_shell_data	*data;
+	t_list	*old_intern_env;
+	t_list	*tmp_intern_env;
 	int			exec;
 
 	data = shell_data_singleton();
@@ -59,10 +61,27 @@ void 	exec_ast(t_btree *tree, int exec_next)
 	// COMMANDE
 	else if (get_type_token(tree->data) == CMD_TYPE && exec_next)
 	{
+		if (get_var_token_in_cmd_token(tree->data))
+		{
+			old_intern_env = data->intern_env_lst;
+			tmp_intern_env = ft_lstcpy(data->intern_env_lst, &tmp_intern_env);
+			data->intern_env_lst = tmp_intern_env;
+			tab = get_var_tab(get_var_token_in_cmd_token(tree->data));
+			set_builtin(tab);
+			ft_strtab_del(&tab);
+		}
 		tab = get_cmd_tab((*((t_cmd_token **)(tree->data))));
 		if (!manage_builtins(tab))
-		exec_command(tab, data->env_tab);
+			exec_command(tab, data->env_tab);
 		ft_strtab_del(&tab);
+		if (get_var_token_in_cmd_token(tree->data))
+		{
+			ft_lstdel(&data->intern_env_lst, del_env_var);
+			data->intern_env_lst = old_intern_env;
+			// tab = get_var_tab_for_unset(get_var_token_in_cmd_token(tree->data));
+			// unset_builtin(tab);
+			// ft_strtab_del(&tab);
+		}
 	}
 	// VARIABLES
 	else if (get_type_token(tree->data) == VAR_TYPE && exec_next)
@@ -87,18 +106,18 @@ void 	ft_minimal_shell(void)
 		ft_printf("%s", PROMPT);
 		if (!read_prompt(0, &line) || line[0] == -1)
 			quit_shell(EXIT_FAILURE, 0);
-		shell_parser(line);
+		shell_parser(&line);
 		// Executer
 		exec_ast(data->ast, 1);
-		ft_strdel(&line);
+		// ft_strdel(&line);
 	}
 }
 
 void	ft_shell(void)
 {
-	t_shell_data	*data;
+	// t_shell_data	*data;
 
-	data = shell_data_singleton();
+	// data = shell_data_singleton();
 	// if (data->shell)
 	// 	ft_printf("J'attends readline !\n");
 	// else
@@ -139,6 +158,7 @@ int		main(int ac, char **av, char **environ)
 {
 	t_shell_data	*data;
 	int				pos_args;
+	char			*line;
 
 	(void)ac;
 	pos_args = 0;
@@ -149,7 +169,10 @@ int		main(int ac, char **av, char **environ)
 	if ((data->options & OPT_C))
 	{
 		if (pos_args > 1)
-			shell_parser(av[pos_args]);
+		{
+			line = ft_strdup(av[pos_args]);
+			shell_parser(&line);
+		}
 		// executer la commande
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 01:34:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:18:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 **	Prends une ligne et genere l'ast pour remplir la structure shell_data
 */
 
-int		shell_parser(char *line)
+int		shell_parser(char **line)
 {
 	t_shell_data *data;
 
@@ -38,7 +38,7 @@ int		shell_parser(char *line)
 	// Print chaine recu
 	ft_printf("chaine recu : %s\n", line);
 	// Lexer call
-	lexer(line);
+	lexer(*line);
 	ft_printf("\n\n APRES LE LEXER \n\n");
 	ft_print_tokens();
 	first_check_tokens_list(data->tokens_list);
@@ -55,6 +55,10 @@ int		shell_parser(char *line)
 	// AST
 	data->ast = get_ast(&data->parse_tree);
 	delete_parsing_tree(&data->parse_tree);
+
+	// Del la line
+	ft_strdel(line);
+
 	// Print AST
 	ft_printf("\n\n");
 	ft_print_ast(data->ast);
