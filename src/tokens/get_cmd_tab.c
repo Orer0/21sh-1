@@ -6,12 +6,17 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 06:19:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 06:26:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 05:48:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "tokens.h"
+
+// void	manage_expansion(t_token **token)
+// {
+// 	if (get_expansion_token(token))
+// }
 
 char 	**get_cmd_tab(t_cmd_token *token)
 {

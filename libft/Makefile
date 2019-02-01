@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/13 09:16:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/26 05:21:48 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/01/31 21:51:23 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,6 @@ SRC		=	ft_putchar.c			\
 	  	ft_lsti.c					\
 	  	ft_lli_itoa_base.c			\
 	  	ft_ulli_itoa_base.c			\
-	  	get_next_line.c				\
 		ft_itoa_base.c				\
 		ft_count.c					\
 		ft_strtab_del.c				\
@@ -128,7 +127,6 @@ SRC		=	ft_putchar.c			\
 OBJ		=	$(patsubst %.c,%.o,$(SRC))
 
 HFILES	=	$(H)/libft.h			\
-			$(H)/get_next_line.h	\
 			$(H)/libftprintf.h		\
 			$(H)/btree.h
 

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 18:20:22 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 01:29:10 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ void 	exec_ast(t_btree *tree, int exec_next)
 		{
 			ft_lstdel(&data->intern_env_lst, del_env_var);
 			data->intern_env_lst = old_intern_env;
-			// tab = get_var_tab_for_unset(get_var_token_in_cmd_token(tree->data));
-			// unset_builtin(tab);
-			// ft_strtab_del(&tab);
 		}
 	}
 	// VARIABLES
@@ -139,7 +136,6 @@ void 	init_shell(char **environ)
 	if (!env_tab_to_lst(&data->env_lst, environ))
 		create_minimal_env();
 	term = get_env_var_by_name(&data->env_lst, "TERM");
-	ft_printf("tty = %s, TERM = %s\n", ttyname(0), term->content);
 	if (term || !isatty(0))
 		data->shell = term->content;
 	if (!(envshlvl = get_env_var_by_name(&data->env_lst, "SHLVL")))

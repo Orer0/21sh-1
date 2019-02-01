@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 22:59:51 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 01:38:01 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int				constructor_line_struct(char *str, t_line **line);
 void 			first_check_tokens_list(t_list *lst);
 void 			build_command_token(void);
 void 			delete_list_tokens(t_list **lst);
-int				replace_tilde(char **str);
 void			put_str_in_stack(char (*stack)[STACK_SIZE], char *str);
 void			put_char_in_stack(char (*stack)[STACK_SIZE], char c);
 int				is_acceptor(int state);

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 20:49:11 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/20 21:33:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 01:40:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ int				replace_tilde(char **str)
 	if (s > 1 && !ft_strequ("~/", (*str)))
 		home = get_home_of_user(&(*str)[1]);
 	else
+	{
 		home = getenv("HOME");
+		if (!home)
+			home = get_home_of_user(getenv("USER"));
+	}
 	if (home)
 	{
 		if ((*str)[s - 1] == '/')

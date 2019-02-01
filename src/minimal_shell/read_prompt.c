@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:42:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 02:41:41 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/01/31 22:32:06 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				read_prompt(const int fd, char **line)
 	int			n_lus;
 	char		*tmp;
 
-	if (BUFF_SIZE <= 0 || (n_lus = read(fd, "", 0)) == -1)
+	if ((n_lus = read(fd, "", 0)) == -1)
 		return (-1);
 	if (!(buff = ft_strnew(1)))
 		return (-1);

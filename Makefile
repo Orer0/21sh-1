@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/31 18:13:02 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/01 01:37:43 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ SRCS	=	$(MAIN)															\
 			$(PARS)parser.c													\
 			$(LEX)lexer.c													\
 			$(LEX)lexer_tools.c												\
-			$(LEX)replace_tilde.c											\
 			$(LEX)stack.c													\
 			$(LEX)is_acceptor.c												\
 			$(LEX)is_ignored.c												\
@@ -80,6 +79,7 @@ SRCS	=	$(MAIN)															\
 			$(TK)tokens.c													\
 			$(TK)get_cmd_tab.c												\
 			$(TK)get_var_tab.c												\
+			$(TK)replace_tilde.c											\
 			$(TK)get_var_tab_for_unset.c									\
 			$(ENV)get_env_var_by_name.c										\
 			$(ENV)env_lst_to_tab.c											\
