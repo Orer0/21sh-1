@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static int		dispatch(t_env *env)
+static int		dispatch(t_envp *env)
 {
 	if ((env->flags.type == 'c' && env->flags.size == L) ||
 			env->flags.type == 'C')
@@ -41,7 +41,7 @@ static int		dispatch(t_env *env)
 		return (FALSE);
 }
 
-int				printer(t_env *env)
+int				printer(t_envp *env)
 {
 	int		ret;
 

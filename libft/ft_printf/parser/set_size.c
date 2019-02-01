@@ -19,7 +19,7 @@
 ** Return TRUE when finished or FALSE if no flags found
 */
 
-int		set_size(char *str, t_env *env)
+int		set_size(char *str, t_envp *env)
 {
 	if (!is_valid_sizeflag(str[env->pos]))
 		return (FALSE);

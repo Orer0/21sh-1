@@ -6,12 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 01:29:10 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 22:22:35 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include <errno.h>
 
 static int		set_options(char *ops, int *options, int pos)
 {
@@ -156,6 +155,7 @@ int		main(int ac, char **av, char **environ)
 	int				pos_args;
 	char			*line;
 
+	ft_fd_printf(2, "coucou %s\n", "tout le monde");
 	(void)ac;
 	pos_args = 0;
 	data = shell_data_singleton();

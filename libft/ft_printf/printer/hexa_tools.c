@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-void			print_prefix(t_env *env)
+void			print_prefix(t_envp *env)
 {
 	if (env->flags.hash && (ft_strcmp("0", env->types.str) != 0 ||
 			env->flags.precision > 1))
@@ -26,7 +26,7 @@ void			print_prefix(t_env *env)
 	}
 }
 
-static int		calc_limit(t_env *env, int len)
+static int		calc_limit(t_envp *env, int len)
 {
 	int				limit;
 
@@ -41,7 +41,7 @@ static int		calc_limit(t_env *env, int len)
 	return (limit);
 }
 
-int				print_width_right_hexa(t_env *env, int len, char c)
+int				print_width_right_hexa(t_envp *env, int len, char c)
 {
 	int				i;
 	int				limit;
@@ -66,7 +66,7 @@ int				print_width_right_hexa(t_env *env, int len, char c)
 	return (TRUE);
 }
 
-int				print_width_left_hexa(t_env *env, int len, char c)
+int				print_width_left_hexa(t_envp *env, int len, char c)
 {
 	int				i;
 	int				limit;

@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static int		print_width(t_env *env, int len)
+static int		print_width(t_envp *env, int len)
 {
 	int				i;
 	int				final_preci;
@@ -40,7 +40,7 @@ static int		print_width(t_env *env, int len)
 	return (TRUE);
 }
 
-static int		precision_pos(t_env *env, int len)
+static int		precision_pos(t_envp *env, int len)
 {
 	int			i;
 	int			big_len;
@@ -66,7 +66,7 @@ static int		precision_pos(t_env *env, int len)
 	return (TRUE);
 }
 
-static int		print_string_with_precision(t_env *env, int len)
+static int		print_string_with_precision(t_envp *env, int len)
 {
 	int				i;
 	char			result[5];
@@ -96,7 +96,7 @@ static int		print_string_with_precision(t_env *env, int len)
 ** Printer for flag 'S'
 */
 
-int				print_big_string(t_env *env)
+int				print_big_string(t_envp *env)
 {
 	wchar_t				nullwstr[7];
 	int					len;

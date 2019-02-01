@@ -20,7 +20,7 @@
 ** Return TRUE when finished
 */
 
-int		set_flags(char *str, t_env *env)
+int		set_flags(char *str, t_envp *env)
 {
 	if (!is_valid_flags(str[env->pos]))
 		return (TRUE);

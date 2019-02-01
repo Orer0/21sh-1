@@ -51,7 +51,7 @@ void		fourth_case(int c, char result[5])
 		result[1] = '\0';
 }
 
-void		dispatch_size(t_env *env, int c, int len, char result[5])
+void		dispatch_size(t_envp *env, int c, int len, char result[5])
 {
 	if (len == 1)
 	{
@@ -75,7 +75,7 @@ void		dispatch_size(t_env *env, int c, int len, char result[5])
 **	Take the env structure for manage the error
 */
 
-int			get_big_char(t_env *env, int c, char result[5])
+int			get_big_char(t_envp *env, int c, char result[5])
 {
 	int		len;
 

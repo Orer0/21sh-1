@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 18:18:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 22:21:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		shell_parser(char **line)
 
 	data = shell_data_singleton();
 	// Print chaine recu
-	ft_printf("chaine recu : %s\n", line);
+	ft_printf("chaine recu : %s\n", *line);
 	// Lexer call
 	lexer(*line);
 	ft_printf("\n\n APRES LE LEXER \n\n");

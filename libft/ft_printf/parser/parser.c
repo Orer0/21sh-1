@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		parser(char *str, t_env *env)
+int		parser(char *str, t_envp *env)
 {
 	init_flags(env);
 	set_flags(str, env);

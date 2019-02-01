@@ -19,7 +19,7 @@
 ** Return TRUE when finished
 */
 
-int		set_width(char *str, t_env *env)
+int		set_width(char *str, t_envp *env)
 {
 	long long int		i;
 

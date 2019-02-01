@@ -16,7 +16,7 @@
 ** Printer for flag 'c'
 */
 
-int		print_char(t_env *env)
+int		print_char(t_envp *env)
 {
 	long long int		i;
 

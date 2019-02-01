@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		print_percent(t_env *env)
+int		print_percent(t_envp *env)
 {
 	long long int		i;
 

@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static void		print_width(t_env *env, int len)
+static void		print_width(t_envp *env, int len)
 {
 	int				i;
 
@@ -25,7 +25,7 @@ static void		print_width(t_env *env, int len)
 			env->len += putchar_in_buffer(&env->buff, ' ');
 }
 
-static void		print_string_with_precision(t_env *env, int len)
+static void		print_string_with_precision(t_envp *env, int len)
 {
 	int				i;
 
@@ -43,7 +43,7 @@ static void		print_string_with_precision(t_env *env, int len)
 ** Printer for flag 's'
 */
 
-int				print_string(t_env *env)
+int				print_string(t_envp *env)
 {
 	char			nullstr[7];
 	int				len;

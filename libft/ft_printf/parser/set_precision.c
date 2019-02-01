@@ -19,7 +19,7 @@
 ** Return TRUE when finished or FALSE if no precision found
 */
 
-int		set_precision(char *str, t_env *env)
+int		set_precision(char *str, t_envp *env)
 {
 	int		i;
 

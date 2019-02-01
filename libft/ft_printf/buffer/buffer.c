@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 15:06:12 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 08:51:25 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 22:20:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			putchar_in_buffer(t_buffer *buff, char c)
 
 void		print_buffer(t_buffer *buff)
 {
-	write(1, buff->buff, buff->len);
+	write(buff->fd, buff->buff, buff->len);
 	ft_strclr(buff->buff);
 	buff->len = 0;
 	buff->pos_last_conv = 0;

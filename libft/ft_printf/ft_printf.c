@@ -6,13 +6,13 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 09:38:44 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 08:58:29 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 22:13:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		check_string(t_env *env, char *string)
+int		check_string(t_envp *env, char *string)
 {
 	int		ret;
 
@@ -39,9 +39,9 @@ int		check_string(t_env *env, char *string)
 	return (TRUE);
 }
 
-int		ft_printf(const char *str, ...)
+int		ft_fd_printf(int fd, const char *str, ...)
 {
-	t_env		env;
+	t_envp		env;
 	char		*string;
 	int			ret;
 
@@ -50,6 +50,32 @@ int		ft_printf(const char *str, ...)
 	env.pos = 0;
 	env.len = 0;
 	env.buff.len = 0;
+	env.buff.fd = fd;
+	ft_bzero(env.buff.buff, BUFFER_SIZE);
+	env.buff.pos_last_conv = 0;
+	ret = check_string(&env, string);
+	if (ret == FAIL)
+		return (-1);
+	else if (ret == MALLOC_FAIL)
+		return (MALLOC_FAIL);
+	va_end(env.va);
+	print_buffer(&env.buff);
+	return (env.len);
+}
+
+int		ft_printf(const char *str, ...)
+{
+
+	t_envp		env;
+	char		*string;
+	int			ret;
+
+	va_start(env.va, str);
+	string = (char *)str;
+	env.pos = 0;
+	env.len = 0;
+	env.buff.len = 0;
+	env.buff.fd = 1;
 	ft_bzero(env.buff.buff, BUFFER_SIZE);
 	env.buff.pos_last_conv = 0;
 	ret = check_string(&env, string);

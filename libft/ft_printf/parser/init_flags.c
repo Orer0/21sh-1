@@ -26,7 +26,7 @@
 **		Size l ll h hh j z none : false
 */
 
-void	init_flags(t_env *env)
+void	init_flags(t_envp *env)
 {
 	env->flags.align = RIGHT;
 	env->flags.sign = FALSE;

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:08:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2018/12/22 23:10:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 22:13:37 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # endif
 
 /*
-** MACROS for struct t_env
+** MACROS for struct t_envp
 */
 
 # define FALSE			0
@@ -96,6 +96,7 @@ typedef struct					s_flags
 
 typedef	struct					s_buffer
 {
+	int							fd;
 	int							len;
 	int							pos_last_conv;
 	char						buff[BUFFER_SIZE];
@@ -105,7 +106,7 @@ typedef	struct					s_buffer
 **	Environnement structure
 */
 
-typedef struct					s_env
+typedef struct					s_envp
 {
 	t_types						types;
 	t_buffer					buff;
@@ -113,54 +114,54 @@ typedef struct					s_env
 	int							pos;
 	va_list						va;
 	t_flags						flags;
-}								t_env;
+}								t_envp;
 
 /*
 ** Parsing (parser/...)
 */
 
-int								parser(char *str, t_env *env);
+int								parser(char *str, t_envp *env);
 int								is_valid_flags(char c);
 int								is_valid_sizeflag(char c);
 int								is_valid_type(char c);
-void							init_flags(t_env *env);
-int								set_flags(char *str, t_env *env);
-int								set_size(char *str, t_env *env);
-int								set_type(char *str, t_env *env);
-int								set_width(char *str, t_env *env);
-int								set_precision(char *str, t_env *env);
+void							init_flags(t_envp *env);
+int								set_flags(char *str, t_envp *env);
+int								set_size(char *str, t_envp *env);
+int								set_type(char *str, t_envp *env);
+int								set_width(char *str, t_envp *env);
+int								set_precision(char *str, t_envp *env);
 
 /*
 ** Printing (printer/...)
 */
 
-int								printer(t_env *env);
-int								print_char(t_env *env);
-int								print_big_char(t_env *env);
-int								print_string(t_env *env);
-int								print_big_string(t_env *env);
-int								print_address(t_env *env);
-int								print_percent(t_env *env);
-int								print_number(t_env *env);
-int								print_unsigned_number(t_env *env);
-int								print_octal(t_env *env);
-int								print_hexa(t_env *env);
+int								printer(t_envp *env);
+int								print_char(t_envp *env);
+int								print_big_char(t_envp *env);
+int								print_string(t_envp *env);
+int								print_big_string(t_envp *env);
+int								print_address(t_envp *env);
+int								print_percent(t_envp *env);
+int								print_number(t_envp *env);
+int								print_unsigned_number(t_envp *env);
+int								print_octal(t_envp *env);
+int								print_hexa(t_envp *env);
 
 /*
 **	Tools for hexa printer (printer/hexa_tools.c)
 */
 
-int								print_width_right_hexa(t_env *env, int len,
+int								print_width_right_hexa(t_envp *env, int len,
 									char c);
-int								print_width_left_hexa(t_env *env, int len,
+int								print_width_left_hexa(t_envp *env, int len,
 									char c);
-void							print_prefix(t_env *env);
+void							print_prefix(t_envp *env);
 
 /*
 **	Tools for unicode (printer/unicode_tools/..)
 */
 
-int								get_big_char(t_env *env, int c, char result[5]);
+int								get_big_char(t_envp *env, int c, char result[5]);
 int								ft_bigcharlen(int i);
 int								ft_wstrlen(wchar_t *str);
 int								ft_bigstrlen(wchar_t *str);
@@ -178,6 +179,7 @@ void							delete_end_of_buffer(t_buffer *buff, int start);
 **	THE FT_PRINTF !!!
 */
 
+int								ft_fd_printf(int fd, const char *str, ...);
 int								ft_printf(const char *str, ...);
 
 #endif

@@ -18,7 +18,7 @@
 ** Return TRUE when finished or FALSE if no flags found
 */
 
-int		set_type(char *str, t_env *env)
+int		set_type(char *str, t_envp *env)
 {
 	if (!is_valid_type(str[env->pos]))
 		return (FALSE);

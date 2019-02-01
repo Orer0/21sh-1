@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static void		print_width(t_env *env, int len)
+static void		print_width(t_envp *env, int len)
 {
 	int				i;
 
@@ -25,7 +25,7 @@ static void		print_width(t_env *env, int len)
 ** Printer for flag 'p'
 */
 
-int				print_address(t_env *env)
+int				print_address(t_envp *env)
 {
 	int			len;
 

@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static int		print_width(t_env *env, int len, char c)
+static int		print_width(t_envp *env, int len, char c)
 {
 	int				i;
 	int				limit;
@@ -39,7 +39,7 @@ static int		print_width(t_env *env, int len, char c)
 	return (TRUE);
 }
 
-static int		print_string_with_precision(t_env *env, int len)
+static int		print_string_with_precision(t_envp *env, int len)
 {
 	int				i;
 
@@ -64,7 +64,7 @@ static int		print_string_with_precision(t_env *env, int len)
 	return (0);
 }
 
-static int		get_number(t_env *env)
+static int		get_number(t_envp *env)
 {
 	if (env->flags.size == H)
 		env->types.str =
@@ -92,7 +92,7 @@ static int		get_number(t_env *env)
 	return (TRUE);
 }
 
-static void		padding_right(t_env *env, int len)
+static void		padding_right(t_envp *env, int len)
 {
 	if (env->flags.zero && env->flags.precision <= len)
 	{
@@ -118,7 +118,7 @@ static void		padding_right(t_env *env, int len)
 **	Printer for flag "d"
 */
 
-int				print_number(t_env *env)
+int				print_number(t_envp *env)
 {
 	int					len;
 
