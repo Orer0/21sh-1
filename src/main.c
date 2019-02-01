@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 22:22:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 00:15:33 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,16 @@ void 	ft_minimal_shell(void)
 void	ft_shell(void)
 {
 	// t_shell_data	*data;
+	// char			*line;
 
+	// line = NULL;
 	// data = shell_data_singleton();
 	// if (data->shell)
+	// {
+	// 	// line = get_line(PROMPT);
+	// 	shell_parser(&line);
 	// 	ft_printf("J'attends readline !\n");
+	// }
 	// else
 	// {
 		ft_printf("21sh: warning: the variable TERM is not set, this is a minimal shell\n");

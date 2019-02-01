@@ -6,13 +6,19 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 22:25:24 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 00:26:37 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "lexer.h"
 #include "ast.h"
+
+void	del_history(void *content, size_t size)
+{
+	(void)size;
+	ft_memdel(&content);
+}
 
 void	quit_shell(int status, int err)
 {
@@ -26,6 +32,8 @@ void	quit_shell(int status, int err)
 		delete_parsing_tree(&data->parse_tree);
 	if (data->ast)
 		delete_ast(&data->ast);
+	if (data->history)
+		ft_lstdel(&data->history, &del_history);
 	ft_strtab_del(&data->env_tab);
 	ft_lstdel(&data->env_lst, del_env_var);
 	ft_lstdel(&data->intern_env_lst, del_env_var);

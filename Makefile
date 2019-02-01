@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/01 22:23:18 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/01 23:27:30 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
 CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
+TERMCAP =	-ltermcap
 
 # Directories
 
@@ -33,6 +34,7 @@ AST		=	$(PARS)ast/
 TK		=	$(SRC)tokens/
 BT		=	$(SRC)builtins/
 CD		=	$(BT)cd/
+GTL		=	$(SRC)get_line/
 
 #  Files
 
@@ -41,6 +43,7 @@ HFILES	=	$(H)21sh.h														\
 			$(H)ast.h														\
 			$(H)tokens.h													\
 			$(H)shell_data.h												\
+			$(H)get_line.h													\
 			$(H)st.h
 
 MAIN	=	$(SRC)main.c
@@ -112,6 +115,25 @@ SRCS	=	$(MAIN)															\
 			$(CD)ft_realloc_addend_tab.c									\
 			$(CD)build_pwd_tab.c											\
 			$(CD)cd_builtin.c												\
+			$(GTL)get_line.c												\
+			$(GTL)terms/history.c											\
+			$(GTL)terms/init_term.c											\
+			$(GTL)terms/utils.c												\
+			$(GTL)terms/mouv.c												\
+			$(GTL)terms/home_end.c											\
+			$(GTL)terms/set_terms.c											\
+			$(GTL)terms/supp.c												\
+			$(GTL)terms/mouv_word.c											\
+			$(GTL)terms/print.c												\
+			$(GTL)terms/enter.c												\
+			$(GTL)terms/multi.c												\
+			$(GTL)terms/set_key.c											\
+			$(GTL)terms/quitt.c												\
+			$(GTL)terms/del.c												\
+			$(GTL)terms/selec/selec_mouv.c									\
+			$(GTL)terms/selec/selec.c										\
+			$(GTL)terms/selec/cut.c											\
+			$(GTL)terms/selec/paste.c										\
 			$(DEBUG)debug.c
 
 OBJ		=	$(patsubst %.c,%.o,$(SRCS))
@@ -131,7 +153,7 @@ $(NAME):	Makefile $(OBJ) $(MAIN) $(HFILES) $(LIBFT)
 		@echo "Compiling Libft ..."
 		@make -C $(LIBFT)
 		@echo "Building $(NAME) ..."
-		@$(CC) $(CFLAGS) $(OBJ) -I$(H) -I$(ILIBFT) -L$(LIBFT) -lft -o $(NAME)
+		@$(CC) $(CFLAGS) $(TERMCAP) $(OBJ) -I$(H) -I$(ILIBFT) -L$(LIBFT) -lft -o $(NAME)
 		@echo "I'm READY"
 
 %.o: 		%.c

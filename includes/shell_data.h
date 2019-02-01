@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 02:22:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/30 03:33:40 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 00:19:40 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct		s_shell_data
 	t_list			*tokens_list;
 	t_ptree			*parse_tree;
 	t_btree			*ast;
+	t_list			*history;
 }					t_shell_data;
 
 t_shell_data		*shell_data_singleton();

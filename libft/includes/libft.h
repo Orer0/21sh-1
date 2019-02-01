@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 09:31:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 21:20:14 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/01 23:32:59 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,8 @@ char				*ft_ulli_itoa_base(unsigned long long int n,
 int					ft_count(int n);
 void				ft_strtab_del(char ***tab);
 int					ft_strtab_addend(char ***tab, char *elem);
+
+char				*ft_strjoin_free_s1(char **s1, char **s2);
+char				*ft_strjoin_free_s2(char **s1, char **s2);
 
 #endif
