@@ -6,15 +6,15 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 01:38:08 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 05:34:30 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENS_H
 # define TOKENS_H
 
-# include "libft.h"
-# include "libftprintf.h"
+# include "../libft/include/libft.h"
+# include "../libft/include/libftprintf.h"
 
 /*
 **	Tokens structures

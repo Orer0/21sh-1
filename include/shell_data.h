@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 02:22:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 01:18:54 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 05:33:51 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SHELL_DATA_H
 
 // # include "st.h"
-# include "libft.h"
+# include "../libft/include/libft.h"
 
 typedef struct			s_ptree
 {

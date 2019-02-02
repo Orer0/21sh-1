@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/13 09:16:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/01 23:33:36 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/02 05:30:46 by aroblin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g3
 
 # Directories
 
-H		=	./includes
+H		=	./include
 P		=	./ft_printf
 T		=	./trees
 
