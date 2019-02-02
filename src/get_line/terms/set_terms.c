@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:26:41 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 01:11:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 01:28:02 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	set_terms(t_term **t, char *promtp)
 	(*t)->cur.x = 0;
 	(*t)->cur.y = 0;
 	(*t)->index_his = -1;
-	data->history = NULL;
 	(*t)->line = NULL;
 	(*t)->max_cur = 0;
 	(*t)->col = 0;

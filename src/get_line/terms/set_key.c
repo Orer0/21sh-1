@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:25:51 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/01 05:05:15 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 01:29:51 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	*set_cmd_his(char *cmd)
 	else if (cmd[0] == 27 && cmd[1] == 91 && cmd[2] == 66)
 		return (&history_down);
 	else if (cmd[0] == 4)
-		return (&quitt);
+		return (&clean_line);
 	return (NULL);
 }
