@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 23:54:44 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 00:13:26 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,6 @@ void 	exec_ast(t_btree *tree, int exec_next)
 		exec_ast(tree->right, exec);
 }
 
-void 	ft_minimal_shell(void)
-{
-	char	*line;
-	t_shell_data *data;
-
-	data = shell_data_singleton();
-	while (666)
-	{
-		clean_parsing();
-		ft_printf("%s", PROMPT);
-		if (!read_prompt(0, &line) || line[0] == -1)
-			quit_shell(EXIT_FAILURE, 0);
-		shell_parser(&line);
-		// Executer
-		exec_ast(data->ast, 1);
-		// ft_strdel(&line);
-	}
-}
-
 void	ft_shell(void)
 {
 	t_shell_data	*data;
@@ -116,21 +97,20 @@ void	ft_shell(void)
 
 	line = NULL;
 	data = shell_data_singleton();
-	if (data->shell)
+	if (data->term)
 	{
 		while (666)
 		{
 			clean_parsing();
 			line = get_line(PROMPT);
 			shell_parser(&line);
-			// ft_strdel(&line);
 			exec_ast(data->ast, 1);
 		}
 	}
 	else
 	{
-		ft_printf("21sh: warning: the variable TERM is not set, this is a minimal shell\n");
-		ft_minimal_shell();
+		ft_fd_printf(2, "21sh: TERM variable not found\n");
+		quit_shell(EXIT_FAILURE, 0);
 	}
 }
 
@@ -146,10 +126,14 @@ void 	init_shell(char **environ)
 	if (!env_tab_to_lst(&data->env_lst, environ))
 		create_minimal_env();
 	term = get_env_var_by_name(&data->env_lst, "TERM");
-	if (term || !isatty(0))
-		data->shell = term->content;
+	if (term && isatty(0))
+		data->term = term->content;
 	else
-		data->shell = ft_strdup("xterm"); // faire plus propre
+	{
+		change_env_var(&data->env_lst, "TERM", "xterm");
+		change_env_var(&data->intern_env_lst, "TERM", "xterm");
+		data->term = get_env_var_by_name(&data->env_lst, "TERM")->content;
+	}
 	if (!(envshlvl = get_env_var_by_name(&data->env_lst, "SHLVL")))
 		shlvl = 0;
 	else

@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/02 23:06:35 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/03 00:13:04 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ H		=	./include/
 SRC		=	./src/
 ENV		=	$(SRC)environment/
 EXE		=	$(SRC)exec/
-MIN		=	$(SRC)minimal_shell/
 DEBUG	=	$(SRC)debug/
 PARS	=	$(SRC)parsing/
 LEX		=	$(PARS)lexer/
@@ -95,7 +94,6 @@ SRCS	=	$(MAIN)															\
 			$(ENV)create_minimal_env.c										\
 			$(EXE)exec_command.c											\
 			$(EXE)get_path_of_bin.c											\
-			$(MIN)read_prompt.c												\
 			$(SRC)quit_shell.c												\
 			$(SRC)shell_data_singleton.c									\
 			$(SRC)clean_shell_data.c										\
