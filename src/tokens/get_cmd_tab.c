@@ -6,12 +6,26 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 06:19:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 04:33:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 23:08:33 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "tokens.h"
+
+static void	manage_expansion(char **str)
+{
+	// int		i;
+
+	if ((*str)[0] == '~')
+		replace_tilde(str);
+	// i = -1;
+	// while (after_equal[++i])
+	// {
+	// 	if (after_equal[++i] == '$')
+	// 		// replace dollar
+	// }
+}
 
 char 	**get_cmd_tab(t_cmd_token **token)
 {

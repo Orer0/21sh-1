@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 22:21:14 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 23:09:19 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ int		shell_parser(char **line)
 	ft_printf("chaine recu : %s\n", *line);
 	// Lexer call
 	lexer(*line);
-	ft_printf("\n\n APRES LE LEXER \n\n");
-	ft_print_tokens();
+	// ft_printf("\n\n APRES LE LEXER \n\n");
+	// ft_print_tokens();
 	first_check_tokens_list(data->tokens_list);
-	ft_printf("\n\n APRES FIRST CHECK \n\n");
-	ft_print_tokens();
+	// ft_printf("\n\n APRES FIRST CHECK \n\n");
+	// ft_print_tokens();
 	build_command_token();
-	ft_printf("\n\n APRES BUILD COMMAND \n\n");
-	ft_print_tokens();
+	// ft_printf("\n\n APRES BUILD COMMAND \n\n");
+	// ft_print_tokens();
 	// Arbre de syntaxe
 	syntax_tree(&data->tokens_list, &data->parse_tree);
-	ft_printf("\n\n");
+	// ft_printf("\n\n");
 	// Print arbre de syntaxe
-	ft_print_parsing_tree(0, &data->parse_tree);
+	// ft_print_parsing_tree(0, &data->parse_tree);
 	// AST
 	data->ast = get_ast(&data->parse_tree);
 	delete_parsing_tree(&data->parse_tree);
@@ -60,9 +60,9 @@ int		shell_parser(char **line)
 	ft_strdel(line);
 
 	// Print AST
-	ft_printf("\n\n");
-	ft_print_ast(data->ast);
-	ft_printf("\n\n");
+	// ft_printf("\n\n");
+	// ft_print_ast(data->ast);
+	// ft_printf("\n\n");
 	// Delete all
 	// delete_ast(&data->ast);
 
