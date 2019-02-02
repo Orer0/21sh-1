@@ -6,13 +6,13 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:22:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 00:17:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 05:21:02 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
 
-void	new_line(t_term **t, int len, int size)
+void		new_line(t_term **t, int len, int size)
 {
 	char	*end;
 	char	*line;
@@ -47,7 +47,7 @@ void	new_line(t_term **t, int len, int size)
 	ft_strdel(&end);
 }
 
-void	supp_in(t_term **t)
+static void		supp_in(t_term **t)
 {
 	int		len;
 
@@ -62,7 +62,7 @@ void	supp_in(t_term **t)
 	go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
 }
 
-void	decal(t_term **t)
+static void		decal(t_term **t)
 {
 	putst((*t)->line);
 	ft_putchar(' ');
@@ -71,7 +71,7 @@ void	decal(t_term **t)
 	tputs(tgetstr("le", NULL), 0, &put);
 }
 
-void	supp_end(t_term **t)
+static void		supp_end(t_term **t)
 {
 	int		len;
 	char	*line;
@@ -100,7 +100,7 @@ void	supp_end(t_term **t)
 	go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
 }
 
-int		supp(t_term **t)
+int				supp(t_term **t)
 {
 	if ((*t)->cur.x > 0)
 	{

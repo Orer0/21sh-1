@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/14 08:41:35 by ndubouil          #+#    #+#              #
-#    Updated: 2019/01/27 08:48:46 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/02 21:16:19 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g3
 # Directories
 
 LIB		=	..
-H		=	../includes
+H		=	../include
 PA		=	./parser
 PR		=	./printer
 U_TOOLS	=	./printer/unicode_tools

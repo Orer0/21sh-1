@@ -6,18 +6,11 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:36:00 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 01:33:04 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 04:58:27 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_line.h"
-
-// void	del_con(void *content, size_t size)
-// {
-// 	(void)size;
-// 	ft_memdel(&content);
-// }
 
 void	clean_line(t_term **t)
 {

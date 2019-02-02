@@ -6,14 +6,14 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 20:48:21 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 01:18:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 05:34:03 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ST_H
 # define ST_H
 
-# include "libft.h"
+# include "../libft/include/libft.h"
 # include "tokens.h"
 # include "shell_data.h"
 

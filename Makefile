@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/02 05:00:15 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/02 21:14:08 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ TERMCAP =	-ltermcap
 # Directories
 
 LIBFT	=	./libft/
-ILIBFT	=	./$(LIBFT)includes/
-H		=	./includes/
+ILIBFT	=	./$(LIBFT)include/
+H		=	./include/
 SRC		=	./src/
 ENV		=	$(SRC)environment/
 EXE		=	$(SRC)exec/
@@ -131,6 +131,7 @@ SRCS	=	$(MAIN)															\
 			$(GTL)terms/set_key.c											\
 			$(GTL)terms/clean_line.c										\
 			$(GTL)terms/del.c												\
+			$(GTL)terms/manag_way.c											\
 			$(GTL)terms/selec/selec_mouv.c									\
 			$(GTL)terms/selec/selec.c										\
 			$(GTL)terms/selec/cut.c											\

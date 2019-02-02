@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 01:08:13 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 05:09:14 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,47 +52,22 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 	}
 }
 
-int		manag_way(t_term **t)
-{
-	struct winsize	ws;
-	char			cmd[6];
-	void			(*fonct)(t_term **t);
-
-	fonct = NULL;
-	ft_bzero(&cmd, sizeof(char[6]));
-	while (1)
-	{
-		if ((*t)->cur.x == 0 && (*t)->max_cur == 0)
-		{
-			if ((*t)->line != NULL)
-				ft_strdel(&(*t)->line);
-		}
-		read(0, cmd, 6);
-		ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
-		(*t)->col = ws.ws_col;
-		(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
-		fonct = way(t, cmd);
-		cmd_way(fonct, t, cmd);
-		fonct = NULL;
-		ft_bzero(&cmd, sizeof(char[6]));
-	}
-	return (0);
-}
-
-int		get_line(char *promtp)
+char	*get_line(char *promtp)
 {
 	t_term			*t;
 	struct termios	term;
+	char			*line;
 
 	if (!(t = ft_memalloc(sizeof(t_term))))
 	{
 		printf("erreur malloc");
-		return (-1);
+		return (NULL);
 	}
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
 	init_termios(&term);
-	manag_way(&t);
+	line = ft_strdup(manag_way(&t, term));
+	clean_line(&t);
 	reset_term(&term);
-	return (0);
+	return (line);
 }

@@ -6,13 +6,13 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 01:29:10 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 05:16:43 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
 
-char	*ft_history(t_list **history, int index_his)
+static char		*ft_history(t_list **history, int index_his)
 {
 	t_list *tmp;
 
@@ -30,7 +30,7 @@ char	*ft_history(t_list **history, int index_his)
 	return ((char *)tmp->content);
 }
 
-void	set_new_value(t_term **t)
+static void		set_new_value(t_term **t)
 {
 	char	*his_line;
 	t_shell_data	*data;
@@ -56,7 +56,7 @@ void	set_new_value(t_term **t)
 	ft_strdel(&his_line);
 }
 
-int		history_up(t_term **t)
+int				history_up(t_term **t)
 {
 	t_shell_data	*data;
 
@@ -72,7 +72,7 @@ int		history_up(t_term **t)
 	return (0);
 }
 
-int		history_down(t_term **t)
+int				history_down(t_term **t)
 {
 	t_shell_data	*data;
 

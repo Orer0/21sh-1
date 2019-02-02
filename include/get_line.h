@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 01:24:54 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 05:33:05 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 // # include <sys/stat.h>
 // # include <grp.h>
 // # include <uuid/uuid.h>
-# include "libft.h"
+# include "../libft/include/libft.h"
 // # include <limits.h>
 # include <stdio.h> // a sup
 // # include <curses.h>
@@ -58,15 +58,20 @@ typedef struct		s_term
 void				init_termios(struct termios *term);
 int					reset_term(struct termios *term);
 void				set_terms(t_term **t, char *promtp);
+
+char				*manag_way(t_term **t, struct termios term);
+void				*way(t_term **t, char *cmd);
+void				cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd);
 void				*set_cmd_his(char *cmd);
 void				*set_cmd_mouv(char *cmd);
 void				*set_cmd_edit(char *cmd);
+
 void				ft_right(t_term **t);
 void				ft_left(t_term **t);
 void				word_left(t_term **t);
 void				word_right(t_term **t);
 
-int					enter(t_term **t);
+char				*enter(t_term **t);
 
 void				clean_line(t_term **t);
 
@@ -85,7 +90,6 @@ void				print_insertion(t_term **t, char *buf);
 void				cur_begin_line(t_term **t);
 void				cur_end_line(t_term **t);
 void				go_way(t_term **t, int nb, int way);
-void				print_promtp(t_term **t);
 
 int					supp(t_term **t);
 void				del(t_term **t);
