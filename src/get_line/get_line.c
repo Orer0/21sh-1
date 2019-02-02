@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 02:43:59 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 02:58:14 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ char	*manag_way(t_term **t)
 			enter(t);
 			if ((*t)->line != NULL)
 				return ((*t)->line);
+			else
+			{
+				ft_bzero(&cmd, sizeof(char[6]));
+				continue;
+			}
 		}
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
 		(*t)->col = ws.ws_col;
