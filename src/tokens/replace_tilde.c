@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 20:49:11 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 01:40:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 05:41:32 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int				replace_tilde(char **str)
 	char			*tmp;
 	int				s;
 
+	ft_printf("str dans replace_tilde = %s\n", *str);
 	s = ft_strlen(*str);
 	if (s > 1 && !ft_strequ("~/", (*str)))
 		home = get_home_of_user(&(*str)[1]);

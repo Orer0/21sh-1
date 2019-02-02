@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/02 05:09:07 by aroblin          ###   ########.fr        #
+#    Updated: 2019/02/02 21:14:08 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ TERMCAP =	-ltermcap
 # Directories
 
 LIBFT	=	./libft/
-ILIBFT	=	./$(LIBFT)includes/
+ILIBFT	=	./$(LIBFT)include/
 H		=	./include/
 SRC		=	./src/
 ENV		=	$(SRC)environment/
@@ -83,6 +83,7 @@ SRCS	=	$(MAIN)															\
 			$(TK)get_cmd_tab.c												\
 			$(TK)get_var_tab.c												\
 			$(TK)replace_tilde.c											\
+			$(TK)manage_expansion.c											\
 			$(TK)get_var_tab_for_unset.c									\
 			$(ENV)get_env_var_by_name.c										\
 			$(ENV)env_lst_to_tab.c											\

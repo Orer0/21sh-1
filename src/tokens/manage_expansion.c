@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   manage_expansion.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/26 23:25:48 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 21:15:12 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/02/02 04:31:34 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/02/02 21:13:43 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "21sh.h"
+#include "tokens.h"
 
-int		parser(char *str, t_envp *env)
+void	manage_expansion(char **str)
 {
-	init_flags(env);
-	set_flags(str, env);
-	set_width(str, env);
-	set_precision(str, env);
-	set_size(str, env);
-	if (!set_type(str, env))
-		return (FALSE);
-	return (TRUE);
+	int		i;
+
+	i = -1;
+	while ((*str)[++i])
+	{
+		if ((*str)[i] == '~')
+		{
+			ft_printf("retour replace_tilde [%d]\n", replace_tilde(str));
+		}
+		// if ((*str)[i] == '$')
+	}
 }

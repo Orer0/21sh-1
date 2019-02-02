@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:46:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 04:05:33 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ static void 		print_ast_rec(int level, t_btree *tree)
 	if (!tree)
 		return ;
 	print_margin(level);
-	ft_printf("NOEUD -> type: %s token: %s", get_str_type(get_type_token(tree->data)), get_token_token(tree->data));
+	ft_printf("NOEUD -> type: %s token: %s, exp: %d", get_str_type(get_type_token(tree->data)), get_token_token(tree->data), get_expansion_token(tree->data));
 	if (get_type_token(tree->data) == VAR_TYPE)
 	{
 		t_list		*tmp_lst;
@@ -203,7 +203,7 @@ static void 		print_ast_rec(int level, t_btree *tree)
 		{
 			ft_printf("\n");
 			print_margin(level);
-			ft_printf("\tvariable suivante = token: %s", get_token_token(tmp_lst->content));
+			ft_printf("\tvariable suivante = token: %s, exp: %d", get_token_token(tmp_lst->content), get_expansion_token(tree->data));
 			tmp_lst = tmp_lst->next;
 		}
 		// print_var_token((*((t_var_token **)(((t_ast_token *)(tree->data))->data))));
@@ -217,14 +217,14 @@ static void 		print_ast_rec(int level, t_btree *tree)
 		{
 			ft_printf("\n");
 			print_margin(level);
-			ft_printf("\targ = token: %s", get_token_token(tmp_lst->content));
+			ft_printf("\targ = token: %s, exp: %d", get_token_token(tmp_lst->content), get_expansion_token(tree->data));
 			tmp_lst = tmp_lst->next;
 		}
 		if (get_var_token_in_cmd_token(tree->data))
 		{
 			ft_printf("\n");
 			print_margin(level);
-			ft_printf("\tvariable = token: %s", get_var_token_in_cmd_token(tree->data)->token);
+			ft_printf("\tvariable = token: %s, exp: %d", get_var_token_in_cmd_token(tree->data)->token, get_expansion_token(tree->data));
 			if (get_var_list_in_cmd_token(tree->data))
 			{
 				tmp_lst = get_var_list_in_cmd_token(tree->data);
@@ -232,7 +232,7 @@ static void 		print_ast_rec(int level, t_btree *tree)
 				{
 					ft_printf("\n");
 					print_margin(level);
-					ft_printf("\tvariable = token: %s", get_token_token(tmp_lst->content));
+					ft_printf("\tvariable = token: %s, exp: %d", get_token_token(tmp_lst->content), get_expansion_token(tree->data));
 					tmp_lst = tmp_lst->next;
 				}
 			}
