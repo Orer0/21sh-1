@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 01:38:08 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 05:12:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef enum 	e_token_types
 
 int				replace_tilde(char **str);
 
+void	manage_expansion(char **str);
 t_var_token 	*get_var_token_in_cmd_token(void *token);
 void			set_var_token_in_cmd_token(void *token, void *var);
 t_list 			*get_var_list_in_cmd_token(void *token);
@@ -105,9 +106,9 @@ int				is_redirection(int type);
 int				is_aggregation(int type);
 int				is_operator(int type);
 int				type_cmp(int first, int second);
-char 			**get_cmd_tab(t_cmd_token *token);
+char 			**get_cmd_tab(t_cmd_token **token);
 char 			**get_var_tab_for_unset(t_var_token *token);
-char 			**get_var_tab(t_var_token *token);
+char 			**get_var_tab(t_var_token **token);
 
 
 #endif

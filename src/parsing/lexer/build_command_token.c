@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:55:46 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 22:48:02 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 02:53:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		replace_content(t_list *lst)
 	t_cmd_token *token;
 
 	token_constructor(get_token_token(lst->content), CMD_TYPE, (t_token **)&token);
+	token->is_expansion = get_expansion_token(lst->content);
 	free_token(lst->content, 0);
 	if (!(lst->content = ft_memalloc(sizeof(&token) * sizeof(t_cmd_token))))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
