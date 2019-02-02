@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 21:13:12 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 21:42:18 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,14 @@ void	ft_shell(void)
 	data = shell_data_singleton();
 	if (data->shell)
 	{
-		line = get_line(PROMPT);
-		shell_parser(&line);
-		ft_printf("J'attends readline !\n");
+		while (666)
+		{
+			clean_parsing();
+			line = get_line(PROMPT);
+			shell_parser(&line);
+			// ft_strdel(&line);
+			exec_ast(data->ast, 1);
+		}
 	}
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_term.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:00:55 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/01 22:18:31 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 21:40:35 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_termios(struct termios *term)
 	if (tcgetattr(0, term) == -1)
 	{
 		printf("21sh error: no termios.");
-		exit(-1);
+		// exit(-1);
 	}
 	term->c_lflag &= ~(ICANON | ECHO);
 	term->c_cc[VMIN] = 1;
