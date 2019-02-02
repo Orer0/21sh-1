@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 20:48:21 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:08:16 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 01:18:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "tokens.h"
+# include "shell_data.h"
 
 # define	S_RULE						800
 # define	S_PRIME_RULE				801
@@ -28,15 +29,15 @@
 # define	A_RULE						906
 # define	A_PRIME_RULE				907
 
-typedef struct			s_ptree
-{
-	int				id;
-	char			*data;
-	int				type;
-	t_list			*childs_lst;
-	int				nb_childs;
-	t_btree			*ast;
-}						t_ptree;
+// typedef struct			s_ptree
+// {
+// 	int				id;
+// 	char			*data;
+// 	int				type;
+// 	t_list			*childs_lst;
+// 	int				nb_childs;
+// 	t_btree			*ast;
+// }						t_ptree;
 
 typedef struct	s_tokens_list
 {
