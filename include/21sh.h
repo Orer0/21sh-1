@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 01:17:12 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 02:34:41 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,6 @@ int					build_pwd_tab(char ***arg_tab, char ***pwd_tab,
 						int pwd_tab_len);
 int					cd_builtin(char **args);
 
+
+char				*get_line(char *promtp);
 #endif

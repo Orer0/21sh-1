@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 01:24:54 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 02:20:48 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void				ft_left(t_term **t);
 void				word_left(t_term **t);
 void				word_right(t_term **t);
 
-int					enter(t_term **t);
+char				*enter(t_term **t);
 
 void				clean_line(t_term **t);
 

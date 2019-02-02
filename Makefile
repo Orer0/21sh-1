@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/02 01:16:03 by aroblin          ###   ########.fr        #
+#    Updated: 2019/02/02 02:34:51 by aroblin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,14 @@
 
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
-CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
 TERMCAP =	-ltermcap
 
 # Directories
 
 LIBFT	=	./libft/
 ILIBFT	=	./$(LIBFT)includes/
-H		=	./includes/
+H		=	./include/
 SRC		=	./src/
 ENV		=	$(SRC)environment/
 EXE		=	$(SRC)exec/
