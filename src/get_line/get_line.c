@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 23:44:43 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 23:54:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*get_line(char *promtp)
 	t_term			*t;
 	struct termios	term;
 	char			*line;
+	char			*tmp;
 
 	if (!(t = ft_memalloc(sizeof(t_term))))
 	{
@@ -66,7 +67,9 @@ char	*get_line(char *promtp)
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
 	init_termios(&term);
-	line = ft_strdup(manag_way(&t, term));
+	tmp = manag_way(&t, term);
+	line = ft_strdup(tmp);
+	ft_strdel(&tmp);
 	clean_line(&t);
 	reset_term(&term);
 	return (line);

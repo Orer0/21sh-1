@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 23:44:41 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 23:54:44 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void 	exec_ast(t_btree *tree, int exec_next)
 	if (tree == NULL)
 		return ;
 	exec = TRUE;
-	ft_printf("noeud [%s], exec next [%d]\n", get_token_token(tree->data), exec_next);
+	// ft_printf("noeud [%s], exec next [%d]\n", get_token_token(tree->data), exec_next);
 	if (exec_next)
 		if (tree->left != NULL)
 			exec_ast(tree->left, exec);
