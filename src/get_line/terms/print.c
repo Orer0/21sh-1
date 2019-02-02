@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/01 22:20:12 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 22:35:52 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	print_buf_end(char *buf, t_term **t)
 	else
 		(*t)->line = ft_strjoin_free_s1(&(*t)->line, &buf);
 	if (!(*t)->line)
-		exit(0); // erreur malloc;
+	{
+		printf("erreur malloc"); // erreur malloc;
+	}
 	ft_strdel(&buf);
 	(*t)->max_cur = ft_strlen((*t)->line);
 }

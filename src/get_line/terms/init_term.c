@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:00:55 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 21:40:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 23:32:02 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		reset_term(struct termios *term)
 	if (tcgetattr(0, term) == -1)
 		return (-1);
 	term->c_lflag = (ICANON | ECHO);
-	if (tcsetattr(0, 0, term) == -1)
+	if (tcsetattr(0, TCSANOW, term) == -1)
 		return (-1);
 	return (0);
 }
@@ -27,6 +27,7 @@ void	init_termios(struct termios *term)
 	char	*name;
 
 	name = NULL;
+
 	if ((name = getenv("TERM")) == NULL) // a revoir
 	{
 		if (!(name = ft_strdup("xterm-256color")))
@@ -37,7 +38,7 @@ void	init_termios(struct termios *term)
 		printf("erruer tgetent\n");
 		return ;
 	}
-	if (tcgetattr(0, term) == -1)
+	if (tcgetattr(STDIN_FILENO, term) == -1)
 	{
 		printf("21sh error: no termios.");
 		// exit(-1);

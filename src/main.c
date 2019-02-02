@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 21:42:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 23:44:41 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,8 @@ void 	init_shell(char **environ)
 	term = get_env_var_by_name(&data->env_lst, "TERM");
 	if (term || !isatty(0))
 		data->shell = term->content;
+	else
+		data->shell = ft_strdup("xterm"); // faire plus propre
 	if (!(envshlvl = get_env_var_by_name(&data->env_lst, "SHLVL")))
 		shlvl = 0;
 	else
