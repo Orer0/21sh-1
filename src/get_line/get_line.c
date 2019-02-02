@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 02:58:14 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 04:46:25 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,40 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 	}
 }
 
-char	*manag_way(t_term **t)
+int		ft_end_line(t_term **t, char *cmd)
+{
+	enter(t);
+	if ((*t)->line != NULL)
+		return (1);
+	else
+		ft_bzero(&cmd, sizeof(char[6]));
+	return (0);
+}
+
+void	check_line(t_term **t)
+{
+	if ((*t)->cur.x == 0 && (*t)->max_cur == 0)
+	{
+		if ((*t)->line != NULL)
+			ft_strdel(&(*t)->line);
+	}
+}
+
+int		end_shell(t_term **t, struct termios term, char *cmd)
+{
+	if ((*t)->line == NULL)
+	{
+		clean_line(t);
+		reset_term(&term);
+		quit_shell(EXIT_SUCCESS, 0);
+		return (0);
+	}
+	ft_bzero(&cmd, sizeof(char[6]));
+	return (1);
+
+}
+
+char	*manag_way(t_term **t, struct termios term)
 {
 	struct winsize	ws;
 	char			cmd[6];
@@ -62,30 +95,25 @@ char	*manag_way(t_term **t)
 	ft_bzero(&cmd, sizeof(char[6]));
 	while (666)
 	{
-		if ((*t)->cur.x == 0 && (*t)->max_cur == 0)
-		{
-			if ((*t)->line != NULL)
-				ft_strdel(&(*t)->line);
-		}
+		check_line(t);
 		read(0, cmd, 6);
 		if (cmd[0] == 10 && cmd[1] == 0)
 		{
-			enter(t);
-			if ((*t)->line != NULL)
+			if (ft_end_line(t, cmd))
 				return ((*t)->line);
-			else
-			{
-				ft_bzero(&cmd, sizeof(char[6]));
-				continue;
-			}
 		}
-		ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
-		(*t)->col = ws.ws_col;
-		(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
-		fonct = way(t, cmd);
-		cmd_way(fonct, t, cmd);
-		fonct = NULL;
-		ft_bzero(&cmd, sizeof(char[6]));
+		else if (cmd[0] == 4)
+			end_shell(t, term, cmd);
+		else
+		{
+			ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
+			(*t)->col = ws.ws_col;
+			(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
+			fonct = way(t, cmd);
+			cmd_way(fonct, t, cmd);
+			fonct = NULL;
+			ft_bzero(&cmd, sizeof(char[6]));
+		}
 	}
 	return ((*t)->line);
 }
@@ -104,7 +132,7 @@ char	*get_line(char *promtp)
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
 	init_termios(&term);
-	line = ft_strdup(manag_way(&t));
+	line = ft_strdup(manag_way(&t, term));
 	clean_line(&t);
 	reset_term(&term);
 	return (line);
