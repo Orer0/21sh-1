@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 04:46:25 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 05:09:14 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,72 +50,6 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 		else if ((*t)->line != NULL)
 			print_insertion(t, tmp);
 	}
-}
-
-int		ft_end_line(t_term **t, char *cmd)
-{
-	enter(t);
-	if ((*t)->line != NULL)
-		return (1);
-	else
-		ft_bzero(&cmd, sizeof(char[6]));
-	return (0);
-}
-
-void	check_line(t_term **t)
-{
-	if ((*t)->cur.x == 0 && (*t)->max_cur == 0)
-	{
-		if ((*t)->line != NULL)
-			ft_strdel(&(*t)->line);
-	}
-}
-
-int		end_shell(t_term **t, struct termios term, char *cmd)
-{
-	if ((*t)->line == NULL)
-	{
-		clean_line(t);
-		reset_term(&term);
-		quit_shell(EXIT_SUCCESS, 0);
-		return (0);
-	}
-	ft_bzero(&cmd, sizeof(char[6]));
-	return (1);
-
-}
-
-char	*manag_way(t_term **t, struct termios term)
-{
-	struct winsize	ws;
-	char			cmd[6];
-	void			(*fonct)(t_term **t);
-
-	fonct = NULL;
-	ft_bzero(&cmd, sizeof(char[6]));
-	while (666)
-	{
-		check_line(t);
-		read(0, cmd, 6);
-		if (cmd[0] == 10 && cmd[1] == 0)
-		{
-			if (ft_end_line(t, cmd))
-				return ((*t)->line);
-		}
-		else if (cmd[0] == 4)
-			end_shell(t, term, cmd);
-		else
-		{
-			ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
-			(*t)->col = ws.ws_col;
-			(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
-			fonct = way(t, cmd);
-			cmd_way(fonct, t, cmd);
-			fonct = NULL;
-			ft_bzero(&cmd, sizeof(char[6]));
-		}
-	}
-	return ((*t)->line);
 }
 
 char	*get_line(char *promtp)

@@ -6,13 +6,13 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 02:53:03 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 05:16:16 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
 
-void	print_promtp(t_term **t)
+static void		print_promtp(t_term **t)
 {
 	ft_putstr((*t)->promtp);
 	(*t)->index_his = -1;
@@ -24,7 +24,7 @@ void	print_promtp(t_term **t)
 	(*t)->hist_line = 0;
 }
 
-void	go_down(t_term **t)
+static void		go_down(t_term **t)
 {
 	if ((*t)->index_his <= -1)
 	{
@@ -44,7 +44,7 @@ void	go_down(t_term **t)
 	}
 }
 
-char	*enter(t_term **t)
+char		*enter(t_term **t)
 {
 	t_list	*tmp;
 	t_shell_data	*data;

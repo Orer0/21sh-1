@@ -6,13 +6,13 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/01 22:05:46 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/02 05:13:52 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
 
-void	set_init(t_term **t, int rel_cur, int tmp, char *cmd)
+static void		set_init(t_term **t, int rel_cur, int tmp, char *cmd)
 {
 	int cur;
 
@@ -33,7 +33,7 @@ void	set_init(t_term **t, int rel_cur, int tmp, char *cmd)
 	ft_bzero(cmd, 1024);
 }
 
-int		mode_inver(t_term **t, int tmp_cur)
+static int		mode_inver(t_term **t, int tmp_cur)
 {
 	ft_strdel(&(*t)->sel);
 	tputs(tgetstr("mr", NULL), 0, &put);
@@ -46,7 +46,7 @@ int		mode_inver(t_term **t, int tmp_cur)
 	return (tmp_cur);
 }
 
-void	go_cut(t_term **t, int rel_cur, int tmp)
+static void		go_cut(t_term **t, int rel_cur, int tmp)
 {
 	cut(t, rel_cur, tmp);
 	(*t)->max_cur = ft_strlen((*t)->line);
