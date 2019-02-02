@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/01 23:27:30 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/02 01:16:03 by aroblin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,7 +128,7 @@ SRCS	=	$(MAIN)															\
 			$(GTL)terms/enter.c												\
 			$(GTL)terms/multi.c												\
 			$(GTL)terms/set_key.c											\
-			$(GTL)terms/quitt.c												\
+			$(GTL)terms/clean_line.c										\
 			$(GTL)terms/del.c												\
 			$(GTL)terms/selec/selec_mouv.c									\
 			$(GTL)terms/selec/selec.c										\

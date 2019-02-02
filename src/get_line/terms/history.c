@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 00:23:38 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/02 01:20:12 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ char	*ft_history(t_list **history, int index_his)
 void	set_new_value(t_term **t)
 {
 	char	*his_line;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	his_line = NULL;
 	if (!(his_line = ft_strdup(ft_history(&data->history, (*t)->index_his))))
 	{
@@ -56,6 +58,9 @@ void	set_new_value(t_term **t)
 
 int		history_up(t_term **t)
 {
+	t_shell_data	*data;
+
+	data = shell_data_singleton();
 	(*t)->max_cur = ft_strlen((*t)->line);
 	(*t)->nb_line = ((*t)->max_cur / (*t)->col);
 	if (data->history == NULL || (*t)->index_his == ft_lstlen(data->history))
