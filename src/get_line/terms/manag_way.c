@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 22:17:08 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 01:29:02 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,18 @@ static void		check_line(t_term **t)
 	}
 }
 
-static int		end_shell(t_term **t, struct termios term, char *cmd)
+int		end_shell(t_term **t, struct termios *term, char *cmd)
 {
-	if ((*t)->line == NULL)
+	if (t == NULL)
+	{
+		reset_term(term);
+		quit_shell(EXIT_SUCCESS, 0);
+		return (0);
+	}
+	else if ((*t)->line == NULL)
 	{
 		clean_line(t);
-		reset_term(&term);
+		reset_term(term);
 		quit_shell(EXIT_SUCCESS, 0);
 		return (0);
 	}
@@ -75,7 +81,7 @@ char			*manag_way(t_term **t, struct termios term)
 				return ((*t)->line);
 		}
 		else if (cmd[0] == 4)
-			end_shell(t, term, cmd);
+			end_shell(t, &term, cmd);
 		else
 			basic_cmd(t, cmd, fonct);
 		ft_bzero(&cmd, sizeof(char[6]));

@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 05:33:05 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 01:29:14 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct		s_term
 	int				len_p;
 }					t_term;
 
-void				init_termios(struct termios *term);
+int					init_termios(struct termios *term);
 int					reset_term(struct termios *term);
 void				set_terms(t_term **t, char *promtp);
 
@@ -74,6 +74,7 @@ void				word_right(t_term **t);
 char				*enter(t_term **t);
 
 void				clean_line(t_term **t);
+int					end_shell(t_term **t, struct termios *term, char *cmd);
 
 void				multi_up(t_term **t);
 void				multi_down(t_term **t);

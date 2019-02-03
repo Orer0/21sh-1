@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 23:54:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 01:30:51 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,11 @@ char	*get_line(char *promtp)
 	}
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
-	init_termios(&term);
+	if (init_termios(&term) == -1)
+	{
+		printf("coucou\n");
+		return (NULL);
+	}
 	tmp = manag_way(&t, term);
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);
