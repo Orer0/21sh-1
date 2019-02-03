@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 01:30:51 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 01:48:59 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*get_line(char *promtp)
 	char			*line;
 	char			*tmp;
 
+	if (init_termios(&term) == -1)
+		return (NULL);
 	if (!(t = ft_memalloc(sizeof(t_term))))
 	{
 		printf("erreur malloc");
@@ -66,11 +68,6 @@ char	*get_line(char *promtp)
 	}
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
-	if (init_termios(&term) == -1)
-	{
-		printf("coucou\n");
-		return (NULL);
-	}
 	tmp = manag_way(&t, term);
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);

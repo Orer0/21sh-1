@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 01:34:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 01:44:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ void 	ft_minimal_shell(void)
 	{
 		clean_parsing();
 		ft_printf("%s", PROMPT);
-		if (!read_prompt(0, &line) || line[0] == -1)
+		if (!read_prompt(0, &line))
+			quit_shell(EXIT_FAILURE, 0);
+		if (!line || line[0] == -1)
 			quit_shell(EXIT_FAILURE, 0);
 		shell_parser(&line);
 		// Executer
