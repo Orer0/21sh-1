@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 20:48:21 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 05:34:03 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 04:38:19 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define	S_RULE						800
 # define	S_PRIME_RULE				801
-# define 	T_RULE						802
+# define 	T_RULE						802 
 # define	T_PRIME_RULE				903
 # define	U_RULE						904
 # define	U_PRIME_RULE				904
@@ -28,6 +28,8 @@
 # define	F_RULE						905
 # define	A_RULE						906
 # define	A_PRIME_RULE				907
+# define	B_RULE						908
+# define	B_PRIME_RULE				909
 
 // typedef struct			s_ptree
 // {
@@ -61,6 +63,8 @@ void 	ft_ptree_create_node(t_ptree **tree, void *data, int type);
 ** Rules
 */
 
+int		b_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
+int		b_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
 int		test_current_token(t_tokens_list **tokens_s, int type, t_ptree **tree);
 int		s_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
 int		s_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
