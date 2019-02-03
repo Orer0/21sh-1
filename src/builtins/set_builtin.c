@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 21:03:19 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 04:38:44 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 00:21:15 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int		set_builtin(char **args)
 				quit_shell(EXIT_FAILURE, MALLOC_ERR);
 			change_env_var(&data->intern_env_lst, tab[0],
 				&args[i][ft_strlen(tab[0]) + 1]);
+			if (get_env_var_by_name(&data->env_lst, tab[0]))
+				change_env_var(&data->env_lst, tab[0],
+					&args[i][ft_strlen(tab[0]) + 1]);
 			ft_strtab_del(&tab);
 		}
 	}

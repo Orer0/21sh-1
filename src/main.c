@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 00:13:26 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 01:34:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,24 @@ void 	exec_ast(t_btree *tree, int exec_next)
 		exec_ast(tree->right, exec);
 }
 
+void 	ft_minimal_shell(void)
+{
+	char	*line;
+	t_shell_data *data;
+
+	data = shell_data_singleton();
+	while (666)
+	{
+		clean_parsing();
+		ft_printf("%s", PROMPT);
+		if (!read_prompt(0, &line) || line[0] == -1)
+			quit_shell(EXIT_FAILURE, 0);
+		shell_parser(&line);
+		// Executer
+		exec_ast(data->ast, 1);
+	}
+}
+
 void	ft_shell(void)
 {
 	t_shell_data	*data;
@@ -102,14 +120,15 @@ void	ft_shell(void)
 		while (666)
 		{
 			clean_parsing();
-			line = get_line(PROMPT);
+			if (!(line = get_line(PROMPT)))
+				return (ft_minimal_shell());
 			shell_parser(&line);
 			exec_ast(data->ast, 1);
 		}
 	}
 	else
 	{
-		ft_fd_printf(2, "21sh: TERM variable not found\n");
+		ft_printf("21sh: warning: the variable TERM not found\n");
 		quit_shell(EXIT_FAILURE, 0);
 	}
 }

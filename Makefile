@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/03 00:13:04 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/03 01:32:25 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ HFILES	=	$(H)21sh.h														\
 
 MAIN	=	$(SRC)main.c
 SRCS	=	$(MAIN)															\
+			$(SRC)/minimal_shell/read_prompt.c								\
 			$(PARS)parser.c													\
 			$(LEX)lexer.c													\
 			$(LEX)lexer_tools.c												\
@@ -54,7 +55,6 @@ SRCS	=	$(MAIN)															\
 			$(LEX)is_acceptor.c												\
 			$(LEX)is_ignored.c												\
 			$(LEX)get_index_from_char.c										\
-			$(LEX)get_dollar.c												\
 			$(LEX)build_command_token.c										\
 			$(LEX)build_command_token_tools.c								\
 			$(LEX)get_type_of_token.c										\
