@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 01:44:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 02:56:16 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,8 @@ void 	ft_minimal_shell(void)
 			quit_shell(EXIT_FAILURE, 0);
 		if (!line || line[0] == -1)
 			quit_shell(EXIT_FAILURE, 0);
-		shell_parser(&line);
-		// Executer
-		exec_ast(data->ast, 1);
+		if (shell_parser(&line))
+			exec_ast(data->ast, 1);
 	}
 }
 
@@ -124,8 +123,8 @@ void	ft_shell(void)
 			clean_parsing();
 			if (!(line = get_line(PROMPT)))
 				return (ft_minimal_shell());
-			shell_parser(&line);
-			exec_ast(data->ast, 1);
+			if (shell_parser(&line))
+				exec_ast(data->ast, 1);
 		}
 	}
 	else
