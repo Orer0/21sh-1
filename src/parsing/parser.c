@@ -6,10 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 23:09:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 02:58:02 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// #include "libft.h"
 #include "lexer.h"
 #include "st.h"
 #include "ast.h"
@@ -32,11 +33,16 @@
 
 int		shell_parser(char **line)
 {
+	int i;
 	t_shell_data *data;
 
 	data = shell_data_singleton();
 	// Print chaine recu
 	ft_printf("chaine recu : %s\n", *line);
+	i = -1;
+	while (ft_isspace((*line)[++i]));
+	if (!(*line)[i])
+		return (FALSE);
 	// Lexer call
 	lexer(*line);
 	// ft_printf("\n\n APRES LE LEXER \n\n");
