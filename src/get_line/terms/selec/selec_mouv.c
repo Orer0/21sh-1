@@ -6,11 +6,11 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:10:41 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 05:15:09 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:23:28 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_line.h"
+#include "../../../../include/get_line.h"
 
 static void		left_rev(t_term **t, int rel_cur)
 {
@@ -19,8 +19,10 @@ static void		left_rev(t_term **t, int rel_cur)
 	line = NULL;
 	tputs(tgetstr("mr", NULL), 0, &put);
 	write(STDOUT_FILENO, &((*t)->line[(*t)->cur.x]), 1);
-	line = ft_strsub((*t)->line, (*t)->cur.x, (rel_cur * -1) + 1);
-	(*t)->sel = ft_strdup(line);
+	if (!(line = ft_strsub((*t)->line, (*t)->cur.x, (rel_cur * -1) + 1)))
+		end_shell(t, NULL);
+	if (!((*t)->sel = ft_strdup(line)))
+		end_shell(t, NULL);
 	ft_strdel(&line);
 	tputs(tgetstr("le", NULL), 0, &put);
 	tputs(tgetstr("me", NULL), 0, &put);
@@ -30,7 +32,8 @@ static void		right_rev(t_term **t, int tmp_cur, int rel_cur)
 {
 	tputs(tgetstr("mr", NULL), 0, &put);
 	write(STDOUT_FILENO, &((*t)->line[(*t)->cur.x]), 1);
-	(*t)->sel = ft_strsub((*t)->line, tmp_cur, rel_cur + 1);
+	if (!((*t)->sel = ft_strsub((*t)->line, tmp_cur, rel_cur + 1)))
+		end_shell(t, NULL);
 	tputs(tgetstr("me", NULL), 0, &put);
 }
 

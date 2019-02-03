@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:00:55 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 01:29:27 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:00:55 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,21 @@ int		reset_term(struct termios *term)
 	return (0);
 }
 
-int		init_termios(struct termios *term)
+int		init_termios(t_term **t)
 {
-	char	*name;
+	t_shell_data	*data;
 
-	name = NULL;
-
-	if ((name = getenv("TERM")) == NULL) // a revoir
-	{
-		if (!(name = ft_strdup("xterm-256color")))
-			exit(0);// erruer mallox
-	}
-	if (tgetent(NULL, name) <= 0)
-	{
-		printf("erruer tgetent\n");
+	data = shell_data_singleton();
+	if (tgetent(NULL, data->term) <= 0)
 		return (-1);
-	}
-	if (tcgetattr(STDIN_FILENO, term) == -1)
-	{
-		printf("21sh error: no termios.");
-	//	end_shell(NULL, term, NULL);
-		// exit(-1);
+	if (tcgetattr(STDIN_FILENO, &(*t)->term) == -1)
 		return (-1);
-	}
 	else
 	{
-		term->c_lflag &= ~(ICANON | ECHO);
-		term->c_cc[VMIN] = 1;
-		term->c_cc[VTIME] = 0;
-		if (tcsetattr(0, TCSADRAIN, term) == -1)
+		(*t)->term.c_lflag &= ~(ICANON | ECHO);
+		(*t)->term.c_cc[VMIN] = 1;
+		(*t)->term.c_cc[VTIME] = 0;
+		if (tcsetattr(0, TCSADRAIN, &(*t)->term) == -1)
 			return (-1);
 	}
 	return (0);

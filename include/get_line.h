@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 01:29:14 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:04:07 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@ typedef struct		s_term
 	int				nb_line;
 	int				rel_line;
 	int				hist_line;
-	// t_list			*history;
+	struct termios	term;
 	char			*line;
 	char			*promtp;
 	char			*sel;
 	int				len_p;
 }					t_term;
 
-int					init_termios(struct termios *term);
+int					init_termios(t_term **t);
 int					reset_term(struct termios *term);
 void				set_terms(t_term **t, char *promtp);
 
-char				*manag_way(t_term **t, struct termios term);
+char				*manag_way(t_term **t);
 void				*way(t_term **t, char *cmd);
 void				cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd);
 void				*set_cmd_his(char *cmd);
@@ -74,7 +74,7 @@ void				word_right(t_term **t);
 char				*enter(t_term **t);
 
 void				clean_line(t_term **t);
-int					end_shell(t_term **t, struct termios *term, char *cmd);
+int					end_shell(t_term **t, char *cmd);
 
 void				multi_up(t_term **t);
 void				multi_down(t_term **t);

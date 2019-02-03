@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 01:48:59 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/03 05:08:09 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 		&& cmd[0] != 27 && (*t)->index_his <= -1)
 	{
 		if (!(tmp = ft_strdup(cmd)))
-		{
-			printf("ereur malloc\n");
-			return ;
-		}
+			end_shell(t, cmd);
 		if ((*t)->cur.x == (*t)->max_cur)
 			print_buf_end(tmp, t);
 		else if ((*t)->line != NULL)
@@ -59,16 +56,20 @@ char	*get_line(char *promtp)
 	char			*line;
 	char			*tmp;
 
-	if (init_termios(&term) == -1)
-		return (NULL);
+	t = NULL;
 	if (!(t = ft_memalloc(sizeof(t_term))))
 	{
-		printf("erreur malloc");
+		end_shell(&t, NULL);
+		return (NULL);
+	}
+	if (init_termios(&t) == -1)
+	{
+		ft_memdel((void **)t);
 		return (NULL);
 	}
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
-	tmp = manag_way(&t, term);
+	tmp = manag_way(&t);
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	clean_line(&t);

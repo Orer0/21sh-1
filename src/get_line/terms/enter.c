@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 22:34:35 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:16:53 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ char		*enter(t_term **t)
 	if ((*t)->line != NULL)
 	{
 		if (!(tmp = ft_lstnew((*t)->line, (ft_strlen((*t)->line) + 1))))
-		{
-			printf("creer erreur malloc\n");
-			//exit(-1);
-		}
+			end_shell(t, NULL);
 		ft_lstadd(&data->history, tmp);
 	}
 	go_down(t);

@@ -6,11 +6,11 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:19:05 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 05:13:08 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:20:14 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_line.h"
+#include "../../../../include/get_line.h"
 
 void	cut(t_term **t, int rel_cur, int tmp)
 {
@@ -36,6 +36,8 @@ void	cut(t_term **t, int rel_cur, int tmp)
 		(*t)->line = ft_strdup(line);
 	else
 		(*t)->line = ft_strjoin(line, end);
+	if ((*t)->line == NULL)
+		end_shell(t, NULL);
 	ft_strdel(&line);
 	ft_strdel(&end);
 	delete_all(0, t);

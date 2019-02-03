@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 05:16:43 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:15:47 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,12 @@ static void		set_new_value(t_term **t)
 	data = shell_data_singleton();
 	his_line = NULL;
 	if (!(his_line = ft_strdup(ft_history(&data->history, (*t)->index_his))))
-	{
-		printf("erreur malloc");
-		return ;
-	}
+		end_shell(t, NULL);
 	ft_putstr(his_line);
 	if ((*t)->line != NULL)
 		ft_strdel(&(*t)->line);
 	if (!((*t)->line = ft_strdup(his_line)))
-	{
-		printf("erreur malloc");
-		return ;
-	}
+		end_shell(t, NULL);
 	(*t)->max_cur = ft_strlen(his_line);
 	(*t)->cur.x = (*t)->max_cur;
 	(*t)->hist_line = ((*t)->max_cur / (*t)->col);

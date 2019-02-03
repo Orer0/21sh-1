@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:22:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 22:36:06 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:09:35 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,11 @@ void		new_line(t_term **t, int len, int size)
 	line = ft_strsub((*t)->line, 0, size);
 	ft_strdel(&(*t)->line);
 	if (line == NULL && end != NULL)
-	{
-		if (!((*t)->line = ft_strdup(end)))
-			exit(0); // eurreur malloc
-	}
+		(*t)->line = ft_strdup(end);
 	else if (end == NULL && line != NULL)
-	{
-		if (!((*t)->line = ft_strdup(line)))
-			exit(0); // erreur malloc
-	}
+		(*t)->line = ft_strdup(line);
 	else
-	{
-		if (!((*t)->line = ft_strjoin(line, end)))
-			exit(0); // erreur malloc
-	}
+		(*t)->line = ft_strjoin(line, end);
 	if ((*t)->line == NULL)
 	{
 		(*t)->max_cur = 0;

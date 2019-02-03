@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 22:35:52 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:14:09 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	print_buf_end(char *buf, t_term **t)
 	else
 		(*t)->line = ft_strjoin_free_s1(&(*t)->line, &buf);
 	if (!(*t)->line)
-	{
-		printf("erreur malloc"); // erreur malloc;
-	}
+		end_shell(t, NULL);
 	ft_strdel(&buf);
 	(*t)->max_cur = ft_strlen((*t)->line);
 }
@@ -50,10 +48,12 @@ void	print_insertion(t_term **t, char *buf)
 
 	len = (((*t)->cur.x + (*t)->len_p) / (*t)->col);
 	delete_all(len, t);
-	end = ft_strsub((*t)->line, (*t)->cur.x,
-		ft_strlen((*t)->line + (*t)->cur.x));
+	if (!(end = ft_strsub((*t)->line, (*t)->cur.x,
+		ft_strlen((*t)->line + (*t)->cur.x)))) // verifier si utile
+		end_shell(t, NULL);
 	line = ft_strsub((*t)->line, 0, (*t)->cur.x);
-	end = ft_strjoin_free_s2(&buf, &end);
+	if (!(end = ft_strjoin_free_s2(&buf, &end)))
+		end_shell(t, NULL);
 	ft_strdel(&(*t)->line);
 	ft_strdel(&buf);
 	if (line == NULL)

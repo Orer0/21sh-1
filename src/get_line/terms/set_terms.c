@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:26:41 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 02:28:35 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:10:13 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ void	set_terms(t_term **t, char *promtp)
 	(*t)->max_cur = 0;
 	(*t)->col = 0;
 	if (!((*t)->promtp = ft_strdup(promtp)))
-	{
-		printf("erreur malloc\n");
-		return ;
-	}
+		end_shell(t, NULL);
 	(*t)->len_p = ft_strlen((*t)->promtp);
 	(*t)->rel_line = 0;
 	(*t)->nb_line = 0;

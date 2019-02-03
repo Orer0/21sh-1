@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:25:51 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 04:13:52 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:10:34 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,9 @@ void	*set_cmd_mouv(char *cmd)
 
 void	*set_cmd_his(char *cmd)
 {
-//	if (cmd[0] == 10 && cmd[1] == 0)
-//		return (&enter);
 	if (cmd[0] == 27 && cmd[1] == 91 && cmd[2] == 65)
 		return (&history_up);
 	else if (cmd[0] == 27 && cmd[1] == 91 && cmd[2] == 66)
 		return (&history_down);
-	//else if (cmd[0] == 4)
-	//	return (&clean_line);
 	return (NULL);
 }

@@ -6,11 +6,11 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 05:13:52 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/03 05:21:19 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_line.h"
+#include "../../../../include/get_line.h"
 
 static void		set_init(t_term **t, int rel_cur, int tmp, char *cmd)
 {
