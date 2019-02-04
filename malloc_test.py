@@ -9,7 +9,8 @@ from struct import pack
 crash = 0
 count = 1
 cursor = 0
-prog_name = "21sh"
+prog_name = "minishell"
+function = "malloc"
 opcodes = []
 header_info = []
 mal = "4831C09090"
@@ -24,19 +25,19 @@ def little_endian(str):
 
 def print_header(one, buff):
         print '\033[1m------------ \033[32mTARGET CODE\033[0;1m ------------'
-        print '|        \033[1;33mcall _ft_strdup - \033[1;32m' + str(count) + ' of '\
+        print '|        \033[1;33mcall _' + function + ' - \033[1;32m' + str(count) + ' of '\
                 + str(len(opcodes)) + '\033[0m      \033[1m|'
         print '| ... ' + buff[cursor - 38:cursor - 9] + ' |'
         print '| ' + buff[cursor - 9:cursor] + '\033[1;32m[' + one \
             + ']\033[0;1m' + buff[cursor+len(one):cursor + len(one) + 12] + ' \033[1m|'
         print '| ' + buff[cursor + len(one) + 12:cursor + 51] + ' ... |'
-        print '| \033[1;32m[call _ft_strdup] ' + one[:2] + ' ' + one[2:4] + ' ' \
+        print '| \033[1;32m[call _' + function + '] ' + one[:2] + ' ' + one[2:4] + ' ' \
             + one[4:6] + ' ' + one[6:8] + ' ' + one[8:10] + '\033[0;1m     |'
         print '-------------------------------------'
 
 def print_injection(one, buff):
         print '\033[1m----------- \033[31mPOISONED CODE\033[0;1m -----------'
-        print '|        \033[1;33mcall _ft_strdup - \033[1;32m' + str(count) + ' of '\
+        print '|        \033[1;33mcall _' + function + ' - \033[1;32m' + str(count) + ' of '\
                 + str(len(opcodes)) + '\033[0m      \033[1m|'
         print '| ... ' + buff[cursor - 38:cursor - 9] + ' |'
         print '| ' + buff[cursor - 9:cursor] + '\033[1;31m[' + mal[:-4] \
@@ -45,7 +46,7 @@ def print_injection(one, buff):
         print '| \033[1;31m+ [xor rax, rax] 48 31 C0\033[0;1m         |'
         print '| \033[1;31m+ [nop]          90\033[0;1m               |'
         print '| \033[1;31m+ [nop]          90\033[0;1m               |'
-        print '| \033[1;32m- [call _ft_strdup] ' + one[:2] + ' ' + one[2:4] + ' ' \
+        print '| \033[1;32m- [call _' + function + '] ' + one[:2] + ' ' + one[2:4] + ' ' \
             + one[4:6] + ' ' + one[6:8] + ' ' + one[8:10] + '\033[0;1m   |'
         print '-------------------------------------'
 
@@ -66,10 +67,10 @@ def make_a_mess(one):
         cursor = buff.find(one)
         print_header(one, buff)
         a = int((little_endian(check_size(buff))).encode('hex'), 16)
-        print '\033[1;33m-> Valid ft_strdup call : \033[1;32mOK'
+        print '\033[1;33m-> Valid ' + function + ' call : \033[1;32mOK'
         print '\033[1;33m-> Size of .text section : \033[1;32m' + str(a) + ' bytes'
         print '\033[1;33m-> Infection possible : \033[1;32mYES'
-        print '\033[1;33m-> Poisoning ft_strdup \'' + one + '\' ...\n\033[0m'
+        print '\033[1;33m-> Poisoning ' + function + ' \'' + one + '\' ...\n\033[0m'
         buff = poison(buff, one)
         print_injection(one, buff)
         new_name = prog_name + ".infected"
@@ -117,12 +118,15 @@ def get_symbols():
         if len(sys.argv) >= 2:
                 global prog_name
                 prog_name = sys.argv[1]
-        os.system("/usr/bin/otool -tVj " + prog_name + " | grep ft_strdup > .sym_logs")
+        if len(sys.argv) >= 3:
+                global function
+                function = sys.argv[2]
+        os.system("/usr/bin/otool -tVj " + prog_name + " | grep " + function + " > .sym_logs")
         with open(".sym_logs", "r") as fo:
             for line in fo:
                     splitted = line.split()
                     for elem in splitted:
-                        if elem == "_ft_strdup":
+                        if elem == "_" + function:
                             valid.append(line)
         get_opcodes(valid)
 

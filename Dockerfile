@@ -2,7 +2,7 @@ FROM debian:jessie-slim
 
 MAINTAINER nirae
 
-RUN apt-get -y update
+RUN apt-get -y update && apt-get -y upgrade
 
 RUN apt-get -y install build-essential valgrind bsdmainutils curl git-all libncurses5-dev
 
