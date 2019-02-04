@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 03:22:03 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 01:00:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@
 **	Fin DEBUG
 */
 
+// static int		not_terminal_type(t_list *lst)
+// {
+// 	int		type;
+//
+// 	if (!lst)
+// 		return (FALSE);
+// 	type = get_type_token(lst->content);
+// 	if (type == PIPE_TYPE
+// 		|| type == D_QUOTE_TYPE
+// 		|| type == S_QUOTE_TYPE
+// 		|| type == AND_TYPE
+// 		|| type == OR_TYPE)
+// 		return (TRUE);
+// 		// unexpected_token_error(get_token_token(lst->content));
+// 	return (FALSE);
+// }
+
 /*
 **	Prends une ligne et genere l'ast pour remplir la structure shell_data
 */
@@ -35,6 +52,7 @@ int		shell_parser(char **line)
 {
 	int i;
 	t_shell_data *data;
+	t_list *tmp;
 
 	data = shell_data_singleton();
 	// Print chaine recu
@@ -47,6 +65,24 @@ int		shell_parser(char **line)
 	lexer(*line);
 	ft_printf("\n\n APRES LE LEXER \n\n");
 	ft_print_tokens();
+
+	// ft_printf("\nAVANT CHECK TERMINAL\n");
+	// tmp = data->tokens_list;
+	// while (tmp)
+	// {
+	// 	if (!tmp->next)
+	// 	{
+	// 		if (not_terminal_type(tmp))
+	// 		{
+	// 			char *line = get_line(PROMPT_MIN);
+	// 			lexer(line);
+	// 			ft_strdel(&line);
+	// 			tmp = data->tokens_list;
+	// 		}
+	// 	}
+	// 	tmp = tmp->next;
+	// }
+	// ft_printf("\nAPRES CHECK TERMINAL\n");
 	first_check_tokens_list(data->tokens_list);
 	ft_printf("\n\n APRES FIRST CHECK \n\n");
 	ft_print_tokens();

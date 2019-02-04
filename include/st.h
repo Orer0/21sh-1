@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 20:48:21 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 04:38:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 00:08:06 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define	S_RULE						800
 # define	S_PRIME_RULE				801
-# define 	T_RULE						802 
+# define 	T_RULE						802
 # define	T_PRIME_RULE				903
 # define	U_RULE						904
 # define	U_PRIME_RULE				904
@@ -30,6 +30,8 @@
 # define	A_PRIME_RULE				907
 # define	B_RULE						908
 # define	B_PRIME_RULE				909
+# define	C_RULE						910
+# define	C_PRIME_RULE				911
 
 // typedef struct			s_ptree
 // {
@@ -65,6 +67,8 @@ void 	ft_ptree_create_node(t_ptree **tree, void *data, int type);
 
 int		b_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
 int		b_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
+int		c_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
+int		c_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
 int		test_current_token(t_tokens_list **tokens_s, int type, t_ptree **tree);
 int		s_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);
 int		s_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree);

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 01:21:14 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 00:37:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			put_arg_in_cmd_list(t_list **lst, t_list **args_list);
 int 			lexer(char *line);
 int				add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansion);
 int				constructor_line_struct(char *str, t_line **line);
-void 			first_check_tokens_list(t_list *lst);
+int 			first_check_tokens_list(t_list *lst);
 void 			build_command_token(void);
 void 			delete_list_tokens(t_list **lst);
 void			put_str_in_stack(char (*stack)[STACK_SIZE], char *str);

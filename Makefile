@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/03 04:42:07 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/04 00:07:42 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRCS	=	$(MAIN)															\
 			$(ST)f_rule.c													\
 			$(ST)a_rule.c													\
 			$(ST)b_rule.c													\
+			$(ST)c_rule.c													\
 			$(AST)ast.c														\
 			$(AST)delete_ast.c												\
 			$(AST)procedures.c												\

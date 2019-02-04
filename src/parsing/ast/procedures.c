@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 06:13:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 04:38:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 00:06:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ void 		execute_post_order_procedure(t_ptree **tree)
 	// 	a_procedure(tree);
 	else if ((*tree)->type == S_RULE || (*tree)->type == T_RULE
 		|| (*tree)->type == START_TYPE || (*tree)->type == U_RULE
-		|| (*tree)->type == V_RULE || (*tree)->type == F_RULE || (*tree)->type == A_RULE || (*tree)->type == B_RULE)
+		|| (*tree)->type == V_RULE || (*tree)->type == F_RULE || (*tree)->type == A_RULE || (*tree)->type == B_RULE || (*tree)->type == C_RULE)
 		rules_procedure(tree);
 }

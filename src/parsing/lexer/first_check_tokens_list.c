@@ -6,25 +6,27 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 02:09:27 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 04:12:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static void		not_terminal_type(t_list *lst)
+static int		not_terminal_type(t_list *lst)
 {
 	int		type;
 
 	if (!lst)
-		return ;
+		return (TRUE);
 	type = get_type_token(lst->content);
 	if (type == PIPE_TYPE
 		|| type == D_QUOTE_TYPE
 		|| type == S_QUOTE_TYPE
 		|| type == AND_TYPE
 		|| type == OR_TYPE)
-		unexpected_token_error(get_token_token(lst->content));
+		return (FALSE);
+		// unexpected_token_error(get_token_token(lst->content));
+	return (TRUE);
 }
 
 static void		not_started_type(t_list *lst)
@@ -80,7 +82,7 @@ static void		manage_type(t_list **tmp, int *end_vars)
 		*end_vars = TRUE;
 }
 
-void 	first_check_tokens_list(t_list *lst)
+int 	first_check_tokens_list(t_list *lst)
 {
 	t_list		*tmp;
 	int			end_vars;
@@ -95,4 +97,5 @@ void 	first_check_tokens_list(t_list *lst)
 			return (not_terminal_type(tmp));
 		tmp = tmp->next;
 	}
+	return (TRUE);
 }
