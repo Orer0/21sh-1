@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/04 01:00:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 04:14:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		shell_parser(char **line)
 {
 	int i;
 	t_shell_data *data;
-	t_list *tmp;
 
 	data = shell_data_singleton();
 	// Print chaine recu
