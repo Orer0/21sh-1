@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 04:05:33 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 00:08:56 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ static char		*get_str_type(int type)
 		return ("F RULE");
 	else if (type == A_RULE)
 		return ("A RULE");
+	else if (type == B_RULE)
+		return ("B RULE");
+	else if (type == C_RULE)
+		return ("C RULE");
 	else if (type == AND_TYPE)
 		return ("AND TYPE");
 	else if (type == OR_TYPE)

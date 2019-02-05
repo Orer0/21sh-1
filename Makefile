@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/03 04:56:01 by aroblin          ###   ########.fr        #
+#    Updated: 2019/02/05 05:49:31 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
-CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
 TERMCAP =	-ltermcap
 
 # Directories
@@ -74,6 +74,8 @@ SRCS	=	$(MAIN)															\
 			$(ST)v_rule.c													\
 			$(ST)f_rule.c													\
 			$(ST)a_rule.c													\
+			$(ST)b_rule.c													\
+			$(ST)c_rule.c													\
 			$(AST)ast.c														\
 			$(AST)delete_ast.c												\
 			$(AST)procedures.c												\

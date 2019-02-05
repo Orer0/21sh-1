@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/05 05:35:05 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/05 05:49:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char		*enter(t_term **t)
 			end_shell(t, NULL);
 		ft_lstadd(&data->history, tmp);
 	}
+	else
+		(*t)->line = ft_strdup("\n");
 	go_down(t);
 	ft_putchar('\n');
 	print_promtp(t);

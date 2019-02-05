@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 23:01:03 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/05 05:45:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	if_take_the_last(int state)
 		|| state == DOLLAR_STATE
 		|| state == AND_STATE
 		|| state == OR_STATE
+		|| state == PIPE_STATE
+		// || state == DOTCOMMA_V_STATE
 		|| state == EQUAL_STATE
 		|| state == TILDE_STATE)
 		return (TRUE);
@@ -64,12 +66,10 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state,
 		put_char_in_stack(stack, line->line[line->i]);
 	if (next_state == NONE_STATE)
 	{
-		ft_printf("current = %d\n", current_state);
-		ft_printf(
-			"Syntax error near character %c at position %d\n",
+		ft_fd_printf(
+			2, "21sh: syntax error near character %c at position %d\n",
 			line->line[line->i], line->i + 1
 		);
-		quit_shell(EXIT_FAILURE, 0);
 	}
 	else if ((next_state == DOLLAR_STATE || next_state == TILDE_STATE)
 		&& current_state != DOLLAR_STATE)
@@ -90,15 +90,17 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state,
 **	The main function of the Lexer
 */
 
-int lexer(char *line)
+int lexer(char **line)
 {
 	char stack[STACK_SIZE];
 	t_line	*line_s;
 	int current_state;
 	int next_state;
 	int	expansion;
+	char *tmp;
+	char *newline;
 
-	constructor_line_struct(line, &line_s);
+	constructor_line_struct(*line, &line_s);
 	current_state = START_STATE;
 	ft_bzero((void *)&stack, STACK_SIZE);
 	expansion = FALSE;
@@ -108,7 +110,21 @@ int lexer(char *line)
 						current_state, get_index_from_char(line_s));
 		current_state = routine_next_state(
 						&stack, current_state, next_state, line_s, &expansion);
+		if (current_state == NONE_STATE)
+		{
+			ft_memdel((void **)&line_s);
+			return (FALSE);
+		}
+		if (!line_s->line[line_s->i + 1] && (current_state == D_QUOTE_STATE || current_state == S_QUOTE_STATE))
+		{
+			tmp = line_s->line;
+			newline = get_line(PROMPT_MIN);
+			line_s->line = ft_strjoin(tmp, newline);
+			ft_strdel(&newline);
+			ft_strdel(&tmp);
+		}
 	}
+	*line = line_s->line;
 	if (if_take_the_last(current_state))
 		add_new_token(stack, next_state, current_state, expansion);
 	ft_memdel((void **)&line_s);

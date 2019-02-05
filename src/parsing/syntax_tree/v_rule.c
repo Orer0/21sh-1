@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:57:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:02:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/04 00:14:02 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,7 @@ int		v_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 
 	save_index = (*tokens_list_struct)->index;
 	if (test_current_token(tokens_list_struct, AGGREGATION_TYPE, tree)
-		&& test_current_token(tokens_list_struct, AGGREGATION_ARG_TYPE, tree)
-		&& v_prime_rule(tokens_list_struct, tree))
-	{
-		return (TRUE);
-	}
-	(*tokens_list_struct)->index = save_index;
-	if (test_current_token(tokens_list_struct, AGGREGATION_TYPE, tree)
-		&& v_prime_rule(tokens_list_struct, tree))
+		&& c_rule(tokens_list_struct, tree))
 	{
 		return (TRUE);
 	}
