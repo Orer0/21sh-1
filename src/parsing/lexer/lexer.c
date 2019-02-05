@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/05 04:47:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/05 05:45:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,15 +90,17 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state,
 **	The main function of the Lexer
 */
 
-int lexer(char *line)
+int lexer(char **line)
 {
 	char stack[STACK_SIZE];
 	t_line	*line_s;
 	int current_state;
 	int next_state;
 	int	expansion;
+	char *tmp;
+	char *newline;
 
-	constructor_line_struct(line, &line_s);
+	constructor_line_struct(*line, &line_s);
 	current_state = START_STATE;
 	ft_bzero((void *)&stack, STACK_SIZE);
 	expansion = FALSE;
@@ -113,7 +115,16 @@ int lexer(char *line)
 			ft_memdel((void **)&line_s);
 			return (FALSE);
 		}
+		if (!line_s->line[line_s->i + 1] && (current_state == D_QUOTE_STATE || current_state == S_QUOTE_STATE))
+		{
+			tmp = line_s->line;
+			newline = get_line(PROMPT_MIN);
+			line_s->line = ft_strjoin(tmp, newline);
+			ft_strdel(&newline);
+			ft_strdel(&tmp);
+		}
 	}
+	*line = line_s->line;
 	if (if_take_the_last(current_state))
 		add_new_token(stack, next_state, current_state, expansion);
 	ft_memdel((void **)&line_s);
