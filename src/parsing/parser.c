@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/04 04:14:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/05 04:44:59 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,30 +59,28 @@ int		shell_parser(char **line)
 	i = -1;
 	while (ft_isspace((*line)[++i]));
 	if (!(*line)[i])
+	{
+		ft_strdel(line);
 		return (FALSE);
+	}
 	// Lexer call
-	lexer(*line);
+	if (!lexer(*line))
+	{
+		ft_strdel(line);
+		return (FALSE);
+	}
 	ft_printf("\n\n APRES LE LEXER \n\n");
 	ft_print_tokens();
-
-	// ft_printf("\nAVANT CHECK TERMINAL\n");
-	// tmp = data->tokens_list;
-	// while (tmp)
-	// {
-	// 	if (!tmp->next)
-	// 	{
-	// 		if (not_terminal_type(tmp))
-	// 		{
-	// 			char *line = get_line(PROMPT_MIN);
-	// 			lexer(line);
-	// 			ft_strdel(&line);
-	// 			tmp = data->tokens_list;
-	// 		}
-	// 	}
-	// 	tmp = tmp->next;
-	// }
-	// ft_printf("\nAPRES CHECK TERMINAL\n");
-	first_check_tokens_list(data->tokens_list);
+	if (!data->tokens_list)
+	{
+		ft_strdel(line);
+		return (FALSE);
+	}
+	if (!first_check_tokens_list(data->tokens_list))
+	{
+		ft_strdel(line);
+		return (FALSE);
+	}
 	ft_printf("\n\n APRES FIRST CHECK \n\n");
 	ft_print_tokens();
 	build_command_token();

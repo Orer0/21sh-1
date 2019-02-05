@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/04 00:37:24 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/05 04:26:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ typedef struct	s_line
 }				t_line;
 
 void			unexpected_token_error(char *token);
-void			redirections(t_list *lst);
-void			aggregations(t_list *lst);
+int				redirections(t_list *lst);
+int				aggregations(t_list *lst);
 void			variables(t_list *lst);
 void			put_arg_in_cmd_list(t_list **lst, t_list **args_list);
 int 			lexer(char *line);

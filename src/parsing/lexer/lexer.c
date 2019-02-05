@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 23:01:03 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/05 04:47:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	if_take_the_last(int state)
 		|| state == DOLLAR_STATE
 		|| state == AND_STATE
 		|| state == OR_STATE
+		|| state == PIPE_STATE
+		// || state == DOTCOMMA_V_STATE
 		|| state == EQUAL_STATE
 		|| state == TILDE_STATE)
 		return (TRUE);
@@ -64,12 +66,10 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state,
 		put_char_in_stack(stack, line->line[line->i]);
 	if (next_state == NONE_STATE)
 	{
-		ft_printf("current = %d\n", current_state);
-		ft_printf(
-			"Syntax error near character %c at position %d\n",
+		ft_fd_printf(
+			2, "21sh: syntax error near character %c at position %d\n",
 			line->line[line->i], line->i + 1
 		);
-		quit_shell(EXIT_FAILURE, 0);
 	}
 	else if ((next_state == DOLLAR_STATE || next_state == TILDE_STATE)
 		&& current_state != DOLLAR_STATE)
@@ -108,6 +108,11 @@ int lexer(char *line)
 						current_state, get_index_from_char(line_s));
 		current_state = routine_next_state(
 						&stack, current_state, next_state, line_s, &expansion);
+		if (current_state == NONE_STATE)
+		{
+			ft_memdel((void **)&line_s);
+			return (FALSE);
+		}
 	}
 	if (if_take_the_last(current_state))
 		add_new_token(stack, next_state, current_state, expansion);

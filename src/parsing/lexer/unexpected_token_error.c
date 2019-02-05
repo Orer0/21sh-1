@@ -14,6 +14,6 @@
 
 void		unexpected_token_error(char *token)
 {
-	ft_printf("syntax error near unexpected token : \"%s\"\n", token);
+	ft_printf("21sh: syntax error near unexpected token : \"%s\"\n", token);
 	quit_shell(EXIT_FAILURE, 0);
 }

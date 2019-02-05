@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 22:50:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 02:10:32 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/05 04:26:25 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void		replace_content(t_list *lst)
 	lst->content_size = sizeof(t_var_token);
 }
 
-void		aggregations(t_list *lst)
+int		aggregations(t_list *lst)
 {
 	int		type;
 
@@ -48,13 +48,15 @@ void		aggregations(t_list *lst)
 		if (type == NUMBER_TYPE || type == WORD_TYPE)
 		{
 			set_type_token(lst->next->content, AGGREGATION_ARG_TYPE);
-			return ;
+			return (TRUE);
 		}
 	}
-	unexpected_token_error(get_token_token(lst->content));
+	ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", get_token_token(lst->content));
+	return (FALSE);
+	// unexpected_token_error(get_token_token(lst->content));
 }
 
-void		redirections(t_list *lst)
+int		redirections(t_list *lst)
 {
 	int		type;
 
@@ -64,10 +66,12 @@ void		redirections(t_list *lst)
 		if (type == WORD_TYPE)
 		{
 			set_type_token(lst->next->content, REDIRECTION_ARG_TYPE);
-			return ;
+			return (TRUE);
 		}
 	}
-	unexpected_token_error(get_token_token(lst));
+	ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", get_token_token(lst->content));
+	return (FALSE);
+	// unexpected_token_error(get_token_token(lst));
 }
 
 void		variables(t_list *lst)
