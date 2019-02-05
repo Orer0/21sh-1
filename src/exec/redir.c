@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 01:40:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/05 04:03:19 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/05 05:28:45 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,5 @@ void	in_redir(t_cmd_token *cmd, t_token *name, t_token *redir)
 	exec_command(tab, data->env_tab);
 	close(fd);
 }
+
+
