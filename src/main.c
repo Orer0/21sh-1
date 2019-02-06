@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/05 04:44:25 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/06 00:09:28 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,41 @@ void 	exec_ast(t_btree *tree, int exec_next)
 		return ;
 	exec = TRUE;
 	// ft_printf("noeud [%s], exec next [%d]\n", get_token_token(tree->data), exec_next);
-	if (exec_next)
-		if (tree->left != NULL)
-			exec_ast(tree->left, exec);
+	if (is_redirection(get_type_token(tree->data)))
+	{
+		ft_printf("NOEUD REDIRECTION\n");
+		// Choppe l'argument
+		if (tree->right)
+		{
+			if (get_type_token(tree->right->data) == REDIRECTION_ARG_TYPE)
+			{
+				ft_printf("ARGUMENT redirection right = %s\n", get_token_token(tree->right->data));
+			}
+			else
+			{
+				if (tree->right->left)
+				{
+					if (get_type_token(tree->right->left->data) == REDIRECTION_ARG_TYPE)
+					{
+						ft_printf("ARGUMENT redirection right->left = %s\n", get_token_token(tree->right->left->data));
+					}
+				}
+			}
+		}
+		// Fais ton dup
+		// // Relance la recursion sur la droite
+		// exec_ast(tree->right, exec);
+		// Exec la commande
+		ft_printf("execution dans la fonction pour redirection\n");
+		if (exec_next)
+			if (tree->left != NULL)
+				exec_ast(tree->left, exec);
+		// Close ton dup
+	}
+	else
+		if (exec_next)
+			if (tree->left != NULL)
+				exec_ast(tree->left, exec);
 	// &&
 	if (get_type_token(tree->data) == AND_TYPE)
 	{

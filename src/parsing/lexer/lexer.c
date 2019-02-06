@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/05 05:45:12 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/06 01:05:39 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	routine_next_state(char (*stack)[STACK_SIZE], int current_state,
 	else if ((next_state == DOLLAR_STATE || next_state == TILDE_STATE)
 		&& current_state != DOLLAR_STATE)
 	{
-		(*expansion) = TRUE;
+		(*expansion) = ft_strlen(*stack);
 		return (next_state);
 	}
 	else if (is_acceptor(next_state))
