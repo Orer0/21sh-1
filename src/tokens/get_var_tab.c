@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/06 05:48:53 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/07 00:56:31 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,91 +24,119 @@ static char		*get_env_var(char *name)
 	if (var)
 		content = ft_strdup(var->content);
 	else
-		content = ft_strdup("");
+		return (NULL);
 	if (!content)
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	return (content);
 }
 
-static void	manage_dollar_var(char **str, int pos)
+static void replace_dollar(char **tab, char **final)
 {
-	(void)pos;
+	int		i;
+	char	*tmp;
+
+	tmp = NULL;
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		tmp = get_env_var(tab[i]);
+		if (!(final) && tmp)
+			*final = ft_strdup(tmp);
+		else if (!(*final) && !(tmp))
+			*final = ft_strdup(tab[i]);
+		else if (tmp)
+			*final = ft_strjoin_free_s1(final, &tmp);
+		else
+			*final = ft_strjoin_free_s1(final, &tab[i]);
+		ft_strdel(&tmp);
+		i++;
+	}
+}
+
+static void build_new_str(char **div_str, char *final, int equal)
+{
+	char	*bef_do;
+	char	**tab;
+	char	*af_do;
+
+	if (!(bef_do = ft_strsub(*div_str, 0, ft_strpos(*div_str, '$'))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	if (!(af_do = ft_strsub(*div_str, ft_strpos(*div_str, '$'),
+					ft_strlen(*div_str) - ft_strpos(*div_str, '$'))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	final = ft_strdup(bef_do);
+	if (!(tab = ft_strsplit(af_do, '$')))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	replace_dollar(tab, &final);
+	if ((!final))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	if (equal == 1)
+		*div_str = ft_strjoin(final, "=");
+	else
+		*div_str = ft_strdup(final);
+	if (*div_str == NULL)
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	ft_strdel(&bef_do);
+	ft_strdel(&af_do);
+}
+
+static void	manage_dollar_var(char **str)
+{
 	char	*before_equal;
 	char	*after_equal;
-	char	**tab;
-	int i = 0;
 	char	*tmp;
 	char	*final;
 
 	final = NULL;
 	tmp = NULL;
-	tab = NULL;
-	before_equal = ft_strsub(*str, 0, ft_strpos(*str, '='));
-	after_equal = ft_strsub(*str, ft_strpos(*str, '=') + 1, ft_strlen(*str) - ft_strpos(*str, '='));
-	ft_printf("before = [%s] after = [%s]\n", before_equal, after_equal);
-	tab = ft_strsplit(before_equal, '$');
-	while (tab[i] != NULL)
-	{
-		tmp = get_env_var(tab[i]);
-		if (final == NULL)
-			final = ft_strdup(tmp);
-		else
-			final = ft_strjoin_free_s1(&final, &tmp);
-		ft_strdel(&tmp);
-		i++;
-	}
-	if (final == NULL)
-		final = ft_strdup(before_equal);
-	ft_strtab_del(&tab);
-	tab = ft_strsplit(after_equal, '$');
-	while (tab[i] != NULL)
-	{
-		tmp = get_env_var(tab[i]);
-		if (final == NULL)
-			final = ft_strdup(tmp);
-		else
-			final = ft_strjoin_free_s1(&final, &tmp);
-		ft_strdel(&tmp);
-		i++;
-	}
-	final = ft_strjoin_add(after_equal, final, '=');
+	if (!(before_equal = ft_strsub(*str, 0, ft_strpos(*str, '='))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	if (!(after_equal = ft_strsub(*str, ft_strpos(*str, '=')
+		+ 1, ft_strlen(*str) - ft_strpos(*str, '='))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	build_new_str(&before_equal, final, 1);
+	build_new_str(&after_equal, final, 0);
 	ft_strdel(str);
-	ft_strtab_del(&tab);
-	*str = ft_strdup(final);
+	if (!(*str = ft_strjoin(before_equal, after_equal)))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	ft_strdel(&final);
 	ft_strdel(&before_equal);
 	ft_strdel(&after_equal);
 }
 
-static void	manage_expansion_var(char **str, int pos)
+static void manag_tild_var(char **str, char **after_equal, char **before_equal)
+{
+	char	*final;
+
+	replace_tilde(after_equal);
+	ft_strdel(str);
+	if (!(final = ft_strnew(ft_strlen(*before_equal)
+		+ ft_strlen(*after_equal) + 1)))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	final = ft_strcat(final, *before_equal);
+	final = ft_strcat(final, "=");
+	final = ft_strcat(final, *after_equal);
+	ft_strdel(str);
+	*str = final;
+}
+
+static void	manage_expansion_var(char **str)
 {
 	char	*after_equal;
 	char	*before_equal;
 	char	*equal;
-	char	*final;
 
 	equal = ft_strchr(*str, '=');
 	equal[0] = 0;
-	before_equal = ft_strdup(*str);
+	if (!(before_equal = ft_strdup(*str)))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	equal[0] = '=';
-	after_equal = ft_strdup(ft_strchr(*str, '=') + 1);
-	//ft_printf("before = [%s] after = [%s]\n", before_equal, after_equal);
-//	ft_printf("%d = pos\n", pos);
+	if (!(after_equal = ft_strdup(ft_strchr(*str, '=') + 1)))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	if (after_equal[0] == '~')
-	{
-		replace_tilde(&after_equal);
-		ft_strdel(str);
-		final = ft_strnew(ft_strlen(before_equal) + ft_strlen(after_equal) + 1);
-		final = ft_strcat(final, before_equal);
-		final = ft_strcat(final, "=");
-		final = ft_strcat(final, after_equal);
-		ft_strdel(str);
-		*str = final;
-	}
-	else
-	{
-		manage_dollar_var(str, pos);
-	}
+		manag_tild_var(str, &after_equal, &before_equal);
+	else if (ft_strchr(*str, '$'))
+		manage_dollar_var(str);
 	ft_strdel(&after_equal);
 	ft_strdel(&before_equal);
 }
@@ -121,16 +149,14 @@ char 	**get_var_tab(t_var_token **token)
 	if (!(tab = ft_memalloc(sizeof(char *) * 2)))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	if ((*token)->is_expansion)
-		manage_expansion_var(&(*token)->token, (*token)->is_expansion);
-//	ft_printf("%d = token_len", (*token)->is_expansion);
-//	ft_printf("   %s = token", (*token)->token);
+		manage_expansion_var(&(*token)->token);
 	tab[0] = ft_strdup((*token)->token);
 	tab[1] = NULL;
 	tmp = (*token)->var_lst;
 	while (tmp)
 	{
 		if (get_expansion_token(tmp->content))
-			manage_expansion_var(&(*((t_cmd_token **)(tmp->content)))->token, (*token)->is_expansion);
+			manage_expansion_var(&(*((t_cmd_token **)(tmp->content)))->token);
 		ft_strtab_addend(&tab, get_token_token(tmp->content));
 		tmp = tmp->next;
 	}
