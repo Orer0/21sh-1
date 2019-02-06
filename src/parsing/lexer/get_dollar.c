@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 21:38:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 01:21:05 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/06 04:02:21 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char		*get_env_var(char *name)
 	else
 		content = ft_strdup("");
 	if (!content)
-		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+		quit_shell(exit_failure, malloc_err);
 	return (content);
 }
 
