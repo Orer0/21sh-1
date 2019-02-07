@@ -6,15 +6,14 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/05 05:49:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/07 03:44:03 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
 
-static void		print_promtp(t_term **t)
+static void		reset_curse(t_term **t)
 {
-	ft_putstr((*t)->promtp);
 	(*t)->index_his = -1;
 	(*t)->cur.x = 0;
 	(*t)->cur.y = 0;
@@ -61,6 +60,6 @@ char		*enter(t_term **t)
 		(*t)->line = ft_strdup("\n");
 	go_down(t);
 	ft_putchar('\n');
-	print_promtp(t);
+	reset_curse(t);
 	return (NULL);
 }
