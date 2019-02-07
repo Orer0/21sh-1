@@ -6,52 +6,12 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/07 02:32:58 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/07 02:45:20 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "tokens.h"
-
-static char		*get_env_var(char *name)
-{
-	t_varenv	*var;
-	char	*content;
-	t_shell_data	*data;
-
-	data = shell_data_singleton();
-	var = get_env_var_by_name(&data->intern_env_lst, name);
-	if (var)
-		content = ft_strdup(var->content);
-	else
-		return (NULL);
-	if (!content)
-		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	return (content);
-}
-
-static void replace_dollar(char **tab, char **final)
-{
-	int		i;
-	char	*tmp;
-
-	tmp = NULL;
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		tmp = get_env_var(tab[i]);
-		if (!(final) && tmp)
-			*final = ft_strdup(tmp);
-		else if (!(*final) && !(tmp))
-			*final = ft_strdup(tab[i]);
-		else if (tmp)
-			*final = ft_strjoin_free_s1(final, &tmp);
-		else
-			*final = ft_strjoin_free_s1(final, &tab[i]);
-		ft_strdel(&tmp);
-		i++;
-	}
-}
 
 static void build_new_str(char **div_str, char *final, int equal)
 {

@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/07 02:33:01 by aroblin          ###   ########.fr        #
+#    Updated: 2019/02/07 02:44:43 by aroblin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,8 @@ SRCS	=	$(MAIN)															\
 			$(TK)get_cmd_tab.c												\
 			$(TK)get_var_tab.c												\
 			$(TK)replace_tilde.c											\
+			$(TK)replace_dollar.c											\
+			$(TK)get_env_var.c												\
 			$(TK)get_var_tab_for_unset.c									\
 			$(ENV)get_env_var_by_name.c										\
 			$(ENV)env_lst_to_tab.c											\
