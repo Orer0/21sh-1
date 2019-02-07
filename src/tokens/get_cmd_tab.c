@@ -6,14 +6,14 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 06:19:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/06 23:44:37 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/07 02:31:32 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "tokens.h"
 #include "lexer.h"
-/*
+
 static char		*get_env_var(char *name) // enlever static)
 {
  	t_varenv	*var;
@@ -30,49 +30,68 @@ static char		*get_env_var(char *name) // enlever static)
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	return (content);
 }
-*/
-/*
-static char	*get_dollar(char *line)
+
+static void replace_dollar(char **tab, char **final) // utilse dans get_var_tab aussi
 {
 	int		i;
-	char	stack[STACK_SIZE];
+	char	*tmp;
 
-	while (line[++i])
+	tmp = NULL;
+	i = 0;
+	while (tab[i] != NULL)
 	{
-		if (is_(line[i]))
-		{
-			(line->i)--;
-			return (get_env_var(stack));
-		}
+		tmp = get_env_var(tab[i]);
+		if (!(final) && tmp)
+			*final = ft_strdup(tmp);
+		else if (!(*final) && !(tmp))
+			*final = ft_strdup(tab[i]);
+		else if (tmp)
+			*final = ft_strjoin_free_s1(final, &tmp);
 		else
-		{
-			if (!is_ignored(state, next_state))
-				put_char_in_stack(&stack, line->line[line->i]);
-		}
-		state = next_state;
+			*final = ft_strjoin_free_s1(final, &tab[i]);
+		ft_strdel(&tmp);
+		i++;
 	}
-	(line->i)--;
-	return (get_env_var(stack));
 }
-*/
-static void	manage_expansion_cmd(char **str)
-{
-	int		i;
-//	char	*var;
 
+static void		get_dollar(char **str)
+{
+	char	*bef_do;
+	char	**tab;
+	char	*af_do;
+	char	*final;
+
+	final = NULL;
+	if (!(bef_do = ft_strsub(*str, 0, ft_strpos(*str, '$'))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	if (!(af_do = ft_strsub(*str, ft_strpos(*str, '$'),
+					ft_strlen(*str) - ft_strpos(*str, '$'))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	final = ft_strdup(bef_do);
+	if (!(tab = ft_strsplit(af_do, '$')))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	replace_dollar(tab, &final);
+	if ((!final))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	ft_strdel(str);
+	*str = ft_strdup(final);
+	if (*str == NULL)
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	ft_strtab_del(&tab);
+	ft_strdel(&final);
+	ft_strdel(&bef_do);
+	ft_strdel(&af_do);
+}
+
+static void		manage_expansion_cmd(char **str)
+{
 	if ((*str)[0] == '~')
 		replace_tilde(str);
-	i = -1;
-	while ((*str)[++i])
-	{
-		if ((*str)[i] == '$')
-		{
-//			var = get_dollar(&(*str)[i + 1]);
-		}
-	}
+	else if (ft_strchr(*str, '$'))
+		get_dollar(str);
 }
 
-char 	**get_cmd_tab(t_cmd_token **token)
+char			**get_cmd_tab(t_cmd_token **token)
 {
 	char	**tab;
 	t_list	*tmp;
