@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/06 01:05:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/08 06:06:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ int lexer(char **line)
 	int	expansion;
 	char *tmp;
 	char *newline;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	constructor_line_struct(*line, &line_s);
 	current_state = START_STATE;
 	ft_bzero((void *)&stack, STACK_SIZE);
@@ -118,7 +120,13 @@ int lexer(char **line)
 		if (!line_s->line[line_s->i + 1] && (current_state == D_QUOTE_STATE || current_state == S_QUOTE_STATE))
 		{
 			tmp = line_s->line;
-			newline = get_line(PROMPT_MIN);
+			if (data->term)
+				newline = get_line(PROMPT_MIN);
+			else
+			{
+				ft_printf("21sh: syntax error: unexpected end of file\n");
+				quit_shell(EXIT_FAILURE, 0);
+			}
 			line_s->line = ft_strjoin(tmp, newline);
 			ft_strdel(&newline);
 			ft_strdel(&tmp);
