@@ -1,5 +1,0 @@
-CLOSE apres le dup fail
-EXECUTION NOEUD GAUCHE = 21sh
-21sh: command not found: 21sh
-21sh $> 
-21sh $> 
