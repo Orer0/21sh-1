@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/08 06:22:05 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/08 22:16:20 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 char	*get_line(char *promtp)
 {
 	t_term			*t;
-	struct termios	term;
 	char			*line;
 	char			*tmp;
 
@@ -73,6 +72,6 @@ char	*get_line(char *promtp)
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	clean_line(&t);
-	reset_term(&term);
+	reset_term();
 	return (line);
 }

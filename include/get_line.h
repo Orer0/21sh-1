@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/08 05:13:42 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/08 22:15:45 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ typedef struct		s_term
 	int				len_p;
 }					t_term;
 
-int					init_termios(t_term **t);
-int					reset_term(struct termios *term);
+int					init_termios();
+int					reset_term();
+
 void				set_terms(t_term **t, char *promtp);
 
 char				*manag_way(t_term **t);

@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/08 06:23:39 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/08 20:23:01 by aroblin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
-CFLAGS	=	-Wall -Wextra -Werror -g3# -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
 TERMCAP =	-ltermcap
 
 # Directories
@@ -164,7 +164,7 @@ $(NAME):	Makefile $(OBJ) $(MAIN) $(HFILES) $(LIBFT)
 		@$(CC) $(CFLAGS) $(TERMCAP) $(OBJ) -I$(H) -I$(ILIBFT) -L$(LIBFT) -lft -o $(NAME)
 		@echo "I'm READY"
 
-%.o: 		%.c
+%.o:		%.c $(HFILES)
 		@echo "Creating $@ ..."
 		@$(CC) $(CFLAGS) -I$(H) -I$(ILIBFT) -c $< -o $@
 
