@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/07 03:43:06 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/08 06:06:34 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 	if (fonct != NULL)
 	{
 		fonct(t);
-		ft_bzero(&cmd, sizeof(char[6]));
+		ft_bzero(&cmd, sizeof(char[8]));
 		fonct = NULL;
 	}
 	else if (fonct == NULL && cmd[0] > 0 && cmd[0] < 127
@@ -42,6 +42,7 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 	{
 		if (!(tmp = ft_strdup(cmd)))
 			end_shell(t, cmd);
+	//	printf("tmp = %s\n", tmp);
 		if ((*t)->cur.x == (*t)->max_cur)
 			print_buf_end(tmp, t);
 		else if ((*t)->line != NULL)

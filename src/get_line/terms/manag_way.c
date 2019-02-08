@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:14:39 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/08 06:06:32 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		ft_end_line(t_term **t, char *cmd)
 	if ((*t)->line != NULL)
 		return (1);
 	else
-		ft_bzero(&cmd, sizeof(char[6]));
+		ft_bzero(&cmd, sizeof(char[8]));
 	return (0);
 }
 
@@ -46,7 +46,7 @@ int		end_shell(t_term **t, char *cmd)
 		quit_shell(EXIT_SUCCESS, 0);
 		return (0);
 	}
-	ft_bzero(&cmd, sizeof(char[6]));
+	ft_bzero(&cmd, sizeof(char[8]));
 	return (1);
 
 }
@@ -61,20 +61,20 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 	fonct = way(t, cmd);
 	cmd_way(fonct, t, cmd);
 	fonct = NULL;
-	ft_bzero(&cmd, sizeof(char[6]));
+	ft_bzero(&cmd, sizeof(char[8]));
 }
 
 char			*manag_way(t_term **t)
 {
-	char			cmd[6];
+	char			cmd[8];
 	void			(*fonct)(t_term **t);
 
 	fonct = NULL;
-	ft_bzero(&cmd, sizeof(char[6]));
+	ft_bzero(&cmd, sizeof(char) * 8);
 	while (666)
 	{
 		check_line(t);
-		read(0, cmd, 6);
+		read(0, cmd, 7);
 		if (cmd[0] == 10 && cmd[1] == 0)
 		{
 			if (ft_end_line(t, cmd))
@@ -84,7 +84,7 @@ char			*manag_way(t_term **t)
 			end_shell(t, cmd);
 		else
 			basic_cmd(t, cmd, fonct);
-		ft_bzero(&cmd, sizeof(char[6]));
+		ft_bzero(&cmd, sizeof(char) * 8);
 	}
 	return ((*t)->line);
 }

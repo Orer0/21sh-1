@@ -6,11 +6,12 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/07 03:42:41 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/08 04:42:18 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
+#include <errno.h>
 
 static int		set_options(char *ops, int *options, int pos)
 {
@@ -26,100 +27,6 @@ static int		set_options(char *ops, int *options, int pos)
 	}
 	set_options(ops, options, (pos + 1));
 	return (TRUE);
-}
-
-
-void 	exec_ast(t_btree *tree, int exec_next)
-{
-	char	**tab;
-	t_shell_data	*data;
-	t_list	*old_intern_env;
-	t_list	*tmp_intern_env;
-	int			exec;
-
-	data = shell_data_singleton();
-	if (tree == NULL)
-		return ;
-	exec = TRUE;
-	// ft_printf("noeud [%s], exec next [%d]\n", get_token_token(tree->data), exec_next);
-	if (is_redirection(get_type_token(tree->data)))
-	{
-		ft_printf("NOEUD REDIRECTION\n");
-		// Choppe l'argument
-		if (tree->right)
-		{
-			if (get_type_token(tree->right->data) == REDIRECTION_ARG_TYPE)
-			{
-				ft_printf("ARGUMENT redirection right = %s\n", get_token_token(tree->right->data));
-			}
-			else
-			{
-				if (tree->right->left)
-				{
-					if (get_type_token(tree->right->left->data) == REDIRECTION_ARG_TYPE)
-					{
-						ft_printf("ARGUMENT redirection right->left = %s\n", get_token_token(tree->right->left->data));
-					}
-				}
-			}
-		}
-		// Fais ton dup
-		// // Relance la recursion sur la droite
-		// exec_ast(tree->right, exec);
-		// Exec la commande
-		ft_printf("execution dans la fonction pour redirection\n");
-		if (exec_next)
-			if (tree->left != NULL)
-				exec_ast(tree->left, exec);
-		// Close ton dup
-	}
-	else
-		if (exec_next)
-			if (tree->left != NULL)
-				exec_ast(tree->left, exec);
-	// &&
-	if (get_type_token(tree->data) == AND_TYPE)
-	{
-		if (WEXITSTATUS(data->last_status) != EXIT_SUCCESS)
-			exec = FALSE;
-	}
-	// ||
-	else if (get_type_token(tree->data) == OR_TYPE)
-	{
-		if (WEXITSTATUS(data->last_status) == EXIT_SUCCESS)
-			exec = FALSE;
-	}
-	// COMMANDE
-	else if (get_type_token(tree->data) == CMD_TYPE && exec_next)
-	{
-		if (get_var_token_in_cmd_token(tree->data))
-		{
-			old_intern_env = data->intern_env_lst;
-			tmp_intern_env = ft_lstcpy(data->intern_env_lst, &tmp_intern_env);
-			data->intern_env_lst = tmp_intern_env;
-			tab = get_var_tab(((t_var_token **)(tree->data)));
-			set_builtin(tab);
-			ft_strtab_del(&tab);
-		}
-		tab = get_cmd_tab(((t_cmd_token **)(tree->data)));
-		if (!manage_builtins(tab))
-			exec_command(tab, data->env_tab);
-		ft_strtab_del(&tab);
-		if (get_var_token_in_cmd_token(tree->data))
-		{
-			ft_lstdel(&data->intern_env_lst, del_env_var);
-			data->intern_env_lst = old_intern_env;
-		}
-	}
-	// VARIABLES
-	else if (get_type_token(tree->data) == VAR_TYPE && exec_next)
-	{
-		tab = get_var_tab(((t_var_token **)(tree->data)));
-		set_builtin(tab);
-		ft_strtab_del(&tab);
-	}
-	if (tree->right != NULL)
-		exec_ast(tree->right, exec);
 }
 
 void 	ft_minimal_shell(void)
