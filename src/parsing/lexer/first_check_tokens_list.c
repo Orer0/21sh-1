@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/05 04:31:00 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/08 22:03:48 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ static int		not_started_type(t_list *lst)
 	if (type == PIPE_TYPE
 		|| type == DOTCOMMA_TYPE
 		|| type == AND_TYPE
-		|| type == OR_TYPE)
+		|| type == OR_TYPE
+		|| is_redirection(type)
+		|| is_aggregation(type))
 	{
 		ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", get_token_token(lst->content));
 		return (FALSE);
