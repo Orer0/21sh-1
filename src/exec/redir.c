@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 01:40:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/07 05:30:47 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/08 04:42:32 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	in_redir(t_cmd_token *cmd, t_token *name, t_token *redir)
 	data = shell_data_singleton();
 	tab = get_cmd_tab(&cmd);
 	fd_op = ft_atoi(redir->token);
-	if ((fd = open(name->token, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR
-		| S_IWUSR | S_IRGRP | S_IROTH) < 0))
+	if ((fd = open(name->token, O_APPEND | O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) < 0))
 	{
 		ft_printf("erreur open in out_redir"); // a suprimer
 		quit_shell(EXIT_SUCCESS, 1);
