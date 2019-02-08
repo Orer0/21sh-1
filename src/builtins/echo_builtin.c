@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 00:36:16 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 08:13:20 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/08 04:49:44 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int				echo_builtin(char **args)
 		ft_printf("%s", args[1 + z]);
 		z++;
 		if (args[1 + z])
-			write(1, " ", 2);
+			write(1, " ", 1);
 	}
 	if (!(options & OPT_N))
-		write(1, "\n", 2);
+		write(1, "\n", 1);
 	return (EXIT_SUCCESS);
 }

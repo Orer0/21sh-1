@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:02:27 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 04:42:56 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/08 05:26:20 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void 	aggr_recursion(t_btree *tree)
 		if (ft_isdigit(get_token_token(tree->data)[0]))
 		{
 			adup = ft_atoi(get_token_token(tree->data));
-			ft_printf("atoi = %d\n", adup);
+			// ft_printf("atoi = %d\n", adup);
 		}
 		else
 		{
@@ -73,7 +73,7 @@ void 	aggr_recursion(t_btree *tree)
 		if (ft_isdigit(get_token_token(tree->data)[0]))
 		{
 			adup = ft_atoi(get_token_token(tree->data));
-			ft_printf("atoi = %d\n", adup);
+			// ft_printf("atoi = %d\n", adup);
 		}
 		else
 		{

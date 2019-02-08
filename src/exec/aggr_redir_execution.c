@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:58:14 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 04:42:59 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/08 05:25:34 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	aggr_redir_execution(t_btree *tree)
 			t_list	*tmp_intern_env;
 
 			// EXECUTER LE NOEUD DE GAUCHE
-			ft_printf("EXECUTION NOEUD GAUCHE = %s\n", get_token_token(tree->left->data));
+			// ft_printf("EXECUTION NOEUD GAUCHE = %s\n", get_token_token(tree->left->data));
 			if (get_type_token(tree->left->data) == CMD_TYPE)
 			{
 				// DECLARATION DES VARIABLES POUR CETTE COMMANDE
@@ -88,6 +88,6 @@ void	aggr_redir_execution(t_btree *tree)
 	{
 		waitpid(pid, &status, 0);
 		data->last_status = status;
-		ft_printf(" DANS LE PERE APRES\n");
+		// ft_printf(" DANS LE PERE APRES\n");
 	}
 }
