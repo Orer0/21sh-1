@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/04 00:25:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/08 00:33:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,12 @@ int			read_prompt(const int fd, char **line);
 
 char			*get_path_of_bin(char *path);
 int				exec_command(char **command, char **env);
+void 			exec_ast(t_btree *tree, int exec_next);
+void	aggr_redir_execution(t_btree *tree);
+void 	redir_recursion(t_btree *tree);
+void 	aggr_recursion(t_btree *tree);
+void 	pipe_execution(t_btree *tree);
+
 
 /*
 **		BUILTINS

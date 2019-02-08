@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/06 23:53:24 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/07 23:04:29 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,11 @@ SRCS	=	$(MAIN)															\
 			$(ENV)del_env_var.c												\
 			$(ENV)create_minimal_env.c										\
 			$(EXE)exec_command.c											\
+			$(EXE)exec_ast.c												\
+			$(EXE)aggr_redir_execution.c									\
+			$(EXE)redir_recursion.c											\
+			$(EXE)aggr_recursion.c											\
+			$(EXE)pipe_execution.c											\
 			$(EXE)get_path_of_bin.c											\
 			$(SRC)quit_shell.c												\
 			$(SRC)shell_data_singleton.c									\
