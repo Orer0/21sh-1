@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/07 02:45:20 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/08 22:46:51 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,28 @@ char 	**get_var_tab(t_var_token **token)
 	char	**tab;
 	t_list	*tmp;
 
-	if (!(tab = ft_memalloc(sizeof(char *) * 2)))
-		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	if ((*token)->is_expansion)
-		manage_expansion_var(&(*token)->token);
-	tab[0] = ft_strdup((*token)->token);
-	tab[1] = NULL;
+	if (get_type_token(token) == VAR_TYPE)
+	{
+		if (!(tab = ft_memalloc(sizeof(char *) * 2)))
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
+		if ((*token)->is_expansion)
+			manage_expansion_var(&(*token)->token);
+		tab[0] = ft_strdup((*token)->token);
+		// tab[1] = NULL;
+	}
+	else
+	{
+		if (!(tab = ft_memalloc(sizeof(char *))))
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
+		// tab[0] = NULL;
+	}
+	// ft_printf("tab[0] = %s\n", tab[0]);
 	tmp = (*token)->var_lst;
 	while (tmp)
 	{
-		if (get_expansion_token(tmp->content))
-			manage_expansion_var(&(*((t_cmd_token **)(tmp->content)))->token);
-		ft_strtab_addend(&tab, get_token_token(tmp->content));
+		if (((t_var_token *)(tmp->content))->is_expansion)
+			manage_expansion_var(&(*((t_var_token **)(tmp->content)))->token);
+		ft_strtab_addend(&tab, ((t_var_token *)(tmp->content))->token);
 		tmp = tmp->next;
 	}
 	return (tab);
