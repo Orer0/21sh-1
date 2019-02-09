@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:58:14 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 02:58:20 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/09 04:26:01 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	aggr_redir_execution(t_btree *tree)
 	// PROCESSUS PERE
 	else if (pid > 0)
 	{
+		signal(SIGINT, catch_signal_kill);
 		waitpid(pid, &status, 0);
 		data->last_status = status;
 		// ft_printf(" DANS LE PERE APRES\n");

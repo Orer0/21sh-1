@@ -6,13 +6,24 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:03:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 05:51:22 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/09 05:41:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #define READ_END	0
 #define WRITE_END	1
+
+// static void		catch_signal(int signal)
+// {
+// 	t_shell_data	*data;
+//
+// 	data = shell_data_singleton();
+// 	if (signal == SIGPIPE)
+// 	{
+// 		exit(0);
+// 	}
+// }
 
 void 	run_pipe(t_btree *tree)
 {
@@ -42,6 +53,8 @@ void 	run_pipe(t_btree *tree)
 	// pere
 	else if (pid > 0)
 	{
+		// signal(SIGPIPE, catch_signal);
+		signal(SIGINT, catch_signal_kill);
 		// signal(SIGINT, catch_signal_kill);
 		dup2(tab[READ_END], 0);
 		close(tab[WRITE_END]);
@@ -59,6 +72,7 @@ void 	pipe_execution(t_btree *tree)
 {
 	// creer le pipe
 	// exectuer le noeud de gauche
+
 	pid_t	pid;
 	// int status;
 	pid = fork();
