@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:01:07 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 03:22:50 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/09 04:06:15 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void 	redir_recursion(t_btree *tree)
 {
 	int fd;
 	int arg;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	if (!tree->right)
 	return ;
 	// Si le noeud de droite est un argument de redirection, on le prend
@@ -70,6 +72,8 @@ void 	redir_recursion(t_btree *tree)
 			line = NULL;
 			static int id = 52;
 
+			if (!data->term)
+				quit_shell(EXIT_FAILURE, 0);
 			id++;
 			tmp = ft_itoa(id);
 			char *path = ft_strjoin("/tmp/.21sh_heredoc_", tmp);

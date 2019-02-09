@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/08 22:52:58 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/09 05:00:32 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,7 @@ SRCS	=	$(MAIN)															\
 			$(ENV)create_minimal_env.c										\
 			$(EXE)exec_command.c											\
 			$(EXE)exec_ast.c												\
+			$(EXE)catch_signal_kill.c										\
 			$(EXE)aggr_redir_execution.c									\
 			$(EXE)redir_recursion.c											\
 			$(EXE)aggr_recursion.c											\
