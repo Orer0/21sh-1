@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/07 19:42:32 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/09 22:08:10 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int				history_up(t_term **t)
 
 	data = shell_data_singleton();
 	(*t)->max_cur = ft_strlen((*t)->line);
-	(*t)->nb_line = ((*t)->max_cur / (*t)->col);
+	(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
 	if (data->history == NULL || (*t)->index_his == ft_lstlen(data->history))
 		return (1);
 	else
@@ -72,7 +72,7 @@ int				history_down(t_term **t)
 
 	data = shell_data_singleton();
 	(*t)->max_cur = ft_strlen((*t)->line);
-	(*t)->nb_line = ((*t)->max_cur / (*t)->col);
+	(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
 	if (data->history == NULL || (*t)->index_his < 0)
 		return (1);
 	else
