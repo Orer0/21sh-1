@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:03:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 05:41:31 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/09 23:54:06 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void 	run_pipe(t_btree *tree)
 	{
 		dup2(tab[WRITE_END], 1);
 		close(tab[READ_END]);
+		exec_ast(tree->left, TRUE);
 		// ft_fd_printf(2, "dans le fils\n");
 		// execve("/bin/ls", ["/bin/ls", "-l"], NULL);
-		exec_ast(tree->left, TRUE);
 		// exit(0);
 	}
 	else if (pid < 0)
@@ -60,8 +60,16 @@ void 	run_pipe(t_btree *tree)
 		close(tab[WRITE_END]);
 		// ft_fd_printf(2, "dans le pere avant le wait\n");
 		// char buff[512];
-		exec_ast(tree->right, TRUE);
-		wait(NULL);
+		// if (get_type_token(tree->left->data) == HEREDOC_TYPE)
+		// {
+			// wait(NULL);
+			// exec_ast(tree->right, TRUE);
+		// }
+		// else
+		// {
+			exec_ast(tree->right, TRUE);
+			wait(NULL);
+		// }
 		// ft_fd_printf(2, "dans le pere apres le wait\n");
 		// read(0, buff, 100);
 		// ft_printf("buffer du read = %s\n", buff);

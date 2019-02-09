@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 22:03:48 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 00:04:29 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,10 @@ static int		manage_type(t_list **tmp, int *end_vars)
 	{
 		if (!redirections((*tmp)))
 			return (FALSE);
+		// if (get_type_token((*tmp)->content) == HEREDOC_TYPE)
+		// {
+		//
+		// }
 	}
 	else if (is_operator(get_type_token((*tmp)->content)))
 	{
