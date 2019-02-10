@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:54:03 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/06 03:44:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:28:38 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ int		c_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 
 int		c_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {
-	int		id;
-	int		save_index;
+	int			id;
+	int			save_index;
 	t_ptree		**tmp;
 
 	id = ft_ptree_add_child(tree, NULL, C_RULE);
 	tmp = ft_ptree_get_node_with_id(tree, id);
 	save_index = (*tokens_list_struct)->index;
-	if (test_current_token(tokens_list_struct, AGGREGATION_ARG_TYPE, tmp) && c_prime_rule(tokens_list_struct, tmp))
+	if (test_current_token(tokens_list_struct, AGGREGATION_ARG_TYPE, tmp)
+		&& c_prime_rule(tokens_list_struct, tmp))
 	{
 		return (TRUE);
 	}

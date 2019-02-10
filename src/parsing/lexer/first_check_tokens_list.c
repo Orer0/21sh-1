@@ -6,11 +6,17 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 03:16:11 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 06:02:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+int				return_syntax_error(char *str)
+{
+	ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", str);
+	return (FALSE);
+}
 
 static int		not_terminal_type(t_list *lst)
 {
@@ -24,11 +30,7 @@ static int		not_terminal_type(t_list *lst)
 		|| type == S_QUOTE_TYPE
 		|| type == AND_TYPE
 		|| type == OR_TYPE)
-	{
-		ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", get_token_token(lst->content));
-		return (FALSE);
-	}
-		// unexpected_token_error(get_token_token(lst->content));
+		return (return_syntax_error(get_token_token(lst->content)));
 	return (TRUE);
 }
 
@@ -45,12 +47,8 @@ static int		not_started_type(t_list *lst)
 		|| type == OR_TYPE
 		|| is_redirection(type)
 		|| is_aggregation(type))
-	{
-		ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", get_token_token(lst->content));
-		return (FALSE);
-	}
+		return (return_syntax_error(get_token_token(lst->content)));
 	return (TRUE);
-		// unexpected_token_error(get_token_token(lst->content));
 }
 
 static int		operators(t_list **lst)
@@ -62,11 +60,7 @@ static int		operators(t_list **lst)
 	{
 		type = get_type_token((*lst)->next->content);
 		if (is_operator(type))
-		{
-			ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", get_token_token((*lst)->content));
-			return (FALSE);
-		}
-				// unexpected_token_error(get_token_token((*lst)->content));
+			return (return_syntax_error(get_token_token((*lst)->content)));
 	}
 	else
 	{
@@ -78,18 +72,54 @@ static int		operators(t_list **lst)
 			(*lst)->next = NULL;
 		}
 		else if (is_operator(get_type_token((*lst)->content)))
-		{
-			ft_fd_printf(2, "21sh: syntax error near unexpected token : \"%s\"\n", get_token_token((*lst)->content));
-			return (FALSE);
-		}
-			// unexpected_token_error(get_token_token((*lst)->content));
+			return (return_syntax_error(get_token_token((*lst)->content)));
 	}
+	return (TRUE);
+}
+
+static int		heredoc(t_list **lst)
+{
+	char	*tmpstr;
+	char	*str;
+	char	*line;
+	char	*argument;
+
+	tmpstr = NULL;
+	str = NULL;
+	line = NULL;
+	argument = get_token_token((*lst)->next->content);
+	while (!ft_strequ(line, argument))
+	{
+		ft_strdel(&line);
+		line = get_line(PROMPT_MIN);
+		if (str && !ft_strequ(line, "\n"))
+		{
+			tmpstr = str;
+			str = ft_strjoin(tmpstr, "\n");
+			ft_strdel(&tmpstr);
+		}
+		if (!ft_strequ(line, argument))
+		{
+			if (!str)
+				str = ft_strdup(line);
+			else
+			{
+				tmpstr = str;
+				str = ft_strjoin(tmpstr, line);
+				ft_strdel(&tmpstr);
+			}
+		}
+	}
+	ft_strdel(&line);
+	ft_strdel(&(*((t_token **)((*lst)->next->content)))->token);
+	set_token_token((*lst)->next->content, str);
+	set_expansion_token((*lst)->next->content, FALSE);
 	return (TRUE);
 }
 
 static int		manage_type(t_list **tmp, int *end_vars)
 {
-	t_shell_data 	*data;
+	t_shell_data	*data;
 
 	data = shell_data_singleton();
 	if (is_aggregation(get_type_token((*tmp)->content)))
@@ -108,39 +138,40 @@ static int		manage_type(t_list **tmp, int *end_vars)
 				ft_fd_printf(2, "21sh: syntax error: unexpected end of file\n");
 				quit_shell(EXIT_FAILURE, 0);
 			}
-			char	*tmpstr;
-			char *str;
-			char *line;
-			tmpstr = NULL;
-			str = NULL;
-			line = NULL;
-			char *argument = get_token_token((*tmp)->next->content);
-			while (!ft_strequ(line, argument))
-			{
-				ft_strdel(&line);
-				line = get_line(PROMPT_MIN);
-				if (str && !ft_strequ(line, "\n"))
-				{
-					tmpstr = str;
-					str = ft_strjoin(tmpstr, "\n");
-					ft_strdel(&tmpstr);
-				}
-				if (!ft_strequ(line, argument))
-				{
-					if (!str)
-						str = ft_strdup(line);
-					else
-					{
-						tmpstr = str;
-						str = ft_strjoin(tmpstr, line);
-						ft_strdel(&tmpstr);
-					}
-				}
-			}
-			ft_strdel(&line);
-			ft_strdel(&(*((t_token **)((*tmp)->next->content)))->token);
-			set_token_token((*tmp)->next->content, str);
-			set_expansion_token((*tmp)->next->content, FALSE);
+			heredoc(tmp);
+			// char	*tmpstr;
+			// char *str;
+			// char *line;
+			// tmpstr = NULL;
+			// str = NULL;
+			// line = NULL;
+			// char *argument = get_token_token((*tmp)->next->content);
+			// while (!ft_strequ(line, argument))
+			// {
+			// 	ft_strdel(&line);
+			// 	line = get_line(PROMPT_MIN);
+			// 	if (str && !ft_strequ(line, "\n"))
+			// 	{
+			// 		tmpstr = str;
+			// 		str = ft_strjoin(tmpstr, "\n");
+			// 		ft_strdel(&tmpstr);
+			// 	}
+			// 	if (!ft_strequ(line, argument))
+			// 	{
+			// 		if (!str)
+			// 			str = ft_strdup(line);
+			// 		else
+			// 		{
+			// 			tmpstr = str;
+			// 			str = ft_strjoin(tmpstr, line);
+			// 			ft_strdel(&tmpstr);
+			// 		}
+			// 	}
+			// }
+			// ft_strdel(&line);
+			// ft_strdel(&(*((t_token **)((*tmp)->next->content)))->token);
+			// set_token_token((*tmp)->next->content, str);
+			// set_expansion_token((*tmp)->next->content, FALSE);
 		}
 	}
 	else if (is_operator(get_type_token((*tmp)->content)))
@@ -161,7 +192,7 @@ static int		manage_type(t_list **tmp, int *end_vars)
 	return (TRUE);
 }
 
-int 	first_check_tokens_list(t_list *lst)
+int			first_check_tokens_list(t_list *lst)
 {
 	t_list		*tmp;
 	int			end_vars;

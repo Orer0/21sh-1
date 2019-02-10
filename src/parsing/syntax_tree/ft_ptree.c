@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:41:20 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 05:44:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:31:48 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Creer noeud d'arbre de parsing
 */
 
-void 	ft_ptree_create_node(t_ptree **tree, void *data, int type)
+void			ft_ptree_create_node(t_ptree **tree, void *data, int type)
 {
 	static int	id = -1;
 
@@ -34,7 +34,7 @@ void 	ft_ptree_create_node(t_ptree **tree, void *data, int type)
 **	Ajoute un noeud enfant au noeud passe
 */
 
-int		ft_ptree_add_child(t_ptree **tree, void *data, int type)
+int				ft_ptree_add_child(t_ptree **tree, void *data, int type)
 {
 	t_list	*tmp;
 	t_ptree	*child;
@@ -62,7 +62,7 @@ int		ft_ptree_add_child(t_ptree **tree, void *data, int type)
 **	Retourne un noeud de l'arbre grace a son id
 */
 
-t_ptree		**ft_ptree_get_node_with_id(t_ptree **tree, int id)
+t_ptree			**ft_ptree_get_node_with_id(t_ptree **tree, int id)
 {
 	t_list	*tmp;
 
@@ -81,7 +81,7 @@ t_ptree		**ft_ptree_get_node_with_id(t_ptree **tree, int id)
 	return (NULL);
 }
 
-static void 	ft_lstremoveone(t_list	**lst)
+static void		ft_lstremoveone(t_list **lst)
 {
 	t_list	*tmp;
 
@@ -95,7 +95,7 @@ static void 	ft_lstremoveone(t_list	**lst)
 	ft_lstdelone(&tmp, del_ptree_node);
 }
 
-int		ft_ptree_remove_node_with_id(t_ptree **tree, int id)
+int				ft_ptree_remove_node_with_id(t_ptree **tree, int id)
 {
 	t_list	*tmp;
 	t_list	*next;

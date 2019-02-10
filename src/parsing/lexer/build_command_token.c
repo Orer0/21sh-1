@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:55:46 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 02:53:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:50:59 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static void		replace_content(t_list *lst)
 {
 	t_cmd_token *token;
 
-	token_constructor(get_token_token(lst->content), CMD_TYPE, (t_token **)&token);
+	token_constructor(get_token_token(lst->content), CMD_TYPE
+		, (t_token **)&token);
 	token->is_expansion = get_expansion_token(lst->content);
 	free_token(lst->content, 0);
 	if (!(lst->content = ft_memalloc(sizeof(&token) * sizeof(t_cmd_token))))
@@ -49,7 +50,7 @@ static void		manage_commands(t_list *lst)
 	set_args_token(lst->content, args_list);
 }
 
-static void 	ft_lstremoveone(t_list	**lst)
+static void		ft_lstremoveone(t_list **lst)
 {
 	t_list	*tmp;
 
@@ -66,7 +67,7 @@ static void 	ft_lstremoveone(t_list	**lst)
 static void		manage_variables(t_list *lst)
 {
 	t_list			*next;
-	t_shell_data 	*data;
+	t_shell_data	*data;
 
 	data = shell_data_singleton();
 	set_var_token_in_cmd_token(lst->content,
@@ -78,10 +79,10 @@ static void		manage_variables(t_list *lst)
 	lst = next;
 }
 
-void 	build_command_token(void)
+void			build_command_token(void)
 {
 	t_list			*tmp;
-	t_shell_data 	*data;
+	t_shell_data	*data;
 
 	data = shell_data_singleton();
 	tmp = data->tokens_list;
