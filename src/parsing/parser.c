@@ -6,11 +6,10 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 04:42:03 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:47:57 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "libft.h"
 #include "lexer.h"
 #include "st.h"
 #include "ast.h"
@@ -26,23 +25,6 @@
 /*
 **	Fin DEBUG
 */
-
-// static int		not_terminal_type(t_list *lst)
-// {
-// 	int		type;
-//
-// 	if (!lst)
-// 		return (FALSE);
-// 	type = get_type_token(lst->content);
-// 	if (type == PIPE_TYPE
-// 		|| type == D_QUOTE_TYPE
-// 		|| type == S_QUOTE_TYPE
-// 		|| type == AND_TYPE
-// 		|| type == OR_TYPE)
-// 		return (TRUE);
-// 		// unexpected_token_error(get_token_token(lst->content));
-// 	return (FALSE);
-// }
 
 /*
 **	Prends une ligne et genere l'ast pour remplir la structure shell_data
