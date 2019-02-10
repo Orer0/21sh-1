@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 05:04:10 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 04:03:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ static void	manage_dollar_var(char **str)
 {
 	char	*before_equal;
 	char	*after_equal;
-	char	*tmp;
 	char	*final;
 
 	final = NULL;
-	tmp = NULL;
 	if (!(before_equal = ft_strsub(*str, 0, ft_strpos(*str, '='))))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	if (!(after_equal = ft_strsub(*str, ft_strpos(*str, '=')

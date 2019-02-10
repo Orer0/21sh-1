@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 00:50:40 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 03:16:11 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ static int		manage_type(t_list **tmp, int *end_vars)
 					}
 				}
 			}
+			ft_strdel(&line);
 			ft_strdel(&(*((t_token **)((*tmp)->next->content)))->token);
 			set_token_token((*tmp)->next->content, str);
 			set_expansion_token((*tmp)->next->content, FALSE);
