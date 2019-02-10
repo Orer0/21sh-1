@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 22:03:48 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 03:16:11 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ static int		operators(t_list **lst)
 
 static int		manage_type(t_list **tmp, int *end_vars)
 {
+	t_shell_data 	*data;
+
+	data = shell_data_singleton();
 	if (is_aggregation(get_type_token((*tmp)->content)))
 	{
 		if (!aggregations((*tmp)))
@@ -98,6 +101,47 @@ static int		manage_type(t_list **tmp, int *end_vars)
 	{
 		if (!redirections((*tmp)))
 			return (FALSE);
+		if (get_type_token((*tmp)->content) == HEREDOC_TYPE)
+		{
+			if (!data->term)
+			{
+				ft_fd_printf(2, "21sh: syntax error: unexpected end of file\n");
+				quit_shell(EXIT_FAILURE, 0);
+			}
+			char	*tmpstr;
+			char *str;
+			char *line;
+			tmpstr = NULL;
+			str = NULL;
+			line = NULL;
+			char *argument = get_token_token((*tmp)->next->content);
+			while (!ft_strequ(line, argument))
+			{
+				ft_strdel(&line);
+				line = get_line(PROMPT_MIN);
+				if (str && !ft_strequ(line, "\n"))
+				{
+					tmpstr = str;
+					str = ft_strjoin(tmpstr, "\n");
+					ft_strdel(&tmpstr);
+				}
+				if (!ft_strequ(line, argument))
+				{
+					if (!str)
+						str = ft_strdup(line);
+					else
+					{
+						tmpstr = str;
+						str = ft_strjoin(tmpstr, line);
+						ft_strdel(&tmpstr);
+					}
+				}
+			}
+			ft_strdel(&line);
+			ft_strdel(&(*((t_token **)((*tmp)->next->content)))->token);
+			set_token_token((*tmp)->next->content, str);
+			set_expansion_token((*tmp)->next->content, FALSE);
+		}
 	}
 	else if (is_operator(get_type_token((*tmp)->content)))
 	{

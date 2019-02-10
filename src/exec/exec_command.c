@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 02:21:06 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 04:23:32 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 02:14:37 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int				exec_command(char **command, char **env)
 	if (data->pid == 0)
 	{
 		execve(final_path, command, env);
+		ft_printf("apres execve, cmd = %s\n", final_path);
 	}
 	else if (data->pid < 0)
 		ft_printf("fail fork\n");

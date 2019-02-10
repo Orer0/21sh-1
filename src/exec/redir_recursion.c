@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:01:07 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 05:53:04 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 00:35:13 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	fd_to_dup(t_btree *tree, t_btree *node)
 	return (fd);
 }
 
-static int	here_name(char **path)
+static int	heredoc_name(char **path)
 {
 	static int	id = 52;
 	char		*tmp;
@@ -50,51 +50,16 @@ static int	here_name(char **path)
 	return (fd);
 }
 
-static void add_in_file(char **str, char *argument, char **line)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	while (!ft_strequ(*line, argument))
-	{
-		ft_strdel(line);
-		*line = get_line(PROMPT_MIN);
-		if (*str && !ft_strequ(*line, "\n"))
-		{
-			tmp = *str;
-			*str = ft_strjoin(tmp, "\n");
-			ft_strdel(&tmp);
-		}
-		if (!ft_strequ(*line, argument))
-		{
-			if (!*str)
-				*str = ft_strdup(*line);
-			else
-			{
-				tmp = *str;
-				*str = ft_strjoin(tmp, *line);
-				ft_strdel(&tmp);
-			}
-		}
-	}
-}
-
 static void	heredoc(t_btree *node, int arg)
 {
-	char	*str;
 	char	*argument;
 	int		fd_h;
 	char	*path;
-	char	*line;
 
-	line = NULL;
-	str = NULL;
-	fd_h = here_name(&path);
+	fd_h = heredoc_name(&path);
 	argument = get_token_token(node->data);
-	add_in_file(&str, argument, &line);
-	write(fd_h, str, ft_strlen(str));
+	write(fd_h, argument, ft_strlen(argument));
 	close(fd_h);
-	ft_strdel(&str);
 	fd_h = open(path, O_RDONLY);
 	ft_strdel(&path);
 	dup2(fd_h, arg);
