@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:03:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 23:54:06 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 02:32:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,15 @@ void 	run_pipe(t_btree *tree)
 	// enfant
 	if (pid == 0)
 	{
+		// ft_printf("dans le fils avant exec\n");
 		dup2(tab[WRITE_END], 1);
 		close(tab[READ_END]);
 		exec_ast(tree->left, TRUE);
+		// ft_printf("dans le fils apres exec\n");
+		// close(tab[WRITE_END]);
 		// ft_fd_printf(2, "dans le fils\n");
 		// execve("/bin/ls", ["/bin/ls", "-l"], NULL);
-		// exit(0);
+		exit(0);
 	}
 	else if (pid < 0)
 		ft_printf("fail fork\n");
@@ -67,8 +70,12 @@ void 	run_pipe(t_btree *tree)
 		// }
 		// else
 		// {
-			exec_ast(tree->right, TRUE);
-			wait(NULL);
+			// ft_printf("dans le pere avant le wait\n");
+		exec_ast(tree->right, TRUE);
+		kill(pid, SIGTERM);
+			// ft_printf("\nWAIT\n");
+		wait(NULL);
+			// ft_printf("dans le pere apres le wait\n");
 		// }
 		// ft_fd_printf(2, "dans le pere apres le wait\n");
 		// read(0, buff, 100);
