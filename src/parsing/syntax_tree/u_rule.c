@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:55:41 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/06 03:38:50 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:44:29 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ int		u_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 	int		save_index;
 
 	save_index = (*tokens_list_struct)->index;
-	if (test_current_token(tokens_list_struct, REDIRECTION_TYPE, tree) && b_rule(tokens_list_struct, tree))
+	if (test_current_token(tokens_list_struct, REDIRECTION_TYPE, tree)
+		&& b_rule(tokens_list_struct, tree))
 	{
 		return (TRUE);
 	}
 	(*tokens_list_struct)->index = save_index;
-	if (test_current_token(tokens_list_struct, AGGREGATION_TYPE, tree) && c_rule(tokens_list_struct, tree))
+	if (test_current_token(tokens_list_struct, AGGREGATION_TYPE, tree)
+		&& c_rule(tokens_list_struct, tree))
 	{
 		return (TRUE);
 	}
@@ -40,8 +42,8 @@ int		u_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 
 int		u_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {
-	int		id;
-	int		save_index;
+	int			id;
+	int			save_index;
 	t_ptree		**tmp;
 
 	id = ft_ptree_add_child(tree, NULL, U_RULE);
