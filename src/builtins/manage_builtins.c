@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 20:58:16 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 04:38:25 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 06:02:18 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,5 @@ int					manage_builtins(char **command)
 	}
 	else if (ft_strequ(command[0], "echo"))
 		data->last_status = echo_builtin(command);
-	else
-		return (FALSE);
-	return (TRUE);
+	return (FALSE);
 }

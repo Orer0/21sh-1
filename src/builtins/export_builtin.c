@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 01:54:20 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/31 04:39:04 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 06:01:11 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		export_intern_var(char *name)
 {
-	t_varenv	*var;
+	t_varenv		*var;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
@@ -25,11 +25,11 @@ static void		export_intern_var(char *name)
 		change_env_var(&data->env_lst, name, NULL);
 }
 
-int		export_builtin(char **args)
+int				export_builtin(char **args)
 {
-	int		i;
+	int				i;
 	t_shell_data 	*data;
-	char		**tab;
+	char			**tab;
 
 	data = shell_data_singleton();
 	if (args[0])
