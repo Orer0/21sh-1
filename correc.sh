@@ -287,12 +287,12 @@ echo "\n"
 
 echo "\033[104m sh :\033[0m"
 echo "comande base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g"
-#sh -c 'base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g''
+sh -c 'base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g''
 echo "\n"
 
 echo "\033[102m 21sh :\033[0m"
 echo "comande base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g"
-#valgrind ./21sh -c 'base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g''
+valgrind ./21sh -c 'base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g''
 echo "\n"
 
 echo "\033[104m sh :\033[0m"
