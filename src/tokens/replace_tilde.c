@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 20:49:11 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 05:41:32 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 01:06:09 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,40 @@ static char		*get_home_of_user(char *name)
 	}
 }
 
-/*
-**	TODO Remplacer getenv par notre getenv
-*/
+int		new_tilde_value(char **str, int s, char *home)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	if ((*str) && (*str)[1] == '/')
+		tmp = ft_strsub(*str, 1, ft_strlen(*str) - 1);
+	else if (s > 1 && (*str)[s - 1] == '/')
+		tmp = ft_strdup("/");
+	else
+		tmp = ft_strdup("");
+	if (!tmp)
+		quit_shell(EXIT_FAILURE, 0);
+	ft_strdel(str);
+	if (!(*str = ft_strjoin(home, tmp)))
+	{
+		ft_strdel(&tmp);
+		quit_shell(EXIT_FAILURE, 0);
+	}
+	ft_strdel(&tmp);
+	return (TRUE);
+}
 
 int				replace_tilde(char **str)
 {
 	char			*home;
-	char			*tmp;
 	int				s;
 
-	ft_printf("str dans replace_tilde = %s\n", *str);
 	s = ft_strlen(*str);
 	if (s > 1 && !ft_strequ("~/", (*str)))
-		home = get_home_of_user(&(*str)[1]);
+	{
+		if (!(home = get_home_of_user(&(*str)[1])))
+			home = getenv("HOME");
+	}
 	else
 	{
 		home = getenv("HOME");
@@ -55,19 +75,6 @@ int				replace_tilde(char **str)
 			home = get_home_of_user(getenv("USER"));
 	}
 	if (home)
-	{
-		if ((*str)[s - 1] == '/')
-			tmp = ft_strdup(&(*str)[s - 1]);
-		else
-			tmp = ft_strdup("");
-		ft_strdel(str);
-		if (!(*str = ft_strjoin(home, tmp)))
-		{
-			ft_strdel(&tmp);
-			return (FALSE);
-		}
-		ft_strdel(&tmp);
-		return (TRUE);
-	}
+		return (new_tilde_value(str, s, home));
 	return (FALSE);
 }
