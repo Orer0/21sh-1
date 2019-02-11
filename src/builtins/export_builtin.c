@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 01:54:20 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 06:01:11 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/11 20:54:05 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		export_intern_var(char *name)
 int				export_builtin(char **args)
 {
 	int				i;
-	t_shell_data 	*data;
+	t_shell_data	*data;
 	char			**tab;
 
 	data = shell_data_singleton();

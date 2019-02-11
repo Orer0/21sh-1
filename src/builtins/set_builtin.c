@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 21:03:19 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 22:34:16 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 20:55:37 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		print_intern_env(t_list *lst)
 {
-	t_list	 *tmp;
+	t_list	*tmp;
 
 	tmp = lst;
 	while (tmp)
@@ -25,10 +25,10 @@ static void		print_intern_env(t_list *lst)
 	}
 }
 
-int		set_builtin(char **args)
+int				set_builtin(char **args)
 {
 	int				i;
-	t_shell_data 	*data;
+	t_shell_data	*data;
 	char			**tab;
 
 	data = shell_data_singleton();
