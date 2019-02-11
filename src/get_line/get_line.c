@@ -49,6 +49,19 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 	}
 }
 
+/*
+**	GET_LINE - Open a promtp
+**
+**	params: promtp -> the prompt that will be print
+**	
+**	return: the final line edit by the user and after the enter key
+**
+**	Description:
+**	- Init termios - Set terminal in no canonical
+**	- Analyse the tap key
+**	- Return the final line
+*/
+
 char	*get_line(char *promtp)
 {
 	t_term			*t;
