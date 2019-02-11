@@ -82,6 +82,7 @@ char	*get_line(char *promtp)
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
 	tmp = manag_way(&t);
+	line = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	clean_line(&t);
 	reset_term();
