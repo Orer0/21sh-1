@@ -12,7 +12,7 @@
 
 #include "21sh.h"
 
-void replace_dollar(char **tab, char **final) // utilse dans get_var_tab aussi
+void	replace_dollar(char **tab, char **final) // utilse dans get_var_tab aussi
 {
 	int		i;
 	char	*tmp;

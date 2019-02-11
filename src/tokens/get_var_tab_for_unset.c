@@ -25,7 +25,7 @@ static char		*get_name_of_var(char *str)
 	return (name);
 }
 
-char 	**get_var_tab_for_unset(t_var_token *token)
+char			**get_var_tab_for_unset(t_var_token *token)
 {
 	char	**tab;
 	t_list	*tmp;

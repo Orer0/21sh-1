@@ -18,6 +18,14 @@ static void	buf_tab(char **buf)
 	*buf = ft_strdup("        ");
 }
 
+static void	go_new_line(t_term **t)
+{
+	ft_putchar(' ');
+	tputs(tgetstr("cr", NULL), 0, put);
+	(*t)->rel_line++;
+	(*t)->nb_line++;
+}
+
 void	print_buf_end(char *buf, t_term **t)
 {
 	int		len;
@@ -32,12 +40,7 @@ void	print_buf_end(char *buf, t_term **t)
 		len--;
 	}
 	if (((*t)->cur.x + ft_strlen((*t)->promtp)) % (*t)->col == 0)
-	{
-		ft_putchar(' ');
-		tputs(tgetstr("cr", NULL), 0, put);
-		(*t)->rel_line++;
-		(*t)->nb_line++;
-	}
+		go_new_line(t);
 	if ((*t)->line == NULL)
 		(*t)->line = ft_strdup(buf);
 	else

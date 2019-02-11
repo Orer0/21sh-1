@@ -13,7 +13,15 @@
 #include "21sh.h"
 #include "tokens.h"
 
-static void build_new_str(char **div_str, char *final, int equal)
+static void del_all_str(char ***tab, char **final, char **bef_do, char **af_do)
+{
+	ft_strtab_del(tab);
+	ft_strdel(final);
+	ft_strdel(bef_do);
+	ft_strdel(af_do);
+}
+
+static void	build_new_str(char **div_str, char *final, int equal)
 {
 	char	*bef_do;
 	char	**tab;
@@ -37,10 +45,7 @@ static void build_new_str(char **div_str, char *final, int equal)
 		*div_str = ft_strdup(final);
 	if (*div_str == NULL)
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	ft_strtab_del(&tab);
-	ft_strdel(&final);
-	ft_strdel(&bef_do);
-	ft_strdel(&af_do);
+	del_all_str(&tab, &final, &bef_do, &af_do);
 }
 
 static void	manage_dollar_var(char **str)
@@ -64,7 +69,7 @@ static void	manage_dollar_var(char **str)
 	ft_strdel(&after_equal);
 }
 
-static void manag_tild_var(char **str, char **after_equal, char **before_equal)
+static void	manag_tild_var(char **str, char **after_equal, char **before_equal)
 {
 	char	*final;
 
@@ -101,7 +106,7 @@ static void	manage_expansion_var(char **str)
 	ft_strdel(&before_equal);
 }
 
-char 	**get_var_tab(t_var_token **token)
+char		**get_var_tab(t_var_token **token)
 {
 	char	**tab;
 	t_list	*tmp;

@@ -15,9 +15,9 @@
 #include "st.h"
 #include "ast.h"
 
-void 	clean_parsing(void)
+void	clean_parsing(void)
 {
-	t_shell_data *data;
+	t_shell_data	*data;
 
 	data = shell_data_singleton();
 	data->pid = 0;

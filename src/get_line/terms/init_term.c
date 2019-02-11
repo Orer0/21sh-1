@@ -14,17 +14,17 @@
 
 static struct termios g_orig_termios;
 
-int		reset_term()
+int		reset_term(void)
 {
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_orig_termios);
 	return (0);
 }
 
-int		init_termios()
+int		init_termios(void)
 {
 	t_shell_data	*data;
+	struct termios	term;
 
-	struct termios term;
 	data = shell_data_singleton();
 	if (tgetent(NULL, data->term) <= 0)
 		return (-1);

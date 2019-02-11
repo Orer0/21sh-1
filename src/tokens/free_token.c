@@ -12,10 +12,9 @@
 
 #include "lexer.h"
 
-
 void 	free_var(void *content, size_t size)
 {
-	t_list *tmp;
+	t_list	*tmp;
 	t_list	*next;
 
 	(void)size;
@@ -43,7 +42,7 @@ void 	free_var(void *content, size_t size)
 
 void 	free_token(void *content, size_t size)
 {
-	int type;
+	int	type;
 
 	if (!content)
 		return ;

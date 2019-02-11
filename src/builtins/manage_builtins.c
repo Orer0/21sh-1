@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 20:58:16 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 00:50:15 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 03:09:32 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,34 @@ static void			reset_env_tab(void)
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 }
 
-int					manage_builtins(char **command)
+static void			give_data(char **cmd)
 {
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
-	if (ft_strequ(command[0], "exit"))
-		exit_builtin(command);
-	else if (ft_strequ(command[0], "cd"))
-	{
-		data->last_status = cd_builtin(command);
-		reset_env_tab();
-	}
-	else if (ft_strequ(command[0], "set"))
-	{
-		data->last_status = set_builtin(&command[1]);
-		reset_env_tab();
-	}
-	else if (ft_strequ(command[0], "export"))
-	{
-		data->last_status = export_builtin(&command[1]);
-		reset_env_tab();
-	}
-	else if (ft_strequ(command[0], "unset"))
-	{
-		data->last_status = unset_builtin(&command[1]);
-		reset_env_tab();
-	}
-	else if (ft_strequ(command[0], "echo"))
-		data->last_status = echo_builtin(command);
+	if (ft_strequ(cmd[0], "cd"))
+		data->last_status = cd_builtin(cmd);
+	else if (ft_strequ(cmd[0], "set"))
+		data->last_status = set_builtin(&cmd[1]);
+	else if (ft_strequ(cmd[0], "export"))
+		data->last_status = export_builtin(&cmd[1]);
+	else if (ft_strequ(cmd[0], "unset"))
+		data->last_status = unset_builtin(&cmd[1]);
+	reset_env_tab();
+}
+
+int					manage_builtins(char **cmd)
+{
+	t_shell_data	*data;
+
+	data = shell_data_singleton();
+	if (ft_strequ(cmd[0], "exit"))
+		exit_builtin(cmd);
+	else if (ft_strequ(cmd[0], "cd") || ft_strequ(cmd[0], "set")
+		|| ft_strequ(cmd[0], "export") || ft_strequ(cmd[0], "unset"))
+		give_data(cmd);
+	else if (ft_strequ(cmd[0], "echo"))
+		data->last_status = echo_builtin(cmd);
 	else
 		return (FALSE);
 	return (TRUE);

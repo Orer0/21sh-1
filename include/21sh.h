@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 04:23:15 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 03:15:14 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,8 @@
 # define OPT_C			(1 << ('c' - 'a'))
 # define SHELL_OPT		"c"
 
-/*
-**	Main structure
-*/
-
-// typedef struct		s_shell_data
-// {
-// 	t_list			*tokens_list;
-// 	t_ptree			*parse_tree;
-// 	t_btree			*ast;
-// }					t_shell_data;
+#define READ_END	0
+#define WRITE_END	1
 
 typedef struct		s_varenv
 {
@@ -54,8 +46,6 @@ typedef struct		s_varenv
 	char			*content;
 }					t_varenv;
 
-// t_shell_data		*shell_data_singleton(void);
-// void				quit_shell(int status, int err);
 void 				clean_parsing(void);
 
 /*
@@ -65,6 +55,7 @@ void 				clean_parsing(void);
 enum	e_err
 {
 	MALLOC_ERR = -999,
+	FORK_ERR
 };
 
 t_list		*ft_lstcpy(t_list *src, t_list **dest);

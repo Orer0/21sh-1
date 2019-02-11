@@ -6,19 +6,19 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:09:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/30 04:29:40 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 03:13:39 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void	*perm_denied(char *str)
+static void			*perm_denied(char *str)
 {
 	ft_printf("21sh: %s: Permission denied\n", str);
 	return (NULL);
 }
 
-void	*cmd_not_found(char *str)
+static void			*cmd_not_found(char *str)
 {
 	ft_printf("21sh: command not found: %s\n", str);
 	return (NULL);
@@ -72,7 +72,7 @@ static char		*get_complete_path(char *parent, char *name)
 }
 
 static char		*check_file_exist_in_path(struct stat *st, char **cmp_path,
-					char ***env_paths, char *path)
+				char ***env_paths, char *path)
 {
 	if (access(*cmp_path, X_OK) == 0)
 	{
@@ -127,12 +127,18 @@ static char		*search_path(char ***env_paths, char *path)
 	return (NULL);
 }
 
+static void		del_data_path(char **new_path, char ***env_paths)
+{
+	ft_strdel(new_path);
+	ft_strtab_del(env_paths);
+}
+
 char			*get_path_of_bin(char *path)
 {
-	char		**env_paths;
-	struct stat	st;
-	char		*result;
-	char		*new_path;
+	char			**env_paths;
+	struct stat		st;
+	char			*result;
+	char			*new_path;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
@@ -152,7 +158,6 @@ char			*get_path_of_bin(char *path)
 		return (cmd_not_found(path));
 	new_path = search_path(&env_paths, path);
 	result = ft_strdup(new_path);
-	ft_strdel(&new_path);
-	ft_strtab_del(&env_paths);
+	del_data_path(&new_path, &env_paths);
 	return (result);
 }

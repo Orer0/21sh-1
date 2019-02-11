@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/02 00:26:37 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 03:07:16 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ void	del_history(void *content, size_t size)
 
 void	quit_shell(int status, int err)
 {
-	t_shell_data *data;
+	t_shell_data	*data;
 
 	if (err == MALLOC_ERR)
-		ft_fd_printf(2, "21sh: Malloc failed");
+		ft_fd_printf(2, "21sh: allocation critical fail\n");
+	else if (err == FORK_ERR)
+		ft_fd_printf(2, "21sh: fork critical fail\n");
 	data = shell_data_singleton();
 	delete_list_tokens(&data->tokens_list);
 	if (data->parse_tree)

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:58:14 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:37:57 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/11 03:07:47 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	aggr_get_var(t_btree *tree, char **tab, t_list **old_intern_env)
 {
 	t_shell_data	*data;
-	t_list	*tmp_intern_env;
+	t_list			*tmp_intern_env;
 
 	data = shell_data_singleton();
 	*old_intern_env = data->intern_env_lst;
@@ -28,9 +28,9 @@ static void	aggr_get_var(t_btree *tree, char **tab, t_list **old_intern_env)
 
 static void	aggr_exec_child(t_btree *tree, char **tab)
 {
-	char *final_path;
+	char			*final_path;
 	t_shell_data	*data;
-	t_list	*old_intern_env;
+	t_list			*old_intern_env;
 
 	data = shell_data_singleton();
 	if (get_var_token_in_cmd_token(tree->left->data))
@@ -67,10 +67,10 @@ static void	aggr_manag_type(t_btree *tree)
 	}
 }
 
-void	aggr_redir_execution(t_btree *tree)
+void		aggr_redir_execution(t_btree *tree)
 {
-	int		status;
-	pid_t	pid;
+	int				status;
+	pid_t			pid;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
@@ -86,7 +86,7 @@ void	aggr_redir_execution(t_btree *tree)
 			aggr_manag_type(tree);
 	}
 	else if (pid < 0)
-		quit_shell(EXIT_FAILURE, 0); // faire erreur fork
+		quit_shell(EXIT_FAILURE, FORK_ERR);
 	else if (pid > 0)
 	{
 		signal(SIGINT, catch_signal_kill);

@@ -6,14 +6,12 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:03:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 04:04:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 03:15:19 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "ast.h"
-#define READ_END	0
-#define WRITE_END	1
 
 void 	run_pipe(t_btree *tree)
 {
@@ -30,7 +28,7 @@ void 	run_pipe(t_btree *tree)
 		exit(EXIT_SUCCESS);
 	}
 	else if (pid < 0)
-		ft_printf("fail fork\n");
+		quit_shell(EXIT_FAILURE, FORK_ERR);
 	else if (pid > 0)
 	{
 		signal(SIGINT, catch_signal_kill);
@@ -45,6 +43,7 @@ void 	run_pipe(t_btree *tree)
 void 	pipe_execution(t_btree *tree)
 {
 	pid_t	pid;
+
 	pid = fork();
 	if (pid == 0)
 	{
@@ -52,7 +51,7 @@ void 	pipe_execution(t_btree *tree)
 		exit(EXIT_SUCCESS);
 	}
 	else if (pid < 0)
-		ft_printf("fail fork\n");
+		quit_shell(EXIT_FAILURE, FORK_ERR);
 	else if (pid > 0)
 	{
 		wait(NULL);

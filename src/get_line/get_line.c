@@ -49,6 +49,19 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 	}
 }
 
+/*
+**	GET_LINE - Open a promtp
+**
+**	params: promtp -> the prompt that will be print
+**	
+**	return: the final line edit by the user and after the enter key
+**
+**	Description:
+**	- Init termios - Set terminal in no canonical
+**	- Analyse the tap key
+**	- Return the final line
+*/
+
 char	*get_line(char *promtp)
 {
 	t_term			*t;
@@ -61,7 +74,7 @@ char	*get_line(char *promtp)
 		end_shell(&t, NULL);
 		return (NULL);
 	}
-	if (init_termios(&t) == -1)
+	if (init_termios() == -1)
 	{
 		ft_memdel((void **)t);
 		return (NULL);
@@ -69,7 +82,6 @@ char	*get_line(char *promtp)
 	set_terms(&t, promtp);
 	ft_putstr(t->promtp);
 	tmp = manag_way(&t);
-	line = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	clean_line(&t);
 	reset_term();
