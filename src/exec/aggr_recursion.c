@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:02:27 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/09 05:24:50 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/11 22:56:34 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int		fd_to_dup(t_btree *tree)
 	return (fd_dup);
 }
 
-static void	aggr_recursion_node(t_btree *tree, t_btree *node)
+static void		aggr_recursion_node(t_btree *tree, t_btree *node)
 {
 	int		adup;
 	int		close_fd;
@@ -58,7 +58,7 @@ static void	aggr_recursion_node(t_btree *tree, t_btree *node)
 	return ;
 }
 
-void	aggr_recursion(t_btree *tree)
+void			aggr_recursion(t_btree *tree)
 {
 	if (!tree->right)
 		return ;

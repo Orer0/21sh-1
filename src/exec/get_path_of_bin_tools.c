@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsetenv_builtin.c                                 :+:      :+:    :+:   */
+/*   get_path_of_bin_tools.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/11 22:32:06 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 22:38:25 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/02/11 23:13:21 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/02/11 23:14:17 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-int		unsetenv_builtin(char **args)
+void		del_data_path(char **new_path, char ***env_paths)
 {
-	t_shell_data	*data;
-	int				i;
+	ft_strdel(new_path);
+	ft_strtab_del(env_paths);
+}
 
-	data = shell_data_singleton();
-	if (args[0])
-	{
-		i = -1;
-		while (args[++i])
-			remove_env_var(&data->env_lst, args[i]);
-	}
-	else
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+void		*return_perm_denied(char *str)
+{
+	ft_printf("21sh: %s: Permission denied\n", str);
+	return (NULL);
+}
+
+void		*return_cmd_not_found(char *str)
+{
+	ft_printf("21sh: command not found: %s\n", str);
+	return (NULL);
 }

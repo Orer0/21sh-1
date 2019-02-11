@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 02:21:06 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 03:09:15 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:08:44 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int		exec_command(char **command, char **env)
 		return (FALSE);
 	data->pid = fork();
 	if (data->pid == 0)
-		execve(final_path, command, env);
+	{
+		if (!execve(final_path, command, env))
+			exit(EXIT_FAILURE);
+	}
 	else if (data->pid < 0)
 		quit_shell(EXIT_FAILURE, FORK_ERR);
 	else if (data->pid > 0)

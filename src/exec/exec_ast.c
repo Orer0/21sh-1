@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:53:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 03:21:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 22:59:51 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void		exec_cmd(t_btree *tree)
 {
-	t_list	*old_intern_env;
-	t_list	*tmp_intern_env;
+	t_list			*old_intern_env;
+	t_list			*tmp_intern_env;
 	t_shell_data	*data;
-	char **tab;
+	char			**tab;
 
 	data = shell_data_singleton();
 	if (get_var_token_in_cmd_token(tree->data))
@@ -40,7 +40,8 @@ static void		exec_cmd(t_btree *tree)
 	}
 }
 
-static void		exec_right(t_btree *tree, int *exec, int exec_next, t_shell_data *data)
+static void		exec_right(t_btree *tree, int *exec, int exec_next
+	, t_shell_data *data)
 {
 	char	**tab;
 
@@ -66,10 +67,10 @@ static void		exec_right(t_btree *tree, int *exec, int exec_next, t_shell_data *d
 		exec_ast(tree->right, *exec);
 }
 
-void 	exec_ast(t_btree *tree, int exec_next)
+void			exec_ast(t_btree *tree, int exec_next)
 {
 	t_shell_data	*data;
-	int			exec;
+	int				exec;
 
 	data = shell_data_singleton();
 	if (tree == NULL)
@@ -87,8 +88,10 @@ void 	exec_ast(t_btree *tree, int exec_next)
 		return ;
 	}
 	else
+	{
 		if (exec_next)
 			if (tree->left != NULL)
 				exec_ast(tree->left, exec);
+	}
 	exec_right(tree, &exec, exec_next, data);
 }

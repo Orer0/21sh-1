@@ -6,23 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:09:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 03:13:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:15:45 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-
-static void			*perm_denied(char *str)
-{
-	ft_printf("21sh: %s: Permission denied\n", str);
-	return (NULL);
-}
-
-static void			*cmd_not_found(char *str)
-{
-	ft_printf("21sh: command not found: %s\n", str);
-	return (NULL);
-}
 
 static char		**get_env_paths(t_list *lst)
 {
@@ -72,7 +60,7 @@ static char		*get_complete_path(char *parent, char *name)
 }
 
 static char		*check_file_exist_in_path(struct stat *st, char **cmp_path,
-				char ***env_paths, char *path)
+	char ***env_paths, char *path)
 {
 	if (access(*cmp_path, X_OK) == 0)
 	{
@@ -112,7 +100,7 @@ static char		*search_path(char ***env_paths, char *path)
 	{
 		cmp_path = get_complete_path((*env_paths)[i], path);
 		if (access(cmp_path, F_OK) == 0)
-			return(check_file_exist_in_path(&st, &cmp_path, env_paths, path));
+			return (check_file_exist_in_path(&st, &cmp_path, env_paths, path));
 		else
 		{
 			if (!(*env_paths)[i + 1])
@@ -125,12 +113,6 @@ static char		*search_path(char ***env_paths, char *path)
 		ft_strdel(&cmp_path);
 	}
 	return (NULL);
-}
-
-static void		del_data_path(char **new_path, char ***env_paths)
-{
-	ft_strdel(new_path);
-	ft_strtab_del(env_paths);
 }
 
 char			*get_path_of_bin(char *path)
@@ -151,11 +133,11 @@ char			*get_path_of_bin(char *path)
 				return (ft_strdup(path));
 		}
 		else
-			return (perm_denied(path));
+			return (return_perm_denied(path));
 	}
 	env_paths = get_env_paths(data->env_lst);
 	if (!env_paths)
-		return (cmd_not_found(path));
+		return (return_cmd_not_found(path));
 	new_path = search_path(&env_paths, path);
 	result = ft_strdup(new_path);
 	del_data_path(&new_path, &env_paths);

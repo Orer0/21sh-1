@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:58:14 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 03:07:47 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:07:26 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static void	aggr_exec_child(t_btree *tree, char **tab)
 	if (!manage_builtins(tab))
 	{
 		if (!tab[0][0] || !(final_path = get_path_of_bin(tab[0])))
-			return ;
+			exit(EXIT_FAILURE);
 		if (!execve(final_path, tab, data->env_tab))
-			quit_shell(EXIT_FAILURE, 0); // faire execve erreur
+			exit(EXIT_FAILURE);
 	}
 	ft_strtab_del(&tab);
 	if (get_var_token_in_cmd_token(tree->left->data))

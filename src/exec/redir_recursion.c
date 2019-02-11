@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:01:07 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 00:35:13 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:12:00 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,40 +30,6 @@ static int	fd_to_dup(t_btree *tree, t_btree *node)
 	if (fd == -1)
 		quit_shell(EXIT_FAILURE, 0);
 	return (fd);
-}
-
-static int	heredoc_name(char **path)
-{
-	static int	id = 52;
-	char		*tmp;
-	int			fd;
-
-	id++;
-	if (!(tmp = ft_itoa(id)))
-		quit_shell(EXIT_FAILURE, 0);
-	if (!(*path = ft_strjoin("/tmp/.21sh_heredoc_", tmp)))
-		quit_shell(EXIT_FAILURE, 0);
-	ft_strdel(&tmp);
-	fd = open(*path, O_CREAT | O_TRUNC | O_RDWR, 0644);
-	if (fd == -1)
-		quit_shell(EXIT_FAILURE, 0);
-	return (fd);
-}
-
-static void	heredoc(t_btree *node, int arg)
-{
-	char	*argument;
-	int		fd_h;
-	char	*path;
-
-	fd_h = heredoc_name(&path);
-	argument = get_token_token(node->data);
-	write(fd_h, argument, ft_strlen(argument));
-	close(fd_h);
-	fd_h = open(path, O_RDONLY);
-	ft_strdel(&path);
-	dup2(fd_h, arg);
-	close(fd_h);
 }
 
 static int	define_arg_redir(t_btree *tree)
@@ -91,7 +57,7 @@ static void	redir_recursion_node(t_btree *tree, t_btree *node)
 		|| get_type_token(tree->data) == OUT_ARDIR_TYPE)
 	{
 		dup2(fd, arg);
-		close(fd); // REELLE UTILITE DU CLOSE?
+		close(fd);
 	}
 	else if (get_type_token(tree->data) == IN_RDIR_TYPE)
 	{

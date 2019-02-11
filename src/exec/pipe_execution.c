@@ -6,14 +6,14 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:03:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 03:15:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 22:57:00 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "ast.h"
 
-void 	run_pipe(t_btree *tree)
+void	run_pipe(t_btree *tree)
 {
 	int		tab[2];
 	pid_t	pid;
@@ -40,7 +40,7 @@ void 	run_pipe(t_btree *tree)
 	}
 }
 
-void 	pipe_execution(t_btree *tree)
+void	pipe_execution(t_btree *tree)
 {
 	pid_t	pid;
 

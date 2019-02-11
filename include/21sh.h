@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 22:34:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:15:07 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ int			read_prompt(const int fd, char **line);
 **	EXECUTION
 */
 
+void	heredoc(t_btree *node, int arg);
 char			*get_path_of_bin(char *path);
+void		del_data_path(char **new_path, char ***env_paths);
+void		*return_perm_denied(char *str);
+void		*return_cmd_not_found(char *str);
 int				exec_command(char **command, char **env);
 void 			exec_ast(t_btree *tree, int exec_next);
 void	aggr_redir_execution(t_btree *tree);
