@@ -6,12 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:49:49 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 05:51:55 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:32:16 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "st.h"
-
 
 /*
 **	Regle S prime -> pas de noeud et toujours true (epsilon)
@@ -38,8 +37,8 @@ int		s_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 
 int		s_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {
-	int		id;
-	int		save_index;
+	int			id;
+	int			save_index;
 	t_ptree		**tmp;
 
 	id = ft_ptree_add_child(tree, NULL, S_RULE);

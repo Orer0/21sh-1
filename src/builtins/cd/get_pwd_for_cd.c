@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/19 22:33:38 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 08:28:01 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:44:34 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int		home_cd(char **pwd)
 {
-	char		*str;
-	t_varenv	*tmp;
+	char			*str;
+	t_varenv		*tmp;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
@@ -32,8 +32,8 @@ static int		home_cd(char **pwd)
 
 static int		oldpwd_cd(char **pwd)
 {
-	char		*str;
-	t_varenv	*tmp;
+	char			*str;
+	t_varenv		*tmp;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();

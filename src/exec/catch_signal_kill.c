@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   catch_signal_kill.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/05 22:18:22 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/05 22:36:42 by aroblin          ###   ########.fr       */
+/*   Created: 2019/02/09 04:22:48 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/02/09 05:52:00 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "tokens.h"
 #include "21sh.h"
 
-int		main(int ac, char **av)
+void		catch_signal_kill(int signal)
 {
-	pid_t pid_fils;
-	int fd[2];
-	char *messg;
+	t_shell_data	*data;
 
-	pipe(fd);
-	pid_fils = fork();
-	if (pid_fils != 0) /* Processus père */
+	data = shell_data_singleton();
+	if (signal == SIGINT)
 	{
-		messg = ft_strdup("bonjour");
-		write(fd[1], messg, ft_strlen(messg));
+		if (data->pid != 0)
+		{
+			kill(data->pid, SIGTERM);
+			write(1, "\n", 1);
+		}
+		else
+			ft_printf("\n%s", PROMPT);
 	}
-	return EXIT_SUCCESS;
 }

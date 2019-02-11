@@ -12,7 +12,7 @@
 
 #include "get_line.h"
 
-void		new_line(t_term **t, int len, int size)
+void			new_line(t_term **t, int len, int size)
 {
 	char	*end;
 	char	*line;
@@ -78,7 +78,7 @@ static void		supp_end(t_term **t)
 	}
 	ft_strdel(&(*t)->line);
 	if (!((*t)->line = ft_strdup(line)))
-		exit(0); // erreur malloc
+		end_shell(t, NULL);
 	ft_strdel(&line);
 	if (((*t)->cur.x - 1 + ft_strlen((*t)->promtp)) % (*t)->col == 0)
 		decal(t);

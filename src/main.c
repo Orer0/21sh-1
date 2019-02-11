@@ -6,12 +6,23 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 06:14:32 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 02:33:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include <errno.h>
+
+// static void		catch_signal(int signal)
+// {
+// 	t_shell_data	*data;
+//
+// 	data = shell_data_singleton();
+// 	if (signal == SIGINT)
+// 	{
+// 		ft_printf("\n%s", PROMPT);
+// 	}
+// }
 
 static int		set_options(char *ops, int *options, int pos)
 {
@@ -61,6 +72,7 @@ void	ft_shell(void)
 		while (666)
 		{
 			clean_parsing();
+			signal(SIGINT, catch_signal_kill);
 			if (!(line = get_line(PROMPT)))
 				return (ft_minimal_shell());
 			if (shell_parser(&line))

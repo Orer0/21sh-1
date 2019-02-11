@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/08 06:06:32 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/09 21:01:50 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int		end_shell(t_term **t, char *cmd)
 {
 	if (t == NULL)
 	{
-		reset_term(&(*t)->term);
+		reset_term();
 		quit_shell(EXIT_SUCCESS, 0);
 		return (0);
 	}
 	else if ((*t)->line == NULL)
 	{
 		clean_line(t);
-		reset_term(&(*t)->term);
+		reset_term();
 		quit_shell(EXIT_SUCCESS, 0);
 		return (0);
 	}

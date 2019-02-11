@@ -6,109 +6,71 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:02:27 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 05:26:20 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/09 05:24:50 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void 	aggr_recursion(t_btree *tree)
+static int		fd_to_dup(t_btree *tree)
 {
-	// int arg;
-	int adup;
-	int closee;
+	int		fd_dup;
 
-	closee = FALSE;
-	if (!tree->right)
-	return ;
-	// Si le noeud de droite est un argument d'aggregation, on le prend
-	if (get_type_token(tree->right->data) == AGGREGATION_ARG_TYPE)
+	fd_dup = 0;
+	if (ft_isdigit(get_token_token(tree->data)[0]))
+		fd_dup = ft_atoi(get_token_token(tree->data));
+	else
 	{
-		// RECUPERE LE FD A DUP
-		if (ft_isdigit(get_token_token(tree->data)[0]))
-		{
-			adup = ft_atoi(get_token_token(tree->data));
-			// ft_printf("atoi = %d\n", adup);
-		}
-		else
-		{
-			if (get_type_token(tree->data) == DUP_OUT_FD_TYPE )
-				adup = 1;
-			else if (get_type_token(tree->data) == DUP_IN_FD_TYPE)
-				adup = 0;
-		}
+		if (get_type_token(tree->data) == DUP_OUT_FD_TYPE)
+			fd_dup = 1;
+		else if (get_type_token(tree->data) == DUP_IN_FD_TYPE)
+			fd_dup = 0;
+	}
+	return (fd_dup);
+}
 
-		int i;
-		char	*argument = get_token_token(tree->right->data);
-		if (ft_strequ(argument, "-"))
-			closee = TRUE;
-		else
+static void	aggr_recursion_node(t_btree *tree, t_btree *node)
+{
+	int		adup;
+	int		close_fd;
+	int		i;
+	char	*argument;
+
+	i = 0;
+	argument = get_token_token(node->data);
+	close_fd = FALSE;
+	adup = fd_to_dup(tree);
+	if (ft_strequ(argument, "-"))
+		close_fd = TRUE;
+	else
+	{
+		i = -1;
+		while (argument[++i])
 		{
-			i = -1;
-			while (argument[++i])
+			if (!ft_isdigit(argument[i]))
 			{
-				if (!ft_isdigit(argument[i]))
-				{
-					ft_fd_printf(2, "21sh: %s: bad file unit number", argument);
-					return ;
-				}
+				ft_fd_printf(2, "21sh: %s: bad file unit number\n", argument);
+				exit(EXIT_FAILURE);
 			}
 		}
-		if (closee)
-		{
-			close(adup);
-		}
-		else
-		{
-			dup2(ft_atoi(argument), adup);
-		}
+	}
+	close_fd ? close(adup) : dup2(ft_atoi(argument), adup);
+	return ;
+}
+
+void	aggr_recursion(t_btree *tree)
+{
+	if (!tree->right)
+		return ;
+	if (get_type_token(tree->right->data) == AGGREGATION_ARG_TYPE)
+	{
+		aggr_recursion_node(tree, tree->right);
 		return ;
 	}
-	// Sinon, l'argument est dans le noeud gauche du noeud de droite
 	if (!tree->right->left)
 		return ;
 	if (get_type_token(tree->right->left->data) == AGGREGATION_ARG_TYPE)
-	{
-		// RECUPERE LE FD A DUP
-		if (ft_isdigit(get_token_token(tree->data)[0]))
-		{
-			adup = ft_atoi(get_token_token(tree->data));
-			// ft_printf("atoi = %d\n", adup);
-		}
-		else
-		{
-			if (get_type_token(tree->data) == DUP_OUT_FD_TYPE )
-				adup = 1;
-			else if (get_type_token(tree->data) == DUP_IN_FD_TYPE)
-				adup = 0;
-		}
-
-		int i;
-		char	*argument = get_token_token(tree->right->left->data);
-		if (ft_strequ(argument, "-"))
-			closee = TRUE;
-		else
-		{
-			i = -1;
-			while (argument[++i])
-			{
-				if (!ft_isdigit(argument[i]))
-				{
-					ft_fd_printf(2, "21sh: %s: bad file unit number", argument);
-					return ;
-				}
-			}
-		}
-		if (closee)
-		{
-			close(adup);
-		}
-		else
-		{
-			dup2(ft_atoi(argument), adup);
-		}
-	}
-	// Relance la bonne recursion sur le noeud de droite qui est un operateur
+		aggr_recursion_node(tree, tree->right->left);
 	if (is_redirection(get_type_token(tree->right->data)))
 		redir_recursion(tree->right);
 	else if (is_aggregation(get_type_token(tree->right->data)))

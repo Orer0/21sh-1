@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 00:36:16 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/08 04:49:44 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/09 05:55:29 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static int		set_options(char *ops, int *options, int pos)
 
 int				echo_builtin(char **args)
 {
-	int options;
-	int z;
-	int pos_args;
+	int	options;
+	int	z;
+	int	pos_args;
 
 	pos_args = 0;
 	options = 0;

@@ -6,19 +6,19 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 22:59:58 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 06:33:50 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:26:15 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 
 /*
-**	Genere l'AST grace a l'arbre de syntaxe
+**	Generate the AST with the syntax tree
 */
 
-static void 	generate_ast(t_ptree **tree)
+static void		generate_ast(t_ptree **tree)
 {
-	t_list *tmp;
+	t_list		*tmp;
 
 	if (!tree)
 		return ;
@@ -32,10 +32,10 @@ static void 	generate_ast(t_ptree **tree)
 }
 
 /*
-**	Construit et retourne l'AST
+**	Build and return the AST
 */
 
-t_btree		*get_ast(t_ptree **parsing_tree)
+t_btree			*get_ast(t_ptree **parsing_tree)
 {
 	generate_ast(parsing_tree);
 	return ((*parsing_tree)->ast);

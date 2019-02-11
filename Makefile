@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/08 06:23:39 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/10 04:25:12 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC		=	/usr/bin/gcc
 RM		=	/bin/rm
-CFLAGS	=	-Wall -Wextra -Werror -g3# -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
 TERMCAP =	-ltermcap
 
 # Directories
@@ -98,6 +98,7 @@ SRCS	=	$(MAIN)															\
 			$(ENV)create_minimal_env.c										\
 			$(EXE)exec_command.c											\
 			$(EXE)exec_ast.c												\
+			$(EXE)catch_signal_kill.c										\
 			$(EXE)aggr_redir_execution.c									\
 			$(EXE)redir_recursion.c											\
 			$(EXE)aggr_recursion.c											\
@@ -164,7 +165,7 @@ $(NAME):	Makefile $(OBJ) $(MAIN) $(HFILES) $(LIBFT)
 		@$(CC) $(CFLAGS) $(TERMCAP) $(OBJ) -I$(H) -I$(ILIBFT) -L$(LIBFT) -lft -o $(NAME)
 		@echo "I'm READY"
 
-%.o: 		%.c
+%.o:		%.c $(HFILES)
 		@echo "Creating $@ ..."
 		@$(CC) $(CFLAGS) -I$(H) -I$(ILIBFT) -c $< -o $@
 

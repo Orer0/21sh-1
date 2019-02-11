@@ -6,14 +6,22 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/07 02:45:20 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/10 04:03:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 #include "tokens.h"
 
-static void build_new_str(char **div_str, char *final, int equal)
+static void del_all_str(char ***tab, char **final, char **bef_do, char **af_do)
+{
+	ft_strtab_del(tab);
+	ft_strdel(final);
+	ft_strdel(bef_do);
+	ft_strdel(af_do);
+}
+
+static void	build_new_str(char **div_str, char *final, int equal)
 {
 	char	*bef_do;
 	char	**tab;
@@ -37,21 +45,16 @@ static void build_new_str(char **div_str, char *final, int equal)
 		*div_str = ft_strdup(final);
 	if (*div_str == NULL)
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	ft_strtab_del(&tab);
-	ft_strdel(&final);
-	ft_strdel(&bef_do);
-	ft_strdel(&af_do);
+	del_all_str(&tab, &final, &bef_do, &af_do);
 }
 
 static void	manage_dollar_var(char **str)
 {
 	char	*before_equal;
 	char	*after_equal;
-	char	*tmp;
 	char	*final;
 
 	final = NULL;
-	tmp = NULL;
 	if (!(before_equal = ft_strsub(*str, 0, ft_strpos(*str, '='))))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	if (!(after_equal = ft_strsub(*str, ft_strpos(*str, '=')
@@ -66,7 +69,7 @@ static void	manage_dollar_var(char **str)
 	ft_strdel(&after_equal);
 }
 
-static void manag_tild_var(char **str, char **after_equal, char **before_equal)
+static void	manag_tild_var(char **str, char **after_equal, char **before_equal)
 {
 	char	*final;
 
@@ -103,23 +106,33 @@ static void	manage_expansion_var(char **str)
 	ft_strdel(&before_equal);
 }
 
-char 	**get_var_tab(t_var_token **token)
+char		**get_var_tab(t_var_token **token)
 {
 	char	**tab;
 	t_list	*tmp;
 
-	if (!(tab = ft_memalloc(sizeof(char *) * 2)))
-		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	if ((*token)->is_expansion)
-		manage_expansion_var(&(*token)->token);
-	tab[0] = ft_strdup((*token)->token);
-	tab[1] = NULL;
+	if (get_type_token(token) == VAR_TYPE)
+	{
+		if (!(tab = ft_memalloc(sizeof(char *) * 2)))
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
+		if ((*token)->is_expansion)
+			manage_expansion_var(&(*token)->token);
+		tab[0] = ft_strdup((*token)->token);
+		// tab[1] = NULL;
+	}
+	else
+	{
+		if (!(tab = ft_memalloc(sizeof(char *))))
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
+		// tab[0] = NULL;
+	}
+	// ft_printf("tab[0] = %s\n", tab[0]);
 	tmp = (*token)->var_lst;
 	while (tmp)
 	{
-		if (get_expansion_token(tmp->content))
-			manage_expansion_var(&(*((t_cmd_token **)(tmp->content)))->token);
-		ft_strtab_addend(&tab, get_token_token(tmp->content));
+		if (((t_var_token *)(tmp->content))->is_expansion)
+			manage_expansion_var(&(*((t_var_token **)(tmp->content)))->token);
+		ft_strtab_addend(&tab, ((t_var_token *)(tmp->content))->token);
 		tmp = tmp->next;
 	}
 	return (tab);

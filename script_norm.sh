@@ -2,7 +2,7 @@
 
 esc=$(printf '\033')
 
-echo "\033[104mFichier auteur:\033[0m"
+echo "\033[104mFichier auteur:\0330m"
 if [ -e auteur ]
 then
 	cat -e auteur

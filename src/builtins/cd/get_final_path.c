@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 19:33:08 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/29 08:29:59 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/10 05:59:47 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,19 @@ static void		clean_absolute_path(char **path)
 	}
 }
 
+static void		del_tab(char ***arg_tab, char ***pwd_tab)
+{
+	ft_strtab_del(arg_tab);
+	ft_strtab_del(pwd_tab);
+}
+
 char			*get_final_path(char **path)
 {
-	char **arg_tab;
-	char **pwd_tab;
-	char *pwd;
-	char *str;
-	t_shell_data *data;
+	char			**arg_tab;
+	char			**pwd_tab;
+	char			*pwd;
+	char			*str;
+	t_shell_data	*data;
 
 	data = shell_data_singleton();
 	if (!(pwd = get_env_var_by_name(&data->env_lst, "PWD")->content))
@@ -81,13 +87,11 @@ char			*get_final_path(char **path)
 		return (NULL);
 	if (!build_pwd_tab(&arg_tab, &pwd_tab, ft_stringtab_len(pwd_tab)))
 	{
-		ft_strtab_del(&arg_tab);
-		ft_strtab_del(&pwd_tab);
+		del_tab(&arg_tab, &pwd_tab);
 		return (NULL);
 	}
 	if (!(str = ft_strjointab(pwd_tab, '/')))
 		return (NULL);
-	ft_strtab_del(&arg_tab);
-	ft_strtab_del(&pwd_tab);
+	del_tab(&arg_tab, &pwd_tab);
 	return (str);
 }

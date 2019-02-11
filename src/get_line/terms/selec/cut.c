@@ -12,7 +12,19 @@
 
 #include "../../../../include/get_line.h"
 
-void	cut(t_term **t, int rel_cur, int tmp)
+static void	cut_new_line(char *line, char *end, t_term **t)
+{
+	if (line == NULL && end != NULL)
+		(*t)->line = ft_strdup(end);
+	else if (end == NULL && line != NULL)
+		(*t)->line = ft_strdup(line);
+	else
+		(*t)->line = ft_strjoin(line, end);
+	if ((*t)->line == NULL)
+		end_shell(t, NULL);
+}
+
+void		cut(t_term **t, int rel_cur, int tmp)
 {
 	char	*end;
 	char	*line;
@@ -30,14 +42,7 @@ void	cut(t_term **t, int rel_cur, int tmp)
 		line = ft_strsub((*t)->line, 0, tmp);
 	}
 	ft_strdel(&(*t)->line);
-	if (line == NULL && end != NULL)
-		(*t)->line = ft_strdup(end);
-	else if (end == NULL && line != NULL)
-		(*t)->line = ft_strdup(line);
-	else
-		(*t)->line = ft_strjoin(line, end);
-	if ((*t)->line == NULL)
-		end_shell(t, NULL);
+	cut_new_line(line, end, t);
 	ft_strdel(&line);
 	ft_strdel(&end);
 	delete_all(0, t);

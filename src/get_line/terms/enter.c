@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/07 03:44:03 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/09 03:46:27 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		go_down(t_term **t)
 
 char		*enter(t_term **t)
 {
-	t_list	*tmp;
+	t_list			*tmp;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
