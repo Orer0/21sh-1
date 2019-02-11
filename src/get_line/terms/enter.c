@@ -45,7 +45,7 @@ static void		go_down(t_term **t)
 
 char		*enter(t_term **t)
 {
-	t_list	*tmp;
+	t_list			*tmp;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();

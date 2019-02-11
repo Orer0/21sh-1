@@ -55,8 +55,8 @@ typedef struct		s_term
 	int				len_p;
 }					t_term;
 
-int					init_termios();
-int					reset_term();
+int					init_termios(void);
+int					reset_term(void);
 
 void				set_terms(t_term **t, char *promtp);
 

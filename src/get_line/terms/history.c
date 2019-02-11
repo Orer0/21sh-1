@@ -32,7 +32,7 @@ static char		*ft_history(t_list **history, int index_his)
 
 static void		set_new_value(t_term **t)
 {
-	char	*his_line;
+	char			*his_line;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();

@@ -14,8 +14,8 @@
 
 int				exec_command(char **command, char **env)
 {
-	int		status;
-	char	*final_path;
+	int				status;
+	char			*final_path;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();

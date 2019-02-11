@@ -61,7 +61,7 @@ char	*get_line(char *promtp)
 		end_shell(&t, NULL);
 		return (NULL);
 	}
-	if (init_termios(&t) == -1)
+	if (init_termios() == -1)
 	{
 		ft_memdel((void **)t);
 		return (NULL);

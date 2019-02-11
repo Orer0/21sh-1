@@ -66,6 +66,17 @@ static void	heredoc(t_btree *node, int arg)
 	close(fd_h);
 }
 
+static int	define_arg_redir(t_btree *tree)
+{
+	if (get_type_token(tree->data) == OUT_RDIR_TYPE
+		|| get_type_token(tree->data) == OUT_ARDIR_TYPE)
+		return (1);
+	else if (get_type_token(tree->data) == IN_RDIR_TYPE
+		|| get_type_token(tree->data) == HEREDOC_TYPE)
+		return (0);
+	return (-1);
+}
+
 static void	redir_recursion_node(t_btree *tree, t_btree *node)
 {
 	int		arg;
@@ -75,16 +86,12 @@ static void	redir_recursion_node(t_btree *tree, t_btree *node)
 	if (ft_isdigit(get_token_token(tree->data)[0]))
 		arg = ft_atoi(get_token_token(tree->data));
 	else
-	{
-		if (get_type_token(tree->data) == OUT_RDIR_TYPE || get_type_token(tree->data) == OUT_ARDIR_TYPE )
-			arg = 1;
-		else if (get_type_token(tree->data) == IN_RDIR_TYPE || get_type_token(tree->data) == HEREDOC_TYPE)
-			arg = 0;
-	}
-	if (get_type_token(tree->data) == OUT_RDIR_TYPE || get_type_token(tree->data) == OUT_ARDIR_TYPE )
+		arg = define_arg_redir(tree);
+	if (get_type_token(tree->data) == OUT_RDIR_TYPE
+		|| get_type_token(tree->data) == OUT_ARDIR_TYPE)
 	{
 		dup2(fd, arg);
-		close(fd);
+		close(fd); // REELLE UTILITE DU CLOSE?
 	}
 	else if (get_type_token(tree->data) == IN_RDIR_TYPE)
 	{
@@ -95,7 +102,7 @@ static void	redir_recursion_node(t_btree *tree, t_btree *node)
 		heredoc(node, arg);
 }
 
-void 	redir_recursion(t_btree *tree)
+void		redir_recursion(t_btree *tree)
 {
 	if (!tree->right)
 		return ;

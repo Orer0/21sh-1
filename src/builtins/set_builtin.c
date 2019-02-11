@@ -27,9 +27,9 @@ static void		print_intern_env(t_list *lst)
 
 int		set_builtin(char **args)
 {
-	int		i;
+	int				i;
 	t_shell_data 	*data;
-	char		**tab;
+	char			**tab;
 
 	data = shell_data_singleton();
 	if (args[0])

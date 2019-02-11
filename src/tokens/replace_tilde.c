@@ -34,7 +34,7 @@ static char		*get_home_of_user(char *name)
 	}
 }
 
-int		new_tilde_value(char **str, int s, char *home)
+int				new_tilde_value(char **str, int s, char *home)
 {
 	char	*tmp;
 

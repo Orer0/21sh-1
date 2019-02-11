@@ -45,6 +45,7 @@ void 	run_pipe(t_btree *tree)
 void 	pipe_execution(t_btree *tree)
 {
 	pid_t	pid;
+
 	pid = fork();
 	if (pid == 0)
 	{

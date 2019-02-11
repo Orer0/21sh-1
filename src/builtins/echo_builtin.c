@@ -24,9 +24,9 @@ static int		set_options(char *ops, int *options, int pos)
 
 int				echo_builtin(char **args)
 {
-	int options;
-	int z;
-	int pos_args;
+	int	options;
+	int	z;
+	int	pos_args;
 
 	pos_args = 0;
 	options = 0;

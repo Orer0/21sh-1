@@ -22,7 +22,7 @@ void	del_history(void *content, size_t size)
 
 void	quit_shell(int status, int err)
 {
-	t_shell_data *data;
+	t_shell_data	*data;
 
 	if (err == MALLOC_ERR)
 		ft_fd_printf(2, "21sh: Malloc failed");

@@ -14,8 +14,8 @@
 
 char		*get_env_var(char *name) // enlever static)
 {
- 	t_varenv	*var;
-	char	*content;
+	t_varenv		*var;
+	char			*content;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
