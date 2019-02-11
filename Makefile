@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/10 04:25:12 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/10 23:50:03 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,8 +58,13 @@ SRCS	=	$(MAIN)															\
 			$(LEX)build_command_token.c										\
 			$(LEX)build_command_token_tools.c								\
 			$(LEX)get_type_of_token.c										\
-			$(LEX)first_check_tokens_list.c									\
-			$(LEX)first_check_tokens_list_tools.c							\
+			$(LEX)first_check/first_check_tokens_list.c						\
+			$(LEX)first_check/first_check_redirections.c					\
+			$(LEX)first_check/first_check_aggregations.c					\
+			$(LEX)first_check/first_check_variables.c						\
+			$(LEX)first_check/return_syntax_error.c							\
+			$(LEX)first_check/first_check_operators.c						\
+			$(LEX)first_check/first_check_heredoc.c							\
 			$(LEX)delete_list_tokens.c										\
 			$(LEX)token_constructor.c										\
 			$(LEX)unexpected_token_error.c									\

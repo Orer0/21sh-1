@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:16:13 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 00:24:23 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "21sh.h"
 # include <pwd.h>
 
-# define STACK_SIZE 4096
+# define STACK 4096
 
 typedef enum 	e_states
 {
@@ -76,19 +76,26 @@ typedef struct	s_line
 	int			i;
 }				t_line;
 
+int				if_take_the_last(int state);
+int 			is_star(int state);
+int				acceptor_case(char (*stack)[STACK], t_line *line, int n_state
+					, int c_state, int expansion);
 void			unexpected_token_error(char *token);
-int				redirections(t_list *lst);
-int				aggregations(t_list *lst);
-void			variables(t_list *lst);
+int				first_check_redirections(t_list *lst);
+int				first_check_aggregations(t_list *lst);
+void			first_check_variables(t_list *lst);
+int				return_syntax_error(char *str);
+int				first_check_operators(t_list **lst);
+int				first_check_heredoc(t_list **lst);
 void			put_arg_in_cmd_list(t_list **lst, t_list **args_list);
 int 			lexer(char **line);
-int				add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansion);
+int				add_new_token(char stack[STACK], int n_state, int c_state, int expansion);
 int				constructor_line_struct(char *str, t_line **line);
 int 			first_check_tokens_list(t_list *lst);
 void 			build_command_token(void);
 void 			delete_list_tokens(t_list **lst);
-void			put_str_in_stack(char (*stack)[STACK_SIZE], char *str);
-void			put_char_in_stack(char (*stack)[STACK_SIZE], char c);
+int				put_str_in_stack(char (*stack)[STACK], char *str);
+int				put_char_in_stack(char (*stack)[STACK], char c);
 int				is_acceptor(int state);
 int				is_ignored(int current, int state);
 int				get_index_from_char(t_line *line);

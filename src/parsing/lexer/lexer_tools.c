@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 22:58:13 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 22:59:08 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 00:23:38 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	constructor_line_struct(char *str, t_line **line)
 	return (TRUE);
 }
 
-int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansion)
+int		add_new_token(char stack[STACK], int n_state, int c_state, int expan)
 {
 	t_list	*token;
 	t_token	*token_struct;
@@ -35,12 +35,58 @@ int		add_new_token(char stack[STACK_SIZE], int n_state, int c_state, int expansi
 		);
 		if (!(token = ft_lstnew(&token_struct, sizeof(t_token))))
 			quit_shell(EXIT_FAILURE, MALLOC_ERR);
-		if (expansion)
-			set_expansion_token(token->content, expansion);
+		if (expan)
+			set_expansion_token(token->content, expan);
 		if (data->tokens_list == NULL)
 			data->tokens_list = token;
 		else
 			ft_lstaddend(&(data->tokens_list), token);
 	}
+	return (TRUE);
+}
+
+/*
+**	Detecte si on ne pas peut pas terminer sur cette etat
+*/
+
+int	if_take_the_last(int state)
+{
+	if (state == NUMBER_STATE
+		|| state == CHAR_STATE
+		|| state == END_D_QUOTE_STATE
+		|| state == END_S_QUOTE_STATE
+		|| state == S_QUOTE_STATE
+		|| state == D_QUOTE_STATE
+		|| state == DOLLAR_STATE
+		|| state == AND_STATE
+		|| state == OR_STATE
+		|| state == PIPE_STATE
+		|| state == EQUAL_STATE
+		|| state == TILDE_STATE)
+		return (TRUE);
+	return (FALSE);
+}
+
+/*
+**	Detecte si l'etat est etoile ou pas
+*/
+
+int is_star(int state)
+{
+	if (state == STAR_STATE)
+		return (TRUE);
+	return (FALSE);
+}
+
+int	acceptor_case(char (*stack)[STACK], t_line *line, int n_state
+	, int c_state, int expansion)
+{
+	if (is_star(n_state))
+	{
+		(*stack)[ft_strlen(*stack) - 1] = 0;
+		(line->i)--;
+	}
+	add_new_token(*stack, n_state, c_state, expansion);
+	ft_strclr(*stack);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:26:03 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:55:33 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/11 00:41:07 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,8 @@ int				cd_builtin(char **args)
 	char			*pwd;
 	int				pos_args;
 	int				options;
-	t_shell_data	*data;
 
 	oldpwd = NULL;
-	data = shell_data_singleton();
 	options = 0;
 	pos_args = 0;
 	options_parser(args, &options, &pos_args, set_options);
