@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 02:22:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 00:10:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:13:08 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_shell_data
 	int				last_status;
 	int				exec_next;
 	char			*term;
+	char			*selec;
 	int				options;
 	t_list			*env_lst;
 	char			**env_tab;

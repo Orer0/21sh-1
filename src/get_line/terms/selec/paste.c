@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:20:32 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 20:27:55 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 21:22:27 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,22 @@
 
 void	paste(t_term **t)
 {
-	char	*tmp;
+	char			*tmp;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	tmp = NULL;
-	if ((*t)->sel == NULL)
+	if ((*t)->sel)
+	{
+		if (data->selec != NULL)
+			ft_strdel(&data->selec);
+		data->selec = ft_strdup((*t)->sel);
+	}
+	if (data->selec == NULL)
 		return ;
 	else
 	{
-		if (!(tmp = ft_strdup((*t)->sel)))
+		if (!(tmp = ft_strdup(data->selec)))
 			end_shell(t, NULL);
 	}
 	if ((*t)->line != NULL && (*t)->cur.x < (*t)->max_cur)
