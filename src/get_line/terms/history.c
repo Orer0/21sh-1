@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 01:12:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 05:51:06 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,16 @@ int				history_up(t_term **t)
 	data = shell_data_singleton();
 	(*t)->max_cur = ft_strlen((*t)->line);
 	(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
-	if (data->history == NULL || (*t)->index_his == ft_lstlen(data->history))
+	if (data->history == NULL || (*t)->index_his + 1 == ft_lstlen(data->history))
+	{
+	//	printf("coicocicoc\n");
 		return (1);
+	}
 	else
+	{
+	//	printf("coucou\n");
 		delete_all((*t)->nb_line, t);
+	}
 	(*t)->index_his++;
 	set_new_value(t);
 	return (0);

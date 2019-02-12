@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 01:09:43 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 06:07:03 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,6 @@ static void		go_down(t_term **t)
 	if ((*t)->index_his <= -1)
 	{
 		while ((*t)->rel_line < (*t)->nb_line)
-		{
-			tputs(tgetstr("do", NULL), 0, &put);
-			(*t)->rel_line++;
-		}
-	}
-	else
-	{
-		while ((*t)->hist_line < (*t)->nb_line)
 		{
 			tputs(tgetstr("do", NULL), 0, &put);
 			(*t)->rel_line++;
