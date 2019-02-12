@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 01:13:05 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 20:32:45 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,19 @@ static void		go_cut(t_term **t, int rel_cur, int tmp)
 	cut(t, rel_cur, tmp);
 	(*t)->max_cur = ft_strlen((*t)->line);
 }
+
+/*
+**	SELEC - selec a part of line
+**
+**	params: t -> struct of the program term
+**
+**	Description:
+**	- put the term il selec mode
+**	- print the selec in reverse mode term
+**	- if the cut, copy or selection mode by call the term leave the 
+**		selection mode and malloc a buffer of the selection
+**	- initialize the old term params and the position of the curse
+*/
 
 void			selec(t_term **t)
 {

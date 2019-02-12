@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 06:07:03 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 20:38:50 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ static void		go_down(t_term **t)
 		}
 	}
 }
+
+/*
+**	ENTER - send the final line in the lexer fonction
+**
+**	params: t -> struct whit all curses and final line
+**
+**	Description:
+**	- add the line at the history list
+**	- if the line is empty, a "\n" is add at the line
+**	- move the curse in the good place
+**	- reset all curse
+*/
 
 char			*enter(t_term **t)
 {

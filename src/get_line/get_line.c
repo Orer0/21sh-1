@@ -6,11 +6,24 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 01:11:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 20:14:58 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
+
+/*
+**	WAY - Manage tap key
+**
+**	params: cmd -> the keycode
+**			t -> struct of the program term
+**	return: the fonction that correspond at the keycode
+**
+**	Description:
+**	- Send the cmd (keycode)
+**	- Return the good fonction
+*/
+
 
 void	*way(t_term **t, char *cmd)
 {

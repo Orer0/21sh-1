@@ -6,11 +6,22 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:20:32 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:21:04 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 20:27:55 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../include/get_line.h"
+
+/*
+**	PASTE - paste the line part copy
+**
+**	params: t -> struct of the program term
+**
+**	Description:
+**	- copy the selection in a tmp char *
+**	- print the copy in the line
+**	- change the curse value
+*/
 
 void	paste(t_term **t)
 {

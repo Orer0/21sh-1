@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 01:17:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 19:59:28 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ static void		calcl_len(t_term **t, char **buf)
 	while (len > 0)
 	{
 		(*t)->cur.x++;
+		if (((*t)->cur.x + (*t)->len_p) % (*t)->col == 0)
+			(*t)->rel_line++;
 		len--;
 	}
 	ft_strdel(buf);
-	if (((*t)->cur.x + (*t)->len_p) % (*t)->col == 0)
-		(*t)->rel_line++;
 	go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
 }
 
