@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 09:38:44 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 22:13:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 00:32:00 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int		ft_fd_printf(int fd, const char *str, ...)
 
 int		ft_printf(const char *str, ...)
 {
-
 	t_envp		env;
 	char		*string;
 	int			ret;

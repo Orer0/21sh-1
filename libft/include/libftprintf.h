@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:08:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/01 22:13:37 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 00:32:32 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,8 @@ void							print_prefix(t_envp *env);
 **	Tools for unicode (printer/unicode_tools/..)
 */
 
-int								get_big_char(t_envp *env, int c, char result[5]);
+int								get_big_char(t_envp *env, int c
+									, char result[5]);
 int								ft_bigcharlen(int i);
 int								ft_wstrlen(wchar_t *str);
 int								ft_bigstrlen(wchar_t *str);
