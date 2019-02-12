@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 23:41:47 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 23:43:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:28:39 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int		first_check_redirections(t_list *lst)
 			return (TRUE);
 		}
 	}
-	return(return_syntax_error(get_token_token(lst->content)));
+	return (return_syntax_error(get_token_token(lst->content)));
 }

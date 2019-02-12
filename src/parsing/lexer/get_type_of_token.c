@@ -6,13 +6,13 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:01:53 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 23:58:02 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:33:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static int			get_type_of_token_2(int next_state, int last_state)
+static int		get_type_of_token_2(int next_state, int last_state)
 {
 	if (last_state == LEFT_REDIRECTION_STATE
 		|| next_state == LEFT_REDIRECTION_STATE)
@@ -43,7 +43,7 @@ static int			get_type_of_token_2(int next_state, int last_state)
 **	Retourne le type du token
 */
 
-int			get_type_of_token(int next_state, int last_state)
+int				get_type_of_token(int next_state, int last_state)
 {
 	if (last_state == NUMBER_STATE || next_state == NUMBER_STATE)
 		return (NUMBER_TYPE);

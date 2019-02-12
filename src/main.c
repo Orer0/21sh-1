@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 02:33:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 01:03:11 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void 	ft_minimal_shell(void)
 	while (666)
 	{
 		clean_parsing();
-		// ft_printf("%s", PROMPT);
+		ft_fd_printf(0, "%s", PROMPT);
 		if (!read_prompt(0, &line))
 			quit_shell(EXIT_FAILURE, 0);
 		if (!line || line[0] == -1)
@@ -99,12 +99,13 @@ void 	init_shell(char **environ)
 		create_minimal_env();
 	term = get_env_var_by_name(&data->env_lst, "TERM");
 	if (term && isatty(0))
-		data->term = term->content;
+		data->term = ft_strdup(term->content);
 	else
 	{
 		change_env_var(&data->env_lst, "TERM", "xterm");
 		change_env_var(&data->intern_env_lst, "TERM", "xterm");
-		data->term = get_env_var_by_name(&data->env_lst, "TERM")->content;
+		data->term = ft_strdup(get_env_var_by_name(&data->env_lst
+			, "TERM")->content);
 	}
 	if (!(envshlvl = get_env_var_by_name(&data->env_lst, "SHLVL")))
 		shlvl = 0;

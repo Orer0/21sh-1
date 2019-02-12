@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:10:58 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/09 22:38:40 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:15:34 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,10 @@ int		ft_is_space(int c)
 
 int		put(int c)
 {
-	return ((int)write(STDIN_FILENO, &c, 1));
+	return ((int)write(0, &c, 1));
 }
 
 int		putst(char *c)
 {
-	int		i;
-
-	i = 0;
-	while (c[i] != '\0')
-	{
-		put(c[i]);
-		i++;
-	}
-	return (i);
+	return (write(0, c, ft_strlen(c)));
 }

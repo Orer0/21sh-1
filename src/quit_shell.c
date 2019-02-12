@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 03:07:16 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 00:36:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	quit_shell(int status, int err)
 		delete_ast(&data->ast);
 	if (data->history)
 		ft_lstdel(&data->history, &del_history);
+	ft_strdel(&data->term);
 	ft_strtab_del(&data->env_tab);
 	ft_lstdel(&data->env_lst, del_env_var);
 	ft_lstdel(&data->intern_env_lst, del_env_var);

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 23:34:04 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 23:34:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:28:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		get_the_new_line(char *argument, char **line, char **final_str)
 	}
 }
 
-int		first_check_heredoc(t_list **lst)
+int				first_check_heredoc(t_list **lst)
 {
 	char	*final_str;
 	char	*line;

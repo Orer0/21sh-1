@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:02:27 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 22:56:34 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 03:21:06 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ static int		fd_to_dup(t_btree *tree)
 			fd_dup = 0;
 	}
 	return (fd_dup);
+}
+
+static void		aggr_dup(int close_fd, int adup, char *argument)
+{
+	if (close_fd)
+		close(adup);
+	else
+	{
+		if (dup2(ft_atoi(argument), adup) == -1)
+		{
+			ft_fd_printf(2, "21sh: %s: bad file descriptor\n", argument);
+			exit(EXIT_FAILURE);
+		}
+	}
 }
 
 static void		aggr_recursion_node(t_btree *tree, t_btree *node)
@@ -54,7 +68,7 @@ static void		aggr_recursion_node(t_btree *tree, t_btree *node)
 			}
 		}
 	}
-	close_fd ? close(adup) : dup2(ft_atoi(argument), adup);
+	aggr_dup(close_fd, adup, argument);
 	return ;
 }
 

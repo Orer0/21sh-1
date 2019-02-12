@@ -102,6 +102,7 @@ SRCS+=src/tokens/get_cmd_tab.c
 SRCS+=src/tokens/get_env_var.c
 SRCS+=src/tokens/get_var_tab.c
 SRCS+=src/tokens/get_var_tab_for_unset.c
+SRCS+=src/tokens/get_var_tab_tools.c
 SRCS+=src/tokens/replace_dollar.c
 SRCS+=src/tokens/replace_tilde.c
 SRCS+=src/tokens/tokens.c

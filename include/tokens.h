@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 02:53:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/07 02:42:27 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 03:37:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ int				type_cmp(int first, int second);
 char 			**get_cmd_tab(t_cmd_token **token);
 char 			**get_var_tab_for_unset(t_var_token *token);
 char 			**get_var_tab(t_var_token **token);
-
+void			manage_expansion_var(char **str);
 
 #endif

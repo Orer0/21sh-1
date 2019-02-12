@@ -6,13 +6,13 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:58:18 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 23:26:23 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 03:24:03 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void 	free_var(void *content, size_t size)
+void	free_var(void *content, size_t size)
 {
 	t_list	*tmp;
 	t_list	*next;
@@ -40,7 +40,7 @@ void 	free_var(void *content, size_t size)
 **	Free un token
 */
 
-void 	free_token(void *content, size_t size)
+void	free_token(void *content, size_t size)
 {
 	int	type;
 
@@ -59,7 +59,7 @@ void 	free_token(void *content, size_t size)
 	else if (type == VAR_TYPE)
 	{
 		free_var(content, 0);
-		return;
+		return ;
 	}
 	ft_memdel((void **)((t_token **)(content)));
 	ft_memdel(&content);

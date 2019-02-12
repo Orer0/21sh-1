@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/09 03:47:53 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:11:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 **	GET_LINE - Open a promtp
 **
 **	params: promtp -> the prompt that will be print
-**	
+**
 **	return: the final line edit by the user and after the enter key
 **
 **	Description:
@@ -80,7 +80,7 @@ char	*get_line(char *promtp)
 		return (NULL);
 	}
 	set_terms(&t, promtp);
-	ft_putstr(t->promtp);
+	write(0, t->promtp, ft_strlen(t->promtp));
 	tmp = manag_way(&t);
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);

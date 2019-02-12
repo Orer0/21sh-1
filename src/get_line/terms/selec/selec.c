@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   selec.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:21:19 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:13:05 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		set_init(t_term **t, int rel_cur, int tmp, char *cmd)
 	tputs(tgetstr("cr", NULL), 0, &put);
 	go_way(t, (*t)->len_p, ND);
 	tputs(tgetstr("me", NULL), 0, &put);
-	ft_putstr((*t)->line);
+	write(0, (*t)->line, ft_strlen((*t)->line));
 	tputs(tgetstr("cr", NULL), 0, &put);
 	if (rel_cur <= 0)
 		go_way(t, cur, ND);
@@ -52,7 +52,7 @@ static void		go_cut(t_term **t, int rel_cur, int tmp)
 	(*t)->max_cur = ft_strlen((*t)->line);
 }
 
-void	selec(t_term **t)
+void			selec(t_term **t)
 {
 	char	ky[1024];
 	int		rel_cur;

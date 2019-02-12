@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/09 21:43:29 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:17:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
 
-static void	buf_tab(char **buf)
+static void		buf_tab(char **buf)
 {
 	ft_strdel(buf);
 	*buf = ft_strdup("        ");
 }
 
-static void	go_new_line(t_term **t)
+static void		go_new_line(t_term **t)
 {
-	ft_putchar(' ');
+	put(' ');
 	tputs(tgetstr("cr", NULL), 0, put);
 	(*t)->rel_line++;
 	(*t)->nb_line++;
 }
 
-void	print_buf_end(char *buf, t_term **t)
+void			print_buf_end(char *buf, t_term **t)
 {
 	int		len;
 
 	if (buf[0] == 9)
 		buf_tab(&buf);
 	len = ft_strlen(buf);
-	ft_putstr(buf);
+	write(0, buf, ft_strlen(buf));
 	while (len > 0)
 	{
 		(*t)->cur.x++;
@@ -51,7 +51,7 @@ void	print_buf_end(char *buf, t_term **t)
 	ft_strdel(&buf);
 }
 
-static void	calcl_len(t_term **t, char **buf)
+static void		calcl_len(t_term **t, char **buf)
 {
 	int		len;
 
@@ -67,7 +67,7 @@ static void	calcl_len(t_term **t, char **buf)
 	go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
 }
 
-void	print_insertion(t_term **t, char *buf)
+void			print_insertion(t_term **t, char *buf)
 {
 	char		*end;
 	int			len;

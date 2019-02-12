@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 00:24:23 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:52:35 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ typedef enum 	e_index
 	NONE_INDEX
 }				t_index;
 
+typedef struct	s_state
+{
+	int			next;
+	int			current;
+}				t_state;
+
 typedef struct	s_line
 {
 	char		*line;
@@ -78,8 +84,8 @@ typedef struct	s_line
 
 int				if_take_the_last(int state);
 int 			is_star(int state);
-int				acceptor_case(char (*stack)[STACK], t_line *line, int n_state
-					, int c_state, int expansion);
+int				acceptor_case(char (*stack)[STACK], t_line *line, t_state *state
+					, int expansion);
 void			unexpected_token_error(char *token);
 int				first_check_redirections(t_list *lst);
 int				first_check_aggregations(t_list *lst);
@@ -89,7 +95,7 @@ int				first_check_operators(t_list **lst);
 int				first_check_heredoc(t_list **lst);
 void			put_arg_in_cmd_list(t_list **lst, t_list **args_list);
 int 			lexer(char **line);
-int				add_new_token(char stack[STACK], int n_state, int c_state, int expansion);
+int				add_new_token(char stack[STACK], t_state *state, int expan);
 int				constructor_line_struct(char *str, t_line **line);
 int 			first_check_tokens_list(t_list *lst);
 void 			build_command_token(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   del.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 05:24:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/01 05:25:17 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:09:25 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	del(t_term **t)
 		(*t)->max_cur--;
 		if (j == 0 && (*t)->cur.x == (*t)->max_cur)
 		{
-			ft_putchar(' ');
+			put(' ');
 			tputs(tgetstr("le", NULL), 0, &put);
 		}
 		go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);

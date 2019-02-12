@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   replace_dollar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 02:35:39 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/07 02:42:31 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 03:24:18 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-void	replace_dollar(char **tab, char **final) // utilse dans get_var_tab aussi
+void	replace_dollar(char **tab, char **final)
 {
 	int		i;
 	char	*tmp;

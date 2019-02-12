@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   selec_mouv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:10:41 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:23:28 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:10:09 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				selec_right(t_term **t, int rel_cur, int tmp_cur)
 		go_way(t, cur, ND);
 		if (((*t)->cur.x + ft_strlen((*t)->promtp)) % (*t)->col == 0)
 		{
-			ft_putchar('\n');
+			put('\n');
 			(*t)->rel_line++;
 		}
 		if (rel_cur >= 0)

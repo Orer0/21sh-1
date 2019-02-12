@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/09 22:08:10 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:12:18 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		set_new_value(t_term **t)
 	his_line = NULL;
 	if (!(his_line = ft_strdup(ft_history(&data->history, (*t)->index_his))))
 		end_shell(t, NULL);
-	ft_putstr(his_line);
+	write(0, his_line, ft_strlen(his_line));
 	if ((*t)->line != NULL)
 		ft_strdel(&(*t)->line);
 	if (!((*t)->line = ft_strdup(his_line)))

@@ -6,13 +6,13 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 23:46:11 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 23:47:10 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:30:16 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-static void 	ft_lstremoveone(t_list	**lst)
+static void		ft_lstremoveone(t_list **lst)
 {
 	t_list	*tmp;
 
@@ -29,7 +29,8 @@ static void		replace_content(t_list *lst)
 {
 	t_var_token *token;
 
-	token_constructor(get_token_token(lst->content), VAR_TYPE, (t_token **)&token);
+	token_constructor(get_token_token(lst->content), VAR_TYPE
+		, (t_token **)&token);
 	token->is_expansion = get_expansion_token(lst->content);
 	free_token(lst->content, 0);
 	if (!(lst->content = ft_memalloc(sizeof(&token) * sizeof(t_var_token))))
@@ -38,7 +39,7 @@ static void		replace_content(t_list *lst)
 	lst->content_size = sizeof(t_var_token);
 }
 
-void		first_check_variables(t_list *lst)
+void			first_check_variables(t_list *lst)
 {
 	t_list	*tmp;
 	t_list	*next;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_env_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 02:43:04 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/07 02:44:01 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 03:23:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
 
-char		*get_env_var(char *name) // enlever static)
+char		*get_env_var(char *name)
 {
 	t_varenv		*var;
 	char			*content;

@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:22:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:09:35 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 01:10:22 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static void		supp_in(t_term **t)
 static void		decal(t_term **t)
 {
 	putst((*t)->line);
-	ft_putchar(' ');
-	ft_putchar(' ');
+	put(' ');
+	put(' ');
 	tputs(tgetstr("le", NULL), 0, &put);
 	tputs(tgetstr("le", NULL), 0, &put);
 }

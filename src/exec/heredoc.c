@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 23:09:55 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:11:55 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 01:45:04 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void		heredoc(t_btree *node, int arg)
 	close(fd_h);
 	fd_h = open(path, O_RDONLY);
 	ft_strdel(&path);
-	dup2(fd_h, arg);
+	if (dup2(fd_h, arg) == -1)
+	{
+		ft_fd_printf(2, "21sh: %d: bad file descriptor\n", arg);
+		exit(EXIT_FAILURE);
+	}
 	close(fd_h);
 }

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 16:42:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/03 01:45:58 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 00:42:15 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int				read_prompt(const int fd, char **line)
 		if (!final_buff)
 			final_buff = ft_strdup(buff);
 		else
-			final_buff = ft_strjoin_free_s1(&final_buff, &buff);// Malloc non proteger
+			final_buff = ft_strjoin_free_s1(&final_buff, &buff);
 		ft_strclr(buff);
 	}
 	ft_strdel(&buff);

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 01:06:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:28:09 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 
 int		shell_parser(char **line)
 {
-	int i;
-	t_shell_data *data;
+	int				i;
+	t_shell_data	*data;
 
 	data = shell_data_singleton();
 	i = -1;
-	while (ft_isspace((*line)[++i]));
+	while (ft_isspace((*line)[++i]))
+		;
 	if (!(*line)[i])
 	{
 		ft_strdel(line);

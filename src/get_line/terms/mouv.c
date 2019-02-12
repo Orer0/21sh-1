@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:15:19 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 00:16:51 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 01:09:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_right(t_term **t)
 		{
 			if (((*t)->cur.x + ft_strlen((*t)->promtp)) % (*t)->col == 0)
 			{
-				ft_putchar('\n');
+				put('\n');
 				(*t)->rel_line++;
 			}
 		}

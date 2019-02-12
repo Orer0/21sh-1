@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 23:48:04 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/11 23:29:18 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int		manage_type(t_list **tmp, int *end_vars)
 	return (TRUE);
 }
 
-int			first_check_tokens_list(t_list *lst)
+int				first_check_tokens_list(t_list *lst)
 {
 	t_list		*tmp;
 	int			end_vars;

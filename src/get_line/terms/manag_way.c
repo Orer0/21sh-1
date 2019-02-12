@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manag_way.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/09 21:01:50 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/11 23:21:17 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		check_line(t_term **t)
 	}
 }
 
-int		end_shell(t_term **t, char *cmd)
+int				end_shell(t_term **t, char *cmd)
 {
 	if (t == NULL)
 	{
@@ -48,7 +48,6 @@ int		end_shell(t_term **t, char *cmd)
 	}
 	ft_bzero(&cmd, sizeof(char[8]));
 	return (1);
-
 }
 
 static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
