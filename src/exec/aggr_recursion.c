@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 23:02:27 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 03:21:06 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:45:47 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void		aggr_recursion_node(t_btree *tree, t_btree *node)
 	int		i;
 	char	*argument;
 
-	i = 0;
 	argument = get_token_token(node->data);
 	close_fd = FALSE;
 	adup = fd_to_dup(tree);

@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:10:41 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 01:10:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:54:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int				selec_left(t_term **t, int rel_cur)
 {
 	int		cur;
 
-	cur = 0;
 	if ((*t)->cur.x > 0)
 	{
 		ft_strdel(&(*t)->sel);

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 03:09:35 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:15:45 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 23:05:11 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static char		**get_env_paths(t_list *lst)
 	t_list	*tmp;
 	char	**env_paths;
 
-	tmp = lst;
+	if (!(tmp = lst))
+		return (NULL);
 	while (tmp)
 	{
 		if (ft_strcmp((((t_varenv *)(tmp->content))->name), "PATH") == 0)

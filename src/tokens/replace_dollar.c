@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 02:35:39 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 03:24:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:44:23 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	replace_dollar(char **tab, char **final)
 	while (tab[i] != NULL)
 	{
 		tmp = get_env_var(tab[i]);
-		if (!(final) && tmp)
+		if (!(*final) && tmp)
 			*final = ft_strdup(tmp);
 		else if (!(*final) && !(tmp))
 			*final = ft_strdup(tab[i]);

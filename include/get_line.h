@@ -6,32 +6,22 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/08 22:15:45 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 23:14:36 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_LINE_H
 # define GET_LINE_H
 
-// # include <fcntl.h>
-// # include <dirent.h>
-// # include <sys/types.h>
-// # include <sys/stat.h>
-// # include <grp.h>
-// # include <uuid/uuid.h>
 # include "../libft/include/libft.h"
-// # include <limits.h>
-# include <stdio.h> // a sup
-// # include <curses.h>
 # include <term.h>
-// # include <termcap.h>
 # include <sys/ioctl.h>
 # include "shell_data.h"
 
-# define LE 1
-# define ND 2
-# define ON 1
-# define OFF 0
+# define LE		1
+# define ND		2
+// # define ON		1
+// # define OFF	0
 
 typedef struct		s_cur
 {

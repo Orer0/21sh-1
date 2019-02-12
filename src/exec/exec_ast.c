@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:53:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 22:59:51 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:40:19 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void		exec_cmd(t_btree *tree)
 	t_shell_data	*data;
 	char			**tab;
 
+	old_intern_env = NULL;
 	data = shell_data_singleton();
 	if (get_var_token_in_cmd_token(tree->data))
 	{

@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 05:24:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 20:36:45 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 21:51:41 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	del(t_term **t)
 	int			len;
 	int			j;
 
-	j = 0;
-	len = 0;
 	if ((*t)->cur.x < (*t)->max_cur)
 	{
 		len = (((*t)->cur.x + (int)ft_strlen((*t)->promtp)) / (*t)->col);

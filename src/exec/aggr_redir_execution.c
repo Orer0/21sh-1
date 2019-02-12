@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:58:14 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:07:26 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 21:41:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	aggr_exec_child(t_btree *tree, char **tab)
 	t_shell_data	*data;
 	t_list			*old_intern_env;
 
+	old_intern_env = NULL;
 	data = shell_data_singleton();
 	if (get_var_token_in_cmd_token(tree->left->data))
 		aggr_get_var(tree, tab, &old_intern_env);

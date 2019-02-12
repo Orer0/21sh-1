@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:39:21 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:14:17 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 21:51:56 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	multi_up(t_term **t)
 {
 	int		cur;
 
-	cur = 0;
 	if ((*t)->rel_line > 0)
 	{
 		cur = (((*t)->cur.x + (*t)->len_p) % (*t)->col);
@@ -38,7 +37,6 @@ void	multi_down(t_term **t)
 {
 	int		cur;
 
-	cur = 0;
 	if ((*t)->rel_line < (*t)->nb_line)
 	{
 		(*t)->rel_line++;

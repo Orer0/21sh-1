@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 20:49:11 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 01:06:09 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 23:11:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				new_tilde_value(char **str, int s, char *home)
 	tmp = NULL;
 	if ((*str) && (*str)[1] == '/')
 		tmp = ft_strsub(*str, 1, ft_strlen(*str) - 1);
-	else if (s > 1 && (*str)[s - 1] == '/')
+	else if ((*str) && s > 1 && (*str)[s - 1] == '/')
 		tmp = ft_strdup("/");
 	else
 		tmp = ft_strdup("");
