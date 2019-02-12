@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 20:46:31 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 22:01:45 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ static void		set_new_value(t_term **t)
 	ft_strdel(&his_line);
 }
 
+/*
+**	HISTORY_RIGHT - print the next hystory line 
+**
+**	params: t -> struct whit all curses and final line
+**
+**	Description:
+**	- change the maximum curse and the nomber of the line (axe y)
+**	- delete all the charactere print in the screen after the prompt
+**	- call set_new_value for print the corresponding hisory line
+*/
+
 int				history_up(t_term **t)
 {
 	t_shell_data	*data;
@@ -75,7 +86,7 @@ int				history_up(t_term **t)
 **	Description:
 **	- change the maximum curse and the nomber of the line (axe y)
 **	- delete all the charactere print in the screen after the prompt
-**	- call set_new_value for print the corresponding hisory line 
+**	- call set_new_value for print the corresponding hisory line
 */
 
 int				history_down(t_term **t)

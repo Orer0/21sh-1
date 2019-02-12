@@ -6,11 +6,23 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:25:51 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:10:34 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 22:57:56 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
+
+/*
+**	SET_CMD_EDIT / SET_CMD_HIS / SET_CMD_MOUV
+**
+**	params: cmd -> command that will compare
+**
+**	return: pointer to the good fonction in terms of keycode
+**
+**	Description:
+**	- compare cmd with maccro of keycode print
+	- return the good pointer
+*/
 
 void	*set_cmd_edit(char *cmd)
 {

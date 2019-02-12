@@ -6,11 +6,24 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:15:19 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 01:09:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:19:12 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
+
+/*
+**	FT_RIGHT - mouve curse on the right direction
+**
+**	params: t -> struct whit all curses and final line
+**
+**	Description:
+**	- check if the curse is before the last printed charactere
+**	- incremente the axe x curse
+**	- use Termcap for move the curse in a screen
+**	- add a space if the cur exceed the max size of terminal and increment
+**		the rel_line curse (axe y)
+*/
 
 void	ft_right(t_term **t)
 {
@@ -28,6 +41,19 @@ void	ft_right(t_term **t)
 		}
 	}
 }
+
+/*
+**	FT_LEFT - mouve curse on the left direction
+**
+**	params: t -> struct whit all cursors and final line
+**
+**	Description:
+**	- check if the curse is after the 0 position on x axe
+**	- decrement the rel_line curse (axe y) if the cursor go back to the 
+**		top line
+**	- decrement the axe x cursor
+**	- use Termcap for move the cursor in a screen
+*/
 
 void	ft_left(t_term **t)
 {

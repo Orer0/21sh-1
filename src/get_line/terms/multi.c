@@ -6,11 +6,23 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:39:21 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/03 05:14:17 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 22:33:13 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
+
+/*
+**	MULTI_UP - mouve the cursor to the line above
+**
+**	params: t -> struct whit all cursors and final line
+**
+**	Description:
+**	- check if the curse is before the first line
+**	- decrement the rel_line cursor
+**	- move the cursor in the screen
+**	- check if the cursor is under the prompt for a good positioning
+*/
 
 void	multi_up(t_term **t)
 {
@@ -33,6 +45,18 @@ void	multi_up(t_term **t)
 		}
 	}
 }
+
+/*
+**	MULTI_DOWN - mouve the cursor to the line below
+**
+**	params: t -> struct whit all cursors and final line
+**
+**	Description:
+**	- check if the curse is before the last line
+**	- increment the rel_line cursor
+**	- move the cursor in the screen
+**	- check if the last line is more short for a good positioning of cursor
+*/
 
 void	multi_down(t_term **t)
 {
