@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 00:18:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2018/12/19 17:53:07 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 05:33:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_varenv	*create_varenv(char *name, char *content)
 		return (NULL);
 	if (!(varenv->name = ft_strdup(name)))
 		return (NULL);
-	if (!content)
+	if (!content || !content[0])
 	{
 		if (!(varenv->content = ft_strdup("")))
 			return (NULL);

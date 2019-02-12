@@ -56,6 +56,7 @@ SRCS+=src/get_line/terms/set_key.c
 SRCS+=src/get_line/terms/set_terms.c
 SRCS+=src/get_line/terms/supp.c
 SRCS+=src/get_line/terms/utils.c
+SRCS+=src/init_shell.c
 SRCS+=src/main.c
 SRCS+=src/minimal_shell/read_prompt.c
 SRCS+=src/options.c

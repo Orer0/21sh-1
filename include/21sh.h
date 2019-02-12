@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:15:07 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 04:49:11 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ enum	e_err
 	MALLOC_ERR = -999,
 	FORK_ERR
 };
+
+void 	init_shell(char **environ);
+
 
 t_list		*ft_lstcpy(t_list *src, t_list **dest);
 

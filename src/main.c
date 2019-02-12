@@ -6,25 +6,13 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 04:41:22 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 04:51:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "21sh.h"
-#include <errno.h>
 
-// static void		catch_signal(int signal)
-// {
-// 	t_shell_data	*data;
-//
-// 	data = shell_data_singleton();
-// 	if (signal == SIGINT)
-// 	{
-// 		ft_printf("\n%s", PROMPT);
-// 	}
-// }
-
-static int		set_options(char *ops, int *options, int pos)
+static int	set_options(char *ops, int *options, int pos)
 {
 	if (ops[pos] == '\0')
 		return (FALSE);
@@ -32,18 +20,18 @@ static int		set_options(char *ops, int *options, int pos)
 		*(options) |= (1 << (ops[pos] - 'a'));
 	else
 	{
-		ft_printf("21sh: illegal option -- %c\n" , ops[pos]);
-		ft_printf("valid options: [-%s]\n" , SHELL_OPT);
+		ft_fd_printf(2, "21sh: illegal option -- %c\n", ops[pos]);
+		ft_fd_printf(2, "valid options: [-%s]\n", SHELL_OPT);
 		quit_shell(EXIT_FAILURE, 0);
 	}
 	set_options(ops, options, (pos + 1));
 	return (TRUE);
 }
 
-void 	ft_minimal_shell(void)
+void		ft_minimal_shell(void)
 {
-	char	*line;
-	t_shell_data *data;
+	char			*line;
+	t_shell_data	*data;
 
 	data = shell_data_singleton();
 	data->term = NULL;
@@ -60,7 +48,7 @@ void 	ft_minimal_shell(void)
 	}
 }
 
-void	ft_shell(void)
+void		ft_shell(void)
 {
 	t_shell_data	*data;
 	char			*line;
@@ -86,40 +74,7 @@ void	ft_shell(void)
 	}
 }
 
-void 	init_shell(char **environ)
-{
-	t_shell_data	*data;
-	t_varenv		*envshlvl;
-	char			*tmp;
-	int				shlvl;
-	t_varenv		*term;
-
-	data = shell_data_singleton();
-	if (!env_tab_to_lst(&data->env_lst, environ))
-		create_minimal_env();
-	term = get_env_var_by_name(&data->env_lst, "TERM");
-	if (term && isatty(0))
-		data->term = ft_strdup(term->content);
-	else
-	{
-		change_env_var(&data->env_lst, "TERM", "xterm");
-		change_env_var(&data->intern_env_lst, "TERM", "xterm");
-		data->term = ft_strdup(get_env_var_by_name(&data->env_lst
-			, "TERM")->content);
-	}
-	if (!(envshlvl = get_env_var_by_name(&data->env_lst, "SHLVL")))
-		shlvl = 0;
-	else
-		shlvl = ft_atoi(envshlvl->content);
-	tmp = ft_itoa(shlvl + 1);
-	change_env_var(&data->env_lst, "SHLVL", tmp);
-	change_env_var(&data->intern_env_lst, "SHLVL", tmp);
-	ft_strdel(&tmp);
-	env_lst_to_tab(&data->env_lst, &data->env_tab);
-	env_tab_to_lst(&data->intern_env_lst, data->env_tab);
-}
-
-int		main(int ac, char **av, char **environ)
+int			main(int ac, char **av, char **environ)
 {
 	t_shell_data	*data;
 	int				pos_args;
@@ -130,7 +85,6 @@ int		main(int ac, char **av, char **environ)
 	data = shell_data_singleton();
 	options_parser(av, &data->options, &pos_args, set_options);
 	init_shell(environ);
-	// OPTION C executer la commande directement et quitter
 	if ((data->options & OPT_C))
 	{
 		if (pos_args > 1)
@@ -140,12 +94,9 @@ int		main(int ac, char **av, char **environ)
 			if (shell_parser(&line))
 				exec_ast(data->ast, 1);
 		}
-		// executer la commande
 	}
 	else
-	{
 		ft_shell();
-	}
 	quit_shell(EXIT_SUCCESS, 0);
 	return (EXIT_SUCCESS);
 }
