@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:26:03 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 00:41:07 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 05:08:18 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,15 @@ static void		manag_oldpwd(char **oldpwd)
 {
 	t_varenv		*tmp;
 	t_shell_data	*data;
+	char			*tmpstr;
 
 	data = shell_data_singleton();
 	if (!(tmp = get_env_var_by_name(&data->env_lst, "PWD")))
 	{
-		change_env_var(&data->env_lst, "PWD", getcwd(NULL, sizeof(char *)));
+		tmpstr = getcwd(NULL, sizeof(char *));
+		change_env_var(&data->env_lst, "PWD", tmpstr);
 		tmp = get_env_var_by_name(&data->env_lst, "PWD");
+		ft_strdel(&tmpstr);
 	}
 	*oldpwd = tmp->content;
 }
