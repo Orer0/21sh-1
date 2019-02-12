@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/11 23:21:17 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 22:11:14 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,24 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 	fonct = NULL;
 	ft_bzero(&cmd, sizeof(char[8]));
 }
+
+/*
+**	MANAG_WAY - read the tap keycode
+**
+**	params: t -> struct whit all curses and final line
+**
+**	return: the final line tap / edit by the user
+**
+**	Description:
+**	- free the line if the curse is in position 0
+**	- read of 7 for catch all keycode
+**	- detec if key enter is tap and lauch a enter fonction if is TRUE
+**		and return the final line
+**	- detec if CRTL + d is tap and lauch end_shell for exit if is TRUE
+**	- if is not CTRL + d or enter keycode, the fonction
+**		lauch other detection of keycode
+**	- return final line
+*/
 
 char			*manag_way(t_term **t)
 {
