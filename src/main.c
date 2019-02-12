@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 04:09:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/12 04:41:22 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int		main(int ac, char **av, char **environ)
 	{
 		if (pos_args > 1)
 		{
-			data->term = NULL;
+			ft_strdel(&data->term);
 			line = ft_strdup(av[pos_args]);
 			if (shell_parser(&line))
 				exec_ast(data->ast, 1);
