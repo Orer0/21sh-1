@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 int		env_tab_to_lst(t_list **lst, char **environ)
 {

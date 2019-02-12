@@ -6,17 +6,16 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 02:22:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 21:13:08 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/13 00:11:07 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_DATA_H
 # define SHELL_DATA_H
 
-// # include "st.h"
-# include "../libft/include/libft.h"
+# include "libft.h"
 
-typedef struct			s_ptree
+typedef struct		s_ptree
 {
 	int				id;
 	char			*data;
@@ -24,7 +23,7 @@ typedef struct			s_ptree
 	t_list			*childs_lst;
 	int				nb_childs;
 	t_btree			*ast;
-}						t_ptree;
+}					t_ptree;
 
 /*
 **	Main structure

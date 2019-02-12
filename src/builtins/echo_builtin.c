@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 static int		set_options(char *ops, int *options, int pos)
 {

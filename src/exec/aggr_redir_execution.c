@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 static void	aggr_get_var(t_btree *tree, char **tab, t_list **old_intern_env)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 t_varenv		*get_env_var_by_name(t_list **lst, char *name)
 {

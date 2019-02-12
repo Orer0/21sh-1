@@ -6,11 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:26:03 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 05:08:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 00:14:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 static int		set_options(char *ops, int *options, int pos)
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 #include "tokens.h"
 
 static void	del_all_str(char ***tab, char **final, char **bef_do, char **af_do)

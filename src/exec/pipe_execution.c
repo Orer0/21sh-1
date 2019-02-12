@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 #include "ast.h"
 
 void	run_pipe(t_btree *tree)

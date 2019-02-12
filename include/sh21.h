@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21sh.h                                             :+:      :+:    :+:   */
+/*   sh21.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 04:49:11 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 00:16:44 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TWENTYONE_SH_H
-# define TWENTYONE_SH_H
+#ifndef SH21_H
+# define SH21_H
 
-# include "../libft/include/libft.h"
-# include "../libft/include/libftprintf.h"
+# include "libft.h"
+# include "libftprintf.h"
 # include <sys/wait.h>
 # include <signal.h>
 # include <sys/stat.h>
@@ -24,8 +24,8 @@
 # include "tokens.h"
 # include "shell_data.h"
 
-# define PROMPT "21sh $> "
-# define PROMPT_MIN "> "
+# define PROMPT			"21sh $> "
+# define PROMPT_MIN		"> "
 
 # define OPTIONS_CD		"LP"
 # define OPTIONS_ENV	"i"
@@ -37,8 +37,8 @@
 # define OPT_C			(1 << ('c' - 'a'))
 # define SHELL_OPT		"c"
 
-#define READ_END	0
-#define WRITE_END	1
+# define READ_END		0
+# define WRITE_END		1
 
 typedef struct		s_varenv
 {
@@ -46,72 +46,66 @@ typedef struct		s_varenv
 	char			*content;
 }					t_varenv;
 
-void 				clean_parsing(void);
+void				clean_parsing(void);
 
 /*
 ** Errors
 */
 
-enum	e_err
+enum				e_err
 {
 	MALLOC_ERR = -999,
 	FORK_ERR
 };
 
-void 	init_shell(char **environ);
-
-
-t_list		*ft_lstcpy(t_list *src, t_list **dest);
-
+void				init_shell(char **environ);
+t_list				*ft_lstcpy(t_list *src, t_list **dest);
 
 /*
 ** PARSER functions
 */
 
-int		shell_parser(char **line);
+int					shell_parser(char **line);
 
 /*
 **	Environement
 */
 
-int				add_env_var(t_list **lst, char *name, char *content);
-int				change_env_var(t_list **lst, char *name, char *newcontent);
-t_varenv		*create_varenv(char *name, char *content);
-void			del_env_var(void *content, size_t size);
-int				env_lst_to_tab(t_list **lst, char ***tab);
-int				env_tab_to_lst(t_list **lst, char **environ);
-t_varenv		*get_env_var_by_name(t_list **lst, char *name);
-void			create_minimal_env(void);
-int				remove_env_var(t_list **lst, char *name);
+int					add_env_var(t_list **lst, char *name, char *content);
+int					change_env_var(t_list **lst, char *name, char *newcontent);
+t_varenv			*create_varenv(char *name, char *content);
+void				del_env_var(void *content, size_t size);
+int					env_lst_to_tab(t_list **lst, char ***tab);
+int					env_tab_to_lst(t_list **lst, char **environ);
+t_varenv			*get_env_var_by_name(t_list **lst, char *name);
+void				create_minimal_env(void);
+int					remove_env_var(t_list **lst, char *name);
 
 /*
 **	Options
 */
 
-void	options_parser(char **args, int *options, int *pos_args,
-			int (*set_options)(char *, int *, int));
-int		is_valid_option(char c, char *options);
-
-
-int			read_prompt(const int fd, char **line);
+void				options_parser(char **args, int *options, int *pos_args,
+						int (*set_options)(char *, int *, int));
+int					is_valid_option(char c, char *options);
+int					read_prompt(const int fd, char **line);
 
 /*
 **	EXECUTION
 */
 
-void	heredoc(t_btree *node, int arg);
-char			*get_path_of_bin(char *path);
-void		del_data_path(char **new_path, char ***env_paths);
-void		*return_perm_denied(char *str);
-void		*return_cmd_not_found(char *str);
-int				exec_command(char **command, char **env);
-void 			exec_ast(t_btree *tree, int exec_next);
-void	aggr_redir_execution(t_btree *tree);
-void 	redir_recursion(t_btree *tree);
-void 	aggr_recursion(t_btree *tree);
-void 	pipe_execution(t_btree *tree);
-void		catch_signal_kill(int signal);
-
+void				heredoc(t_btree *node, int arg);
+char				*get_path_of_bin(char *path);
+void				del_data_path(char **new_path, char ***env_paths);
+void				*return_perm_denied(char *str);
+void				*return_cmd_not_found(char *str);
+int					exec_command(char **command, char **env);
+void				exec_ast(t_btree *tree, int exec_next);
+void				aggr_redir_execution(t_btree *tree);
+void				redir_recursion(t_btree *tree);
+void				aggr_recursion(t_btree *tree);
+void				pipe_execution(t_btree *tree);
+void				catch_signal_kill(int signal);
 
 /*
 **		BUILTINS
@@ -126,8 +120,8 @@ void				options_parser(char **args, int *options, int *pos_args,
 int					env_builtin(char **args);
 int					export_builtin(char **args);
 int					set_builtin(char **args);
-int				setenv_builtin(char **args);
-int		unsetenv_builtin(char **args);
+int					setenv_builtin(char **args);
+int					unsetenv_builtin(char **args);
 void				exit_builtin(char **args);
 
 /*
@@ -151,7 +145,6 @@ char				*get_final_path(char **path);
 int					build_pwd_tab(char ***arg_tab, char ***pwd_tab,
 						int pwd_tab_len);
 int					cd_builtin(char **args);
-
 
 char				*get_line(char *promtp);
 

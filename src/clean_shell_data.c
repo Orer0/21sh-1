@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 #include "lexer.h"
 #include "st.h"
 #include "ast.h"

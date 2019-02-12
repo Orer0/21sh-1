@@ -6,7 +6,7 @@
 #    By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 18:38:22 by ndubouil          #+#    #+#              #
-#    Updated: 2019/02/12 04:17:13 by ndubouil         ###   ########.fr        #
+#    Updated: 2019/02/13 00:14:46 by ndubouil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ H		=	./include/
 
 #  Files
 
-HFILES	=	$(H)21sh.h														\
+HFILES	=	$(H)sh21.h														\
 			$(H)lexer.h														\
 			$(H)ast.h														\
 			$(H)tokens.h													\

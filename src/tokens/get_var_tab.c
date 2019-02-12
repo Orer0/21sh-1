@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 #include "tokens.h"
 
 char		**get_var_tab(t_var_token **token)

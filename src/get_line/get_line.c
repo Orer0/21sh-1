@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 20:14:58 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/13 00:07:43 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 **	- Send the cmd (keycode)
 **	- Return the good fonction
 */
-
 
 void	*way(t_term **t, char *cmd)
 {

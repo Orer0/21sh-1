@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 20:32:45 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/13 00:08:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void		go_cut(t_term **t, int rel_cur, int tmp)
 **	Description:
 **	- put the term il selec mode
 **	- print the selec in reverse mode term
-**	- if the cut, copy or selection mode by call the term leave the 
+**	- if the cut, copy or selection mode by call the term leave the
 **		selection mode and malloc a buffer of the selection
 **	- initialize the old term params and the position of the curse
 */

@@ -6,22 +6,20 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 23:14:36 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 00:19:08 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_LINE_H
 # define GET_LINE_H
 
-# include "../libft/include/libft.h"
+# include "libft.h"
 # include <term.h>
 # include <sys/ioctl.h>
 # include "shell_data.h"
 
 # define LE		1
 # define ND		2
-// # define ON		1
-// # define OFF	0
 
 typedef struct		s_cur
 {

@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 19:59:28 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/12 22:54:24 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,22 @@ static void		go_new_line(t_term **t)
 	(*t)->rel_line++;
 	(*t)->nb_line++;
 }
+
+/*
+**	PRINT_BUF_END - print charactere in the end of line
+**
+**	params: t -> struct whit all cursors and final line
+**			buf -> charactere top print
+**
+**	Description:
+**	- check if is tabulation
+**	- print the character
+**	- if the cursor is at the end of terminal, insert a space and
+**		increment rel_line and nb_line
+**	- change the line in the struct
+**	- change max_cur with the size of the line
+**	- free buf
+*/
 
 void			print_buf_end(char *buf, t_term **t)
 {
@@ -66,6 +82,21 @@ static void		calcl_len(t_term **t, char **buf)
 	ft_strdel(buf);
 	go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
 }
+
+/*
+**	PRINT_INSERTION - print charactere in the line
+**
+**	params: t -> struct whit all cursors and final line
+**			buf -> charactere top print
+**
+**	Description:
+**	- check if is tabulation
+**	- clean all the curent line
+**	- create the new with the character
+**	- change the line in the struct with new line
+**	- print the line
+**	- call calcl_len for move the cursor in the good position
+*/
 
 void			print_insertion(t_term **t, char *buf)
 {

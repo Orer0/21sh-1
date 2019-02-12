@@ -6,11 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 00:18:42 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 05:33:12 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 00:14:46 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 t_varenv	*create_varenv(char *name, char *content)
 {

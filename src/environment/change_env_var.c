@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 static int	update_env_var(t_list **lst, char *name, char *newcontent)
 {

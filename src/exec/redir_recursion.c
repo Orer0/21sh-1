@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 #include <sys/types.h>
 
 static int	fd_to_dup(t_btree *tree, t_btree *node)

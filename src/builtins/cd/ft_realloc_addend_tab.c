@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 int		ft_realloc_addend_tab(char ***tab, char *elem)
 {

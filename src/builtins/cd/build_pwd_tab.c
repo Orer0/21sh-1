@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh21.h"
 
 static int		dotdot_case(char ***pwd_tab, int *pwd_tab_len)
 {

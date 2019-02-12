@@ -6,19 +6,19 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:38:10 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:52:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 00:18:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "21sh.h"
+# include "sh21.h"
 # include <pwd.h>
 
 # define STACK 4096
 
-typedef enum 	e_states
+typedef enum	e_states
 {
 	START_STATE = 0,
 	CHAR_STATE,
@@ -50,7 +50,7 @@ typedef enum 	e_states
 	NONE_STATE
 }				t_states;
 
-typedef enum 	e_index
+typedef enum	e_index
 {
 	CHAR_INDEX = 0,
 	NUMBER_INDEX,
@@ -83,7 +83,7 @@ typedef struct	s_line
 }				t_line;
 
 int				if_take_the_last(int state);
-int 			is_star(int state);
+int				is_star(int state);
 int				acceptor_case(char (*stack)[STACK], t_line *line, t_state *state
 					, int expansion);
 void			unexpected_token_error(char *token);
@@ -94,20 +94,20 @@ int				return_syntax_error(char *str);
 int				first_check_operators(t_list **lst);
 int				first_check_heredoc(t_list **lst);
 void			put_arg_in_cmd_list(t_list **lst, t_list **args_list);
-int 			lexer(char **line);
+int				lexer(char **line);
 int				add_new_token(char stack[STACK], t_state *state, int expan);
 int				constructor_line_struct(char *str, t_line **line);
-int 			first_check_tokens_list(t_list *lst);
-void 			build_command_token(void);
-void 			delete_list_tokens(t_list **lst);
+int				first_check_tokens_list(t_list *lst);
+void			build_command_token(void);
+void			delete_list_tokens(t_list **lst);
 int				put_str_in_stack(char (*stack)[STACK], char *str);
 int				put_char_in_stack(char (*stack)[STACK], char c);
 int				is_acceptor(int state);
 int				is_ignored(int current, int state);
 int				get_index_from_char(t_line *line);
-void 			free_token(void *content, size_t size);
+void			free_token(void *content, size_t size);
 int				get_type_of_token(int next_state, int last_state);
-void 			token_constructor(char *token, int type, t_token **t);
+void			token_constructor(char *token, int type, t_token **t);
 int				automaton_transition(int x, int y);
 
 #endif
