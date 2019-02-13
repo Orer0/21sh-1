@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 20:58:16 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 22:37:00 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 17:52:15 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void			give_data(char **cmd)
 	if (ft_strequ(cmd[0], "cd"))
 		data->last_status = cd_builtin(cmd);
 	else if (ft_strequ(cmd[0], "set"))
-		data->last_status = set_builtin(&cmd[1]);
+		data->last_status = set_builtin(&cmd[1], &data);
 	else if (ft_strequ(cmd[0], "setenv"))
-		data->last_status = setenv_builtin(&cmd[1]);
+		data->last_status = setenv_builtin(&cmd[1], &data);
 	else if (ft_strequ(cmd[0], "export"))
 		data->last_status = export_builtin(&cmd[1]);
 	else if (ft_strequ(cmd[0], "unset"))

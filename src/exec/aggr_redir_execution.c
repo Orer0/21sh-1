@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:58:14 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 21:41:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 17:54:19 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	aggr_get_var(t_btree *tree, char **tab, t_list **old_intern_env)
 	tmp_intern_env = ft_lstcpy(data->intern_env_lst, &tmp_intern_env);
 	data->intern_env_lst = tmp_intern_env;
 	tab = get_var_tab(((t_var_token **)(tree->left->data)));
-	set_builtin(tab);
+	set_builtin(tab, &data);
 	ft_strtab_del(&tab);
 }
 
@@ -55,15 +55,17 @@ static void	aggr_exec_child(t_btree *tree, char **tab)
 
 static void	aggr_manag_type(t_btree *tree)
 {
-	char	**tab;
+	char			**tab;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	tab = NULL;
 	if (get_type_token(tree->left->data) == CMD_TYPE)
 		aggr_exec_child(tree, tab);
 	else if (get_type_token(tree->left->data) == VAR_TYPE)
 	{
 		tab = get_var_tab(((t_var_token **)(tree->left->data)));
-		set_builtin(tab);
+		set_builtin(tab, &data);
 		exit(EXIT_SUCCESS);
 	}
 }

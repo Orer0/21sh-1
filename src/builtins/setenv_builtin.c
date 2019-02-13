@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 22:29:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 21:57:55 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 17:59:13 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ static void		print_env(t_list *lst)
 	}
 }
 
-int				setenv_builtin(char **args)
+int				setenv_builtin(char **args, t_shell_data **data)
 {
 	int				i;
-	t_shell_data	*data;
 	char			**tab;
 
-	data = shell_data_singleton();
 	if (args[0])
 	{
 		i = -1;
@@ -39,15 +37,18 @@ int				setenv_builtin(char **args)
 		{
 			if (!(tab = ft_strsplit(args[i], '=')))
 				quit_shell(EXIT_FAILURE, MALLOC_ERR);
-			change_env_var(&data->env_lst, tab[0]
-				, &args[i][ft_strlen(tab[0]) + 1]);
-			if (get_env_var_by_name(&data->intern_env_lst, tab[0]))
-				change_env_var(&data->intern_env_lst, tab[0]
+			if (ft_strlen(tab[0]) > 1)
+				change_env_var(&(*data)->env_lst, tab[0]
+					, &args[i][ft_strlen(tab[0]) + 1]);
+			else
+				change_env_var(&(*data)->env_lst, tab[0], NULL);
+			if (get_env_var_by_name(&(*data)->intern_env_lst, tab[0]))
+				change_env_var(&(*data)->intern_env_lst, tab[0]
 					, &args[i][ft_strlen(tab[0]) + 1]);
 			ft_strtab_del(&tab);
 		}
 	}
 	else
-		print_env(data->env_lst);
+		print_env((*data)->env_lst);
 	return (EXIT_SUCCESS);
 }
