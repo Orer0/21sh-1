@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:54:03 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:28:38 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 18:56:39 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "st.h"
-
-/*
-**	Regle C prime -> pas de noeud et toujours true (epsilon)
-*/
 
 int		c_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {
@@ -37,10 +33,6 @@ int		c_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 	(*tokens_list_struct)->index = save_index;
 	return (TRUE);
 }
-
-/*
-**	Regle C
-*/
 
 int		c_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {

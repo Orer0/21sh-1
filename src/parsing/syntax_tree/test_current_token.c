@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:46:22 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 05:49:05 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 18:55:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "st.h"
-
-/*
-**	Compare le type du token avec le type entre et creer un noeud si OK
-*/
 
 int		test_current_token(t_tokens_list **tokens_s, int type, t_ptree **tree)
 {

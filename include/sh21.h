@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/13 17:56:15 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/13 18:57:55 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_list				*ft_lstcpy(t_list *src, t_list **dest);
 int					shell_parser(char **line);
 
 /*
-**	Environement
+**	Environment
 */
 
 int					add_env_var(t_list **lst, char *name, char *content);
