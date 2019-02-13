@@ -15,7 +15,6 @@ SRCS+=src/builtins/setenv_builtin.c
 SRCS+=src/builtins/unset_builtin.c
 SRCS+=src/builtins/unsetenv_builtin.c
 SRCS+=src/clean_shell_data.c
-SRCS+=src/debug/debug.c
 SRCS+=src/environment/add_env_var.c
 SRCS+=src/environment/change_env_var.c
 SRCS+=src/environment/create_minimal_env.c

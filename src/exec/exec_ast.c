@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 22:53:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 21:40:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 17:56:02 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		exec_cmd(t_btree *tree)
 		tmp_intern_env = ft_lstcpy(data->intern_env_lst, &tmp_intern_env);
 		data->intern_env_lst = tmp_intern_env;
 		tab = get_var_tab(((t_var_token **)(tree->data)));
-		set_builtin(tab);
+		set_builtin(tab, &data);
 		ft_strtab_del(&tab);
 	}
 	tab = get_cmd_tab(((t_cmd_token **)(tree->data)));
@@ -42,18 +42,18 @@ static void		exec_cmd(t_btree *tree)
 }
 
 static void		exec_right(t_btree *tree, int *exec, int exec_next
-	, t_shell_data *data)
+	, t_shell_data **data)
 {
 	char	**tab;
 
 	if (get_type_token(tree->data) == AND_TYPE)
 	{
-		if (WEXITSTATUS(data->last_status) != EXIT_SUCCESS)
+		if (WEXITSTATUS((*data)->last_status) != EXIT_SUCCESS)
 			*exec = FALSE;
 	}
 	else if (get_type_token(tree->data) == OR_TYPE)
 	{
-		if (WEXITSTATUS(data->last_status) == EXIT_SUCCESS)
+		if (WEXITSTATUS((*data)->last_status) == EXIT_SUCCESS)
 			*exec = FALSE;
 	}
 	else if (get_type_token(tree->data) == CMD_TYPE && exec_next)
@@ -61,7 +61,7 @@ static void		exec_right(t_btree *tree, int *exec, int exec_next
 	else if (get_type_token(tree->data) == VAR_TYPE && exec_next)
 	{
 		tab = get_var_tab(((t_var_token **)(tree->data)));
-		set_builtin(tab);
+		set_builtin(tab, data);
 		ft_strtab_del(&tab);
 	}
 	if (tree->right != NULL)
@@ -94,5 +94,5 @@ void			exec_ast(t_btree *tree, int exec_next)
 			if (tree->left != NULL)
 				exec_ast(tree->left, exec);
 	}
-	exec_right(tree, &exec, exec_next, data);
+	exec_right(tree, &exec, exec_next, &data);
 }
