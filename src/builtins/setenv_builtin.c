@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 22:29:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/13 17:59:13 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/13 18:16:17 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				setenv_builtin(char **args, t_shell_data **data)
 		{
 			if (!(tab = ft_strsplit(args[i], '=')))
 				quit_shell(EXIT_FAILURE, MALLOC_ERR);
-			if (ft_strlen(tab[0]) > 1)
+			if (tab[1])
 				change_env_var(&(*data)->env_lst, tab[0]
 					, &args[i][ft_strlen(tab[0]) + 1]);
 			else
