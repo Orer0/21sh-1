@@ -6,14 +6,14 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/22 03:03:07 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:33:06 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:36:00 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 /*
-**	Initialise une structure representant le token
+**	Constructor of a token structure
 */
 
 void	token_constructor(char *token, int type, t_token **t)

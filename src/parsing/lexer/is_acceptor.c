@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:26:41 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:32:03 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:37:12 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-/*
-**	Detecte si l'etat est accepteur ou pas
-*/
 
 int	is_acceptor(int state)
 {

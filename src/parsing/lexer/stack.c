@@ -6,14 +6,14 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 22:00:59 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 00:27:48 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:35:44 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
 /*
-**	Push str in a stack
+**	Push string in a stack
 */
 
 int		put_str_in_stack(char (*stack)[STACK], char *str)

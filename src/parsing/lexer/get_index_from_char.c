@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:31:22 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:32:33 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:37:27 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@ static int	get_index_from_char_2(char *s, int i)
 		return (CHAR_INDEX);
 	return (NONE_INDEX);
 }
-
-/*
-**	Retourne l'index de la colonne du tableau automate correspondant au char
-*/
 
 int			get_index_from_char(t_line *line)
 {

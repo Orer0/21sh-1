@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:28:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 05:45:34 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,26 @@
 #include "ast.h"
 
 /*
-**	Prends une ligne et genere l'ast pour remplir la structure shell_data
+**	The main parsing function
+**
+**	params: line -> The address of the line, representing the complete command
+**	return: FALSE if failed or TRUE
+**
+**	Description:
+**
+**	- Check if the line is valid and not just spaces or tabs
+**	- Call the lexer with the line and receive in the data structure the chained
+**	list of the tokens
+**	- Call the first_check_tokens_list, for rebuild the tokens with the good
+**	types and group the variables
+**	- Call the build_command_token, for regroup the commands tokens
+**	- Call the syntax_tree for build the first syntax tree representing the
+**	grammar
+**	- Generate the final AST with get_ast
+**	- Remove the first syntax tree
+**	- Free the line argument
+**
+**	The AST was built and is ready for the execution
 */
 
 int		shell_parser(char **line)

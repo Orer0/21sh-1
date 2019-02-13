@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:01:53 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:33:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:37:19 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ static int		get_type_of_token_2(int next_state, int last_state)
 		return (S_QUOTE_TYPE);
 	return (NONE_TYPE);
 }
-
-/*
-**	Retourne le type du token
-*/
 
 int				get_type_of_token(int next_state, int last_state)
 {

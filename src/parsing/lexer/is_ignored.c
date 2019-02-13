@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 23:28:19 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/27 05:42:30 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:37:07 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-/*
-**	Detecte si l'etat est ignoré
-*/
 
 int	is_ignored(int current, int state)
 {

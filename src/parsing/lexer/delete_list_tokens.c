@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:26:32 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:52:14 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:37:35 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-/*
-**	Delete proprement la liste des tokens
-*/
 
 void	delete_list_tokens(t_list **lst)
 {

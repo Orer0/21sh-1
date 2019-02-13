@@ -6,11 +6,37 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 06:02:44 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:13:27 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+/*
+**	routine_next_state
+**	The function will be called by the loop_routine for evaluate the next state
+**
+**	params: state -> a structure t_state, with the current and the next state
+**			line -> the line structure
+**			expansion -> the expansion flag
+**			stack -> the stack of the automaton
+**
+**	return: The new current state
+**
+**	Description:
+**
+**	- If the state is not an ignored state
+**		- Push the current line char in the stack and check the return of the
+**		put_char_in_stack function return
+**	- If the state is NONE_STATE
+**		- Print a syntax error
+**	- Else if the state is an expansion
+**		- Set the expansion flag to TRUE for this token
+**	- Else if the state is acceptor
+**		- Call acceptor_case for create a token with the stack content and put
+**		the state to START_STATE for continue the state machine from zero
+**	- Return the next state
+*/
 
 static int		routine_next_state(char (*stack)[STACK], t_state *state
 	, t_line *line, int *expansion)
@@ -38,6 +64,20 @@ static int		routine_next_state(char (*stack)[STACK], t_state *state
 	return ((*state).next);
 }
 
+/*
+**	reopen
+**	The function will be called by the loop_routine when the command line is not
+**	finished
+**
+**	params: line_s -> the line structure
+**
+**	Description:
+**
+**	- Reopen the prompt and get the next of the line if it's possible. If the
+**	data->term is null, it will be not possible to call get_line (using the
+**	termcaps library)
+*/
+
 static void		reopen(t_line **line_s)
 {
 	char			*newline;
@@ -57,6 +97,28 @@ static void		reopen(t_line **line_s)
 	ft_strdel(&tmp);
 }
 
+/*
+**	loop_routine
+**	The function will be called by the lexer on each character in a loop
+**
+**	params: state -> a structure t_state, with the current and the next state
+**			line_s -> the line structure
+**			expansion -> the expansion flag
+**			stack -> the stack of the automaton
+**	return: FALSE if failed or TRUE
+**
+**	Description:
+**
+**	- Get the next state with the array of the automaton transitions in
+**	automaton_transition function
+**	- Call the routine_next_state with the new next state
+**	- If the current state is NONE_STATE, return an error
+**	- If the line string is finished but the command is not finished (quote not
+**	closed)
+**		- Call the function reopen for reopen the prompt and get the next of the
+**		command
+*/
+
 static int		loop_routine(t_state *state, t_line **line_s, int *expansion
 	, char (*stack)[STACK])
 {
@@ -75,7 +137,22 @@ static int		loop_routine(t_state *state, t_line **line_s, int *expansion
 }
 
 /*
-**	The main function of the Lexer
+**	The lexer
+**	Using a stack automaton with state machine for build the tokens list
+**
+**	params: line -> The address of the line, representing the complete command
+**	return: FALSE if failed or TRUE
+**
+**	Description:
+**
+**	- Put the line in a t_line struct (contain the line and the index of the
+**	current char position)
+**	- Put the current state to START_STATE for starting the automaton
+**	- Set the expansion flag to FALSE for the starting
+**	- Loop on each character and calling the loop_routine function
+**	- Take the last token if the state is good
+**	- Put in the line argument the new line (modified by the loop_routine)
+**	- Free the t_line structure
 */
 
 int				lexer(char **line)

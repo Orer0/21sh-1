@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 22:58:13 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:53:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 06:36:30 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,6 @@ int		add_new_token(char stack[STACK], t_state *state, int expan)
 	return (TRUE);
 }
 
-/*
-**	Detecte si on ne pas peut pas terminer sur cette etat
-*/
-
 int		if_take_the_last(int state)
 {
 	if (state == NUMBER_STATE
@@ -65,10 +61,6 @@ int		if_take_the_last(int state)
 		return (TRUE);
 	return (FALSE);
 }
-
-/*
-**	Detecte si l'etat est etoile ou pas
-*/
 
 int		is_star(int state)
 {
