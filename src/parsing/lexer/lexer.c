@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/13 06:13:27 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 01:36:57 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,23 @@ static int		routine_next_state(char (*stack)[STACK], t_state *state
 
 static void		reopen(t_line **line_s)
 {
-	char			*newline;
+	char			*new_line;
 	char			*tmp;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
-	tmp = (*line_s)->line;
 	if (!data->term)
 	{
 		ft_printf("21sh: syntax error: unexpected end of file\n");
 		quit_shell(EXIT_FAILURE, 0);
 	}
-	newline = get_line(PROMPT_MIN);
-	(*line_s)->line = ft_strjoin(tmp, newline);
-	ft_strdel(&newline);
+	new_line = get_line(PROMPT_MIN);
+	tmp = (*line_s)->line;
+	(*line_s)->line = ft_strjoin(tmp, "\n");
+	ft_strdel(&tmp);
+	tmp = (*line_s)->line;
+	(*line_s)->line = ft_strjoin(tmp, new_line);
+	ft_strdel(&new_line);
 	ft_strdel(&tmp);
 }
 
