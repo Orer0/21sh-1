@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-static void	aggr_get_var(t_btree *tree, char **tab, t_list **old_intern_env)
+static void	aggr_get_var(t_btree *tree, char **arr, t_list **old_intern_env)
 {
 	t_shell_data	*data;
 	t_list			*tmp_intern_env;
@@ -21,12 +21,12 @@ static void	aggr_get_var(t_btree *tree, char **tab, t_list **old_intern_env)
 	*old_intern_env = data->intern_env_lst;
 	tmp_intern_env = ft_lstcpy(data->intern_env_lst, &tmp_intern_env);
 	data->intern_env_lst = tmp_intern_env;
-	tab = get_var_tab(((t_var_token **)(tree->left->data)));
-	set_builtin(tab, &data);
-	ft_strtab_del(&tab);
+	arr = get_var_tab(((t_var_token **)(tree->left->data)));
+	set_builtin(arr, &data);
+	ft_strtab_del(&arr);
 }
 
-static void	aggr_exec_child(t_btree *tree, char **tab)
+static void	aggr_exec_child(t_btree *tree, char **arr)
 {
 	char			*final_path;
 	t_shell_data	*data;
@@ -35,16 +35,16 @@ static void	aggr_exec_child(t_btree *tree, char **tab)
 	old_intern_env = NULL;
 	data = shell_data_singleton();
 	if (get_var_token_in_cmd_token(tree->left->data))
-		aggr_get_var(tree, tab, &old_intern_env);
-	tab = get_cmd_tab(((t_cmd_token **)(tree->left->data)));
-	if (!manage_builtins(tab))
+		aggr_get_var(tree, arr, &old_intern_env);
+	arr = get_cmd_tab(((t_cmd_token **)(tree->left->data)));
+	if (!manage_builtins(arr))
 	{
-		if (!tab[0][0] || !(final_path = get_path_of_bin(tab[0])))
+		if (!arr[0][0] || !(final_path = get_path_of_bin(arr[0])))
 			exit(EXIT_FAILURE);
-		if (!execve(final_path, tab, data->env_tab))
+		if (!execve(final_path, arr, data->env_tab))
 			exit(EXIT_FAILURE);
 	}
-	ft_strtab_del(&tab);
+	ft_strtab_del(&arr);
 	if (get_var_token_in_cmd_token(tree->left->data))
 	{
 		ft_lstdel(&data->intern_env_lst, del_env_var);
@@ -55,17 +55,17 @@ static void	aggr_exec_child(t_btree *tree, char **tab)
 
 static void	aggr_manag_type(t_btree *tree)
 {
-	char			**tab;
+	char			**arr;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
-	tab = NULL;
+	arr = NULL;
 	if (get_type_token(tree->left->data) == CMD_TYPE)
-		aggr_exec_child(tree, tab);
+		aggr_exec_child(tree, arr);
 	else if (get_type_token(tree->left->data) == VAR_TYPE)
 	{
-		tab = get_var_tab(((t_var_token **)(tree->left->data)));
-		set_builtin(tab, &data);
+		arr = get_var_tab(((t_var_token **)(tree->left->data)));
+		set_builtin(arr, &data);
 		exit(EXIT_SUCCESS);
 	}
 }

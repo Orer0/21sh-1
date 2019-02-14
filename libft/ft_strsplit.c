@@ -28,28 +28,28 @@ static int	ft_count_letters(char *str, char sep)
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**tab;
+	char	**arr;
 	int		i;
 	int		j;
 	int		k;
 
 	if (s == NULL)
 		return (NULL);
-	if (!(tab = ft_memalloc((ft_count_words((char *)s, c) + 1) * sizeof(*tab))))
+	if (!(arr = ft_memalloc((ft_count_words((char *)s, c) + 1) * sizeof(*arr))))
 		return (0);
 	i = 0;
 	j = 0;
 	while (i < ft_count_words((char *)s, c))
 	{
 		k = 0;
-		if (!(tab[i] = ft_strnew(ft_count_letters((char *)&s[j], c) + 1)))
+		if (!(arr[i] = ft_strnew(ft_count_letters((char *)&s[j], c) + 1)))
 			return (0);
 		while (s[j] == c)
 			j++;
 		while (s[j] != c && s[j] != '\0')
-			tab[i][k++] = s[j++];
-		tab[i++][k] = '\0';
+			arr[i][k++] = s[j++];
+		arr[i++][k] = '\0';
 	}
-	tab[i] = 0;
-	return (tab);
+	arr[i] = 0;
+	return (arr);
 }

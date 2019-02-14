@@ -12,7 +12,7 @@
 
 #include "sh21.h"
 
-char	*ft_strjointab(char **tab, char sep)
+char	*ft_strjointab(char **arr, char sep)
 {
 	int		i;
 	int		len;
@@ -23,18 +23,18 @@ char	*ft_strjointab(char **tab, char sep)
 	len = 0;
 	sepp[0] = sep;
 	sepp[1] = '\0';
-	if (tab == NULL || !tab[0])
+	if (arr == NULL || !arr[0])
 		return (ft_strdup(sepp));
-	while (tab[++i])
-		len += ft_strlen(tab[i]);
+	while (arr[++i])
+		len += ft_strlen(arr[i]);
 	len += i;
 	if (!(result = ft_strnew(len)))
 		return (NULL);
 	i = -1;
-	while (tab[++i])
+	while (arr[++i])
 	{
 		ft_strcat(result, sepp);
-		ft_strcat(result, tab[i]);
+		ft_strcat(result, arr[i]);
 	}
 	return (result);
 }

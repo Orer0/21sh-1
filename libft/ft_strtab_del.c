@@ -12,22 +12,22 @@
 
 #include "libft.h"
 
-void	ft_strtab_del(char ***tab)
+void	ft_strtab_del(char ***arr)
 {
 	int		i;
 
-	if (!(*tab))
+	if (!(*arr))
 		return ;
-	if (!(*tab)[0])
+	if (!(*arr)[0])
 	{
-		ft_memdel((void **)tab);
-		*tab = NULL;
+		ft_memdel((void **)arr);
+		*arr = NULL;
 		return ;
 	}
 	i = -1;
-	while ((*tab)[++i])
-		ft_strdel(&(*tab)[i]);
-	ft_strdel(&(*tab)[i]);
-	ft_memdel((void **)tab);
-	*tab = NULL;
+	while ((*arr)[++i])
+		ft_strdel(&(*arr)[i]);
+	ft_strdel(&(*arr)[i]);
+	ft_memdel((void **)arr);
+	*arr = NULL;
 }

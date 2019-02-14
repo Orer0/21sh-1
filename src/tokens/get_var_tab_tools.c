@@ -13,9 +13,9 @@
 #include "sh21.h"
 #include "tokens.h"
 
-static void	del_all_str(char ***tab, char **final, char **bef_do, char **af_do)
+static void	del_all_str(char ***arr, char **final, char **bef_do, char **af_do)
 {
-	ft_strtab_del(tab);
+	ft_strtab_del(arr);
 	ft_strdel(final);
 	ft_strdel(bef_do);
 	ft_strdel(af_do);
@@ -24,7 +24,7 @@ static void	del_all_str(char ***tab, char **final, char **bef_do, char **af_do)
 static void	build_new_str(char **div_str, char *final, int equal)
 {
 	char	*bef_do;
-	char	**tab;
+	char	**arr;
 	char	*af_do;
 
 	if (!(bef_do = ft_strsub(*div_str, 0, ft_strpos(*div_str, '$'))))
@@ -33,9 +33,9 @@ static void	build_new_str(char **div_str, char *final, int equal)
 					ft_strlen(*div_str) - ft_strpos(*div_str, '$'))))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	final = ft_strdup(bef_do);
-	if (!(tab = ft_strsplit(af_do, '$')))
+	if (!(arr = ft_strsplit(af_do, '$')))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	replace_dollar(tab, &final);
+	replace_dollar(arr, &final);
 	if ((!final))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	ft_strdel(div_str);
@@ -45,7 +45,7 @@ static void	build_new_str(char **div_str, char *final, int equal)
 		*div_str = ft_strdup(final);
 	if (*div_str == NULL)
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	del_all_str(&tab, &final, &bef_do, &af_do);
+	del_all_str(&arr, &final, &bef_do, &af_do);
 }
 
 static void	manage_dollar_var(char **str)

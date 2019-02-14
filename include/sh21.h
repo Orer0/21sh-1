@@ -75,7 +75,7 @@ int					add_env_var(t_list **lst, char *name, char *content);
 int					change_env_var(t_list **lst, char *name, char *newcontent);
 t_varenv			*create_varenv(char *name, char *content);
 void				del_env_var(void *content, size_t size);
-int					env_lst_to_tab(t_list **lst, char ***tab);
+int					env_lst_to_tab(t_list **lst, char ***arr);
 int					env_tab_to_lst(t_list **lst, char **environ);
 t_varenv			*get_env_var_by_name(t_list **lst, char *name);
 void				create_minimal_env(void);
@@ -137,9 +137,9 @@ int					manage_envvar_args(int options, t_list **env_lst_cpy,
 */
 
 char				*get_pwd_for_cd(int pos_args, char **args);
-int					ft_realloc_addend_tab(char ***tab, char *elem);
-char				*ft_strjointab(char **tab, char sep);
-int					ft_stringtab_len(char **tab);
+int					ft_realloc_addend_tab(char ***arr, char *elem);
+char				*ft_strjointab(char **arr, char sep);
+int					ft_stringtab_len(char **arr);
 int					check_path_errors(char *path);
 char				*get_final_path(char **path);
 int					build_pwd_tab(char ***arg_tab, char ***pwd_tab,

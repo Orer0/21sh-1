@@ -87,7 +87,7 @@ typedef enum	e_token_types
 */
 
 int				replace_tilde(char **str);
-void			replace_dollar(char **tab, char **final);
+void			replace_dollar(char **arr, char **final);
 char			*get_env_var(char *name);
 t_var_token		*get_var_token_in_cmd_token(void *token);
 void			set_var_token_in_cmd_token(void *token, void *var);
@@ -100,7 +100,7 @@ int				get_type_token(void *token);
 void			set_type_token(void *token, int type);
 char			*get_token_token(void *token);
 void			set_token_token(void *token, char *str);
-void			set_args_token(void *token, t_list *tab);
+void			set_args_token(void *token, t_list *arr);
 t_list			*get_args_token(void *token);
 int				is_redirection(int type);
 int				is_aggregation(int type);

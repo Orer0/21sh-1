@@ -29,7 +29,7 @@ int				export_builtin(char **args)
 {
 	int				i;
 	t_shell_data	*data;
-	char			**tab;
+	char			**arr;
 
 	data = shell_data_singleton();
 	if (args[0])
@@ -39,11 +39,11 @@ int				export_builtin(char **args)
 		{
 			if (ft_strchr(args[i], '='))
 			{
-				if (!(tab = ft_strsplit(args[i], '=')))
+				if (!(arr = ft_strsplit(args[i], '=')))
 					quit_shell(EXIT_FAILURE, MALLOC_ERR);
-				change_env_var(&data->env_lst, tab[0],
-					&args[i][ft_strlen(tab[0]) + 1]);
-				ft_strtab_del(&tab);
+				change_env_var(&data->env_lst, arr[0],
+					&args[i][ft_strlen(arr[0]) + 1]);
+				ft_strtab_del(&arr);
 			}
 			else
 				export_intern_var(args[i]);

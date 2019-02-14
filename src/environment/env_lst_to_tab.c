@@ -12,17 +12,17 @@
 
 #include "sh21.h"
 
-static void		del_tab(char ***tab)
+static void		del_tab(char ***arr)
 {
 	int		i;
 
 	i = 0;
-	while ((*tab)[i++])
-		ft_strdel(&(*tab)[i]);
-	*tab = NULL;
+	while ((*arr)[i++])
+		ft_strdel(&(*arr)[i]);
+	*arr = NULL;
 }
 
-static int		cpy_tab(t_list *lst, char ***tab)
+static int		cpy_tab(t_list *lst, char ***arr)
 {
 	int		i;
 	char	*tmp;
@@ -30,13 +30,13 @@ static int		cpy_tab(t_list *lst, char ***tab)
 	i = 0;
 	while (lst)
 	{
-		if (!((*tab)[i] = ft_strjoin(((t_varenv *)((lst)->content))->name
+		if (!((*arr)[i] = ft_strjoin(((t_varenv *)((lst)->content))->name
 			, "=")))
 			return (FALSE);
 		if (((t_varenv *)((lst)->content))->content)
 		{
-			tmp = (*tab)[i];
-			if (!((*tab)[i] = ft_strjoin((*tab)[i]
+			tmp = (*arr)[i];
+			if (!((*arr)[i] = ft_strjoin((*arr)[i]
 				, ((t_varenv *)((lst)->content))->content)))
 				return (FALSE);
 			ft_strdel(&tmp);
@@ -44,22 +44,22 @@ static int		cpy_tab(t_list *lst, char ***tab)
 		lst = lst->next;
 		i++;
 	}
-	(*tab)[i] = NULL;
+	(*arr)[i] = NULL;
 	return (TRUE);
 }
 
-int				env_lst_to_tab(t_list **lst, char ***tab)
+int				env_lst_to_tab(t_list **lst, char ***arr)
 {
 	t_list	*node;
 
-	if (*tab != NULL)
-		del_tab(tab);
+	if (*arr != NULL)
+		del_tab(arr);
 	node = *lst;
-	if (*tab == NULL)
-		if (!(*tab = ft_memalloc(sizeof(char *) * (ft_lstlen(*lst) + 1))))
+	if (*arr == NULL)
+		if (!(*arr = ft_memalloc(sizeof(char *) * (ft_lstlen(*lst) + 1))))
 			return (FALSE);
 	if (node != NULL)
-		if (!cpy_tab(node, tab))
+		if (!cpy_tab(node, arr))
 			return (FALSE);
 	return (TRUE);
 }
