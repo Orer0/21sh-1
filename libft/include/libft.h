@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 09:31:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/06 04:36:12 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 23:48:02 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include "btree.h"
+
+# define FALSE			0
+# define TRUE			1
 
 typedef struct		s_list
 {

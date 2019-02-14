@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 01:36:57 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 23:32:47 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int		routine_next_state(char (*stack)[STACK], t_state *state
 **	termcaps library)
 */
 
-static void		reopen(t_line **line_s)
+static int		reopen(t_line **line_s)
 {
 	char			*new_line;
 	char			*tmp;
@@ -91,6 +91,8 @@ static void		reopen(t_line **line_s)
 		quit_shell(EXIT_FAILURE, 0);
 	}
 	new_line = get_line(PROMPT_MIN);
+	if (data->ctrl_c)
+		return (FALSE);
 	tmp = (*line_s)->line;
 	(*line_s)->line = ft_strjoin(tmp, "\n");
 	ft_strdel(&tmp);
@@ -98,6 +100,7 @@ static void		reopen(t_line **line_s)
 	(*line_s)->line = ft_strjoin(tmp, new_line);
 	ft_strdel(&new_line);
 	ft_strdel(&tmp);
+	return (TRUE);
 }
 
 /*
@@ -125,6 +128,9 @@ static void		reopen(t_line **line_s)
 static int		loop_routine(t_state *state, t_line **line_s, int *expansion
 	, char (*stack)[STACK])
 {
+	t_shell_data	*data;
+
+	data = shell_data_singleton();
 	(*state).next = automaton_transition((*state).current
 		, get_index_from_char(*line_s));
 	(*state).current = routine_next_state(stack, state, *line_s, expansion);
@@ -135,7 +141,8 @@ static int		loop_routine(t_state *state, t_line **line_s, int *expansion
 	}
 	if (!(*line_s)->line[(*line_s)->i + 1] && ((*state).current == D_QUOTE_STATE
 		|| (*state).current == S_QUOTE_STATE))
-		reopen(line_s);
+		if (!reopen(line_s))
+			return (FALSE);
 	return (TRUE);
 }
 
@@ -164,7 +171,9 @@ int				lexer(char **line)
 	t_line	*line_s;
 	t_state	s_state;
 	int		expansion;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	constructor_line_struct(*line, &line_s);
 	s_state.current = START_STATE;
 	ft_bzero((void *)&stack, STACK);

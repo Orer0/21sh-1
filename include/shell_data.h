@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 02:22:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 03:37:45 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 23:48:26 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "libft.h"
 # include <term.h>
+
+# define PROMPT			"21sh $> "
+# define PROMPT_MIN		"> "
 
 typedef struct		s_cur
 {
