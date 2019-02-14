@@ -15,20 +15,20 @@
 
 char		**get_var_tab(t_var_token **token)
 {
-	char	**tab;
+	char	**arr;
 	t_list	*tmp;
 
 	if (get_type_token(token) == VAR_TYPE)
 	{
-		if (!(tab = ft_memalloc(sizeof(char *) * 2)))
+		if (!(arr = ft_memalloc(sizeof(char *) * 2)))
 			quit_shell(EXIT_FAILURE, MALLOC_ERR);
 		if ((*token)->is_expansion)
 			manage_expansion_var(&(*token)->token);
-		tab[0] = ft_strdup((*token)->token);
+		arr[0] = ft_strdup((*token)->token);
 	}
 	else
 	{
-		if (!(tab = ft_memalloc(sizeof(char *))))
+		if (!(arr = ft_memalloc(sizeof(char *))))
 			quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	}
 	tmp = (*token)->var_lst;
@@ -36,8 +36,8 @@ char		**get_var_tab(t_var_token **token)
 	{
 		if (((t_var_token *)(tmp->content))->is_expansion)
 			manage_expansion_var(&((t_var_token *)(tmp->content))->token);
-		ft_strtab_addend(&tab, ((t_var_token *)(tmp->content))->token);
+		ft_strtab_addend(&arr, ((t_var_token *)(tmp->content))->token);
 		tmp = tmp->next;
 	}
-	return (tab);
+	return (arr);
 }

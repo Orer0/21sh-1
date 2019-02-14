@@ -28,24 +28,24 @@ static void		print_intern_env(t_list *lst)
 int				set_builtin(char **args, t_shell_data **data)
 {
 	int				i;
-	char			**tab;
+	char			**arr;
 
 	if (args[0])
 	{
 		i = -1;
 		while (args[++i])
 		{
-			if (!(tab = ft_strsplit(args[i], '=')))
+			if (!(arr = ft_strsplit(args[i], '=')))
 				quit_shell(EXIT_FAILURE, MALLOC_ERR);
-			if (tab[1])
-				change_env_var(&(*data)->intern_env_lst, tab[0]
-					, &args[i][ft_strlen(tab[0]) + 1]);
+			if (arr[1])
+				change_env_var(&(*data)->intern_env_lst, arr[0]
+					, &args[i][ft_strlen(arr[0]) + 1]);
 			else
-				change_env_var(&(*data)->intern_env_lst, tab[0], NULL);
-			if (get_env_var_by_name(&(*data)->env_lst, tab[0]))
-				change_env_var(&(*data)->env_lst, tab[0]
-					, &args[i][ft_strlen(tab[0]) + 1]);
-			ft_strtab_del(&tab);
+				change_env_var(&(*data)->intern_env_lst, arr[0], NULL);
+			if (get_env_var_by_name(&(*data)->env_lst, arr[0]))
+				change_env_var(&(*data)->env_lst, arr[0]
+					, &args[i][ft_strlen(arr[0]) + 1]);
+			ft_strtab_del(&arr);
 		}
 	}
 	else

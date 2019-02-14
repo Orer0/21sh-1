@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 00:56:38 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 01:28:11 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*get_line(char *promtp)
 		return (NULL);
 	}
 	set_terms(&data->t, promtp);
-	write(0, t->promtp, ft_strlen(t->promtp));
+	write(0, data->t->promtp, ft_strlen(data->t->promtp));
 	tmp = manag_way(&data->t);
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);

@@ -12,24 +12,24 @@
 
 #include "sh21.h"
 
-void	replace_dollar(char **tab, char **final)
+void	replace_dollar(char **arr, char **final)
 {
 	int		i;
 	char	*tmp;
 
 	tmp = NULL;
 	i = 0;
-	while (tab[i] != NULL)
+	while (arr[i] != NULL)
 	{
-		tmp = get_env_var(tab[i]);
+		tmp = get_env_var(arr[i]);
 		if (!(*final) && tmp)
 			*final = ft_strdup(tmp);
 		else if (!(*final) && !(tmp))
-			*final = ft_strdup(tab[i]);
+			*final = ft_strdup(arr[i]);
 		else if (tmp)
 			*final = ft_strjoin_free_s1(final, &tmp);
 		else
-			*final = ft_strjoin_free_s1(final, &tab[i]);
+			*final = ft_strjoin_free_s1(final, &arr[i]);
 		ft_strdel(&tmp);
 		i++;
 	}

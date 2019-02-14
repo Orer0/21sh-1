@@ -17,7 +17,7 @@ static void		exec_cmd(t_btree *tree)
 	t_list			*old_intern_env;
 	t_list			*tmp_intern_env;
 	t_shell_data	*data;
-	char			**tab;
+	char			**arr;
 
 	old_intern_env = NULL;
 	data = shell_data_singleton();
@@ -26,14 +26,14 @@ static void		exec_cmd(t_btree *tree)
 		old_intern_env = data->intern_env_lst;
 		tmp_intern_env = ft_lstcpy(data->intern_env_lst, &tmp_intern_env);
 		data->intern_env_lst = tmp_intern_env;
-		tab = get_var_tab(((t_var_token **)(tree->data)));
-		set_builtin(tab, &data);
-		ft_strtab_del(&tab);
+		arr = get_var_tab(((t_var_token **)(tree->data)));
+		set_builtin(arr, &data);
+		ft_strtab_del(&arr);
 	}
-	tab = get_cmd_tab(((t_cmd_token **)(tree->data)));
-	if (!manage_builtins(tab))
-		exec_command(tab, data->env_tab);
-	ft_strtab_del(&tab);
+	arr = get_cmd_tab(((t_cmd_token **)(tree->data)));
+	if (!manage_builtins(arr))
+		exec_command(arr, data->env_tab);
+	ft_strtab_del(&arr);
 	if (get_var_token_in_cmd_token(tree->data))
 	{
 		ft_lstdel(&data->intern_env_lst, del_env_var);
@@ -44,7 +44,7 @@ static void		exec_cmd(t_btree *tree)
 static void		exec_right(t_btree *tree, int *exec, int exec_next
 	, t_shell_data **data)
 {
-	char	**tab;
+	char	**arr;
 
 	if (get_type_token(tree->data) == AND_TYPE)
 	{
@@ -60,9 +60,9 @@ static void		exec_right(t_btree *tree, int *exec, int exec_next
 		exec_cmd(tree);
 	else if (get_type_token(tree->data) == VAR_TYPE && exec_next)
 	{
-		tab = get_var_tab(((t_var_token **)(tree->data)));
-		set_builtin(tab, data);
-		ft_strtab_del(&tab);
+		arr = get_var_tab(((t_var_token **)(tree->data)));
+		set_builtin(arr, data);
+		ft_strtab_del(&arr);
 	}
 	if (tree->right != NULL)
 		exec_ast(tree->right, *exec);

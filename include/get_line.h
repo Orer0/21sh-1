@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 01:13:52 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 01:25:54 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,11 @@
 # define GET_LINE_H
 
 # include "libft.h"
-# include <term.h>
 # include <sys/ioctl.h>
 # include "shell_data.h"
 
 # define LE		1
 # define ND		2
-
-typedef struct		s_cur
-{
-	int				x;
-	int				y;
-}					t_cur;
-
-typedef struct		s_term
-{
-	t_cur			cur;
-	int				index_his;
-	int				max_cur;
-	int				col;
-	int				nb_line;
-	int				rel_line;
-	int				hist_line;
-	struct termios	term;
-	char			*line;
-	char			*promtp;
-	char			*sel;
-	int				len_p;
-}					t_term;
 
 int					init_termios(void);
 int					reset_term(void);

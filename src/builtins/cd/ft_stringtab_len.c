@@ -12,12 +12,12 @@
 
 #include "sh21.h"
 
-int		ft_stringtab_len(char **tab)
+int		ft_stringtab_len(char **arr)
 {
 	int		i;
 
 	i = -1;
-	while (tab[++i])
+	while (arr[++i])
 		;
 	return (i);
 }

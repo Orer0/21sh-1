@@ -16,32 +16,32 @@
 static char		*get_name_of_var(char *str)
 {
 	char	*name;
-	char	**tab;
+	char	**arr;
 
-	if (!(tab = ft_strsplit(str, '=')))
+	if (!(arr = ft_strsplit(str, '=')))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	name = ft_strdup(tab[0]);
-	ft_strtab_del(&tab);
+	name = ft_strdup(arr[0]);
+	ft_strtab_del(&arr);
 	return (name);
 }
 
 char			**get_var_tab_for_unset(t_var_token *token)
 {
-	char	**tab;
+	char	**arr;
 	t_list	*tmp;
 	char	*name;
 
-	if (!(tab = ft_memalloc(sizeof(char *) * 2)))
+	if (!(arr = ft_memalloc(sizeof(char *) * 2)))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
-	tab[0] = get_name_of_var(token->token);
-	tab[1] = NULL;
+	arr[0] = get_name_of_var(token->token);
+	arr[1] = NULL;
 	tmp = token->var_lst;
 	while (tmp)
 	{
 		name = get_name_of_var(get_token_token(tmp->content));
-		ft_strtab_addend(&tab, name);
+		ft_strtab_addend(&arr, name);
 		ft_strdel(&name);
 		tmp = tmp->next;
 	}
-	return (tab);
+	return (arr);
 }

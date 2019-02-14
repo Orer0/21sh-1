@@ -131,8 +131,8 @@ char				*ft_lli_itoa_base(long long int n, char *base_str);
 char				*ft_ulli_itoa_base(unsigned long long int n,
 						char *base_str);
 int					ft_count(int n);
-void				ft_strtab_del(char ***tab);
-int					ft_strtab_addend(char ***tab, char *elem);
+void				ft_strtab_del(char ***arr);
+int					ft_strtab_addend(char ***arr, char *elem);
 
 char				*ft_strjoin_free_s1(char **s1, char **s2);
 char				*ft_strjoin_free_s2(char **s1, char **s2);

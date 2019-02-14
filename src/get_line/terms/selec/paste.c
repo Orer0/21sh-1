@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:20:32 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 21:22:27 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 01:35:34 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void	paste(t_term **t)
 	tmp = NULL;
 	if ((*t)->sel)
 	{
-		if (data->selec != NULL)
-			ft_strdel(&data->selec);
-		data->selec = ft_strdup((*t)->sel);
+		if (data->t->selec != NULL)
+			ft_strdel(&data->t->selec);
+		data->t->selec = ft_strdup((*t)->sel);
 	}
-	if (data->selec == NULL)
+	if (data->t->selec == NULL)
 		return ;
 	else
 	{
-		if (!(tmp = ft_strdup(data->selec)))
+		if (!(tmp = ft_strdup(data->t->selec)))
 			end_shell(t, NULL);
 	}
 	if ((*t)->line != NULL && (*t)->cur.x < (*t)->max_cur)

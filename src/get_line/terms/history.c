@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/13 00:08:27 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 01:34:41 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ static char		*ft_history(t_list **history, int index_his)
 
 static void		set_new_value(t_term **t)
 {
-	char			*his_line;
+	char			*hist_l;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
-	his_line = NULL;
-	if (!(his_line = ft_strdup(ft_history(&data->history, (*t)->index_his))))
+	hist_l = NULL;
+	if (!(hist_l = ft_strdup(ft_history(&data->t->history, (*t)->index_his))))
 		end_shell(t, NULL);
-	write(0, his_line, ft_strlen(his_line));
+	write(0, hist_l, ft_strlen(hist_l));
 	if ((*t)->line != NULL)
 		ft_strdel(&(*t)->line);
-	if (!((*t)->line = ft_strdup(his_line)))
+	if (!((*t)->line = ft_strdup(hist_l)))
 		end_shell(t, NULL);
-	(*t)->max_cur = ft_strlen(his_line);
+	(*t)->max_cur = ft_strlen(hist_l);
 	(*t)->cur.x = (*t)->max_cur;
 	(*t)->hist_line = ((*t)->max_cur / (*t)->col);
-	ft_strdel(&his_line);
+	ft_strdel(&hist_l);
 }
 
 /*
@@ -68,8 +68,8 @@ int				history_up(t_term **t)
 	data = shell_data_singleton();
 	(*t)->max_cur = ft_strlen((*t)->line);
 	(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
-	if (data->history == NULL
-		|| (*t)->index_his + 1 == ft_lstlen(data->history))
+	if (data->t->history == NULL
+		|| (*t)->index_his + 1 == ft_lstlen(data->t->history))
 		return (1);
 	else
 		delete_all((*t)->nb_line, t);
@@ -96,11 +96,11 @@ int				history_down(t_term **t)
 	data = shell_data_singleton();
 	(*t)->max_cur = ft_strlen((*t)->line);
 	(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
-	if (data->history == NULL || (*t)->index_his < 0)
+	if (data->t->history == NULL || (*t)->index_his < 0)
 		return (1);
 	else
 		delete_all((*t)->nb_line, t);
-	if ((*t)->index_his == 0 || ft_lstlen(data->history) <= 1)
+	if ((*t)->index_his == 0 || ft_lstlen(data->t->history) <= 1)
 	{
 		cur_begin_line(t);
 		tputs(tgetstr("cd", NULL), 0, &put);
@@ -109,7 +109,7 @@ int				history_down(t_term **t)
 		ft_strdel(&(*t)->line);
 		return (1);
 	}
-	if ((*t)->index_his == ft_lstlen(data->history))
+	if ((*t)->index_his == ft_lstlen(data->t->history))
 		(*t)->index_his = (*t)->index_his - 2;
 	else if ((*t)->index_his > 0)
 		(*t)->index_his--;
