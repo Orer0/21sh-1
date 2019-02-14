@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/13 05:45:34 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 23:35:19 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int		shell_parser(char **line)
 	if (!lexer(line) || !data->tokens_list
 		|| !first_check_tokens_list(data->tokens_list))
 	{
+		if (data->ctrl_c)
+		{
+			data->ctrl_c = FALSE;
+			return (FALSE);
+		}
 		ft_strdel(line);
 		return (FALSE);
 	}

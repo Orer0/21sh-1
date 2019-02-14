@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/13 18:57:55 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 23:48:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 
 # include "tokens.h"
 # include "shell_data.h"
-
-# define PROMPT			"21sh $> "
-# define PROMPT_MIN		"> "
 
 # define OPTIONS_CD		"LP"
 # define OPTIONS_ENV	"i"
