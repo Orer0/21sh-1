@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:36:00 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/02 22:50:53 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 02:07:53 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ void	clean_line(t_term **t)
 	ft_strdel(&(*t)->promtp);
 	if ((*t)->sel != NULL)
 		ft_strdel(&(*t)->sel);
-	ft_memdel((void **)t);
+	// ft_memdel((void **)t);
 }

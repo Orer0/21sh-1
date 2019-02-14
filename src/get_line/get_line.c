@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 01:28:11 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 02:10:24 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,18 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 
 char	*get_line(char *promtp)
 {
-	//t_term			*t;
 	t_shell_data	*data;
 	char			*line;
 	char			*tmp;
 
 	data = shell_data_singleton();
-	data->t = NULL;
-	if (!(data->t = ft_memalloc(sizeof(t_term))))
+	if (!data->t)
 	{
-		end_shell(&data->t, NULL);
-		return (NULL);
+		if (!(data->t = ft_memalloc(sizeof(t_term))))
+		{
+			end_shell(&data->t, NULL);
+			return (NULL);
+		}
 	}
 	if (init_termios() == -1)
 	{

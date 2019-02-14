@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 01:46:32 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 02:03:47 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,22 @@
 #include "lexer.h"
 #include "ast.h"
 
-void	del_history(void *content, size_t size)
+static void	del_history(void *content, size_t size)
 {
 	(void)size;
 	ft_memdel(&content);
+}
+
+static void	clean_line(t_term **t)
+{
+	ft_strdel(&(*t)->selec);
+	ft_strdel(&(*t)->current_line);
+	ft_strdel(&(*t)->promtp);
+	if ((*t)->history)
+		ft_lstdel(&(*t)->history, &del_history);
+	if ((*t)->sel != NULL)
+	ft_strdel(&(*t)->sel);
+	ft_memdel((void **)t);
 }
 
 void	quit_shell(int status, int err)
@@ -34,11 +46,8 @@ void	quit_shell(int status, int err)
 		delete_parsing_tree(&data->parse_tree);
 	if (data->ast)
 		delete_ast(&data->ast);
-	if (data->t->history)
-		ft_lstdel(&data->t->history, &del_history);
+	clean_line(&data->t);
 	ft_strdel(&data->term);
-	ft_strdel(&data->t->selec);
-	ft_strdel(&data->t->current_line);
 	ft_strtab_del(&data->env_tab);
 	ft_lstdel(&data->env_lst, del_env_var);
 	ft_lstdel(&data->intern_env_lst, del_env_var);
