@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 21:24:27 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 01:31:16 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ char			*enter(t_term **t)
 	{
 		if (!(tmp = ft_lstnew((*t)->line, (ft_strlen((*t)->line) + 1))))
 			end_shell(t, NULL);
-		ft_lstadd(&data->history, tmp);
+		ft_lstadd(&data->t->history, tmp);
 	}
 	else
 		(*t)->line = ft_strdup("\n");
-	if (data->selec && (*t)->sel != NULL)
-		ft_strdel(&data->selec);
+	if (data->t->selec && (*t)->sel != NULL)
+		ft_strdel(&data->t->selec);
 	if ((*t)->sel != NULL)
-		data->selec = ft_strdup((*t)->sel);
+		data->t->selec = ft_strdup((*t)->sel);
 	go_down(t);
 	put('\n');
 	reset_curse(t);

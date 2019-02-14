@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/13 00:07:43 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 01:28:11 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,29 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 
 char	*get_line(char *promtp)
 {
-	t_term			*t;
+	//t_term			*t;
+	t_shell_data	*data;
 	char			*line;
 	char			*tmp;
 
-	t = NULL;
-	if (!(t = ft_memalloc(sizeof(t_term))))
+	data = shell_data_singleton();
+	data->t = NULL;
+	if (!(data->t = ft_memalloc(sizeof(t_term))))
 	{
-		end_shell(&t, NULL);
+		end_shell(&data->t, NULL);
 		return (NULL);
 	}
 	if (init_termios() == -1)
 	{
-		ft_memdel((void **)t);
+		ft_memdel((void **)data->t);
 		return (NULL);
 	}
-	set_terms(&t, promtp);
-	write(0, t->promtp, ft_strlen(t->promtp));
-	tmp = manag_way(&t);
+	set_terms(&data->t, promtp);
+	write(0, data->t->promtp, ft_strlen(data->t->promtp));
+	tmp = manag_way(&data->t);
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);
-	clean_line(&t);
+	clean_line(&data->t);
 	reset_term();
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 01:19:01 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 01:46:32 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void	quit_shell(int status, int err)
 		delete_parsing_tree(&data->parse_tree);
 	if (data->ast)
 		delete_ast(&data->ast);
-	if (data->history)
-		ft_lstdel(&data->history, &del_history);
+	if (data->t->history)
+		ft_lstdel(&data->t->history, &del_history);
 	ft_strdel(&data->term);
-	ft_strdel(&data->selec);
+	ft_strdel(&data->t->selec);
+	ft_strdel(&data->t->current_line);
 	ft_strtab_del(&data->env_tab);
 	ft_lstdel(&data->env_lst, del_env_var);
 	ft_lstdel(&data->intern_env_lst, del_env_var);
