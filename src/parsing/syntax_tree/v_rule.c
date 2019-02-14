@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:57:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:44:50 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 18:56:06 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "st.h"
-
-/*
-**	Regle V prime -> pas de noeud et toujours true (epsilon)
-*/
 
 int		v_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {
@@ -29,10 +25,6 @@ int		v_prime_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 	(*tokens_list_struct)->index = save_index;
 	return (TRUE);
 }
-
-/*
-**	Regle V
-*/
 
 int		v_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {

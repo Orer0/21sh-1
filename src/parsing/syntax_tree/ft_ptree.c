@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:41:20 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:31:48 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 18:56:25 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "st.h"
-
-/*
-**	Creer noeud d'arbre de parsing
-*/
 
 void			ft_ptree_create_node(t_ptree **tree, void *data, int type)
 {
@@ -29,10 +25,6 @@ void			ft_ptree_create_node(t_ptree **tree, void *data, int type)
 	(*tree)->nb_childs = 0;
 	(*tree)->ast = NULL;
 }
-
-/*
-**	Ajoute un noeud enfant au noeud passe
-*/
 
 int				ft_ptree_add_child(t_ptree **tree, void *data, int type)
 {
@@ -57,10 +49,6 @@ int				ft_ptree_add_child(t_ptree **tree, void *data, int type)
 	(*tree)->nb_childs++;
 	return (child->id);
 }
-
-/*
-**	Retourne un noeud de l'arbre grace a son id
-*/
 
 t_ptree			**ft_ptree_get_node_with_id(t_ptree **tree, int id)
 {

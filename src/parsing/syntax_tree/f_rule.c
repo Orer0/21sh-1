@@ -6,15 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:59:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:30:09 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/13 18:56:30 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "st.h"
-
-/*
-**	Regle F
-*/
 
 int		f_rule(t_tokens_list **tokens_list_struct, t_ptree **tree)
 {
