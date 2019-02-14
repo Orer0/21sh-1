@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 22:11:14 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 23:31:52 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
 	(*t)->col = ws.ws_col;
 	(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
-	fonct = way(t, cmd);
+	fonct = way(cmd);
 	cmd_way(fonct, t, cmd);
 	fonct = NULL;
 	ft_bzero(&cmd, sizeof(char[8]));
@@ -98,7 +98,10 @@ char			*manag_way(t_term **t)
 				return ((*t)->line);
 		}
 		else if (cmd[0] == 4)
-			end_shell(t, cmd);
+		{
+			if (ft_strequ((*t)->promtp, "21sh $> "))
+				end_shell(t, cmd);
+		}
 		else
 			basic_cmd(t, cmd, fonct);
 		ft_bzero(&cmd, sizeof(char) * 8);
