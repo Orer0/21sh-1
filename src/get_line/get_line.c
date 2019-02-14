@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 02:10:24 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 23:27:35 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@
 **	- Return the good fonction
 */
 
-void	*way(t_term **t, char *cmd)
+void	*way(char *cmd)
 {
 	void	(*fonct)(t_term **);
 
 	fonct = NULL;
-	if ((*t)->index_his <= -1)
+	if (fonct == NULL)
 		fonct = set_cmd_mouv(cmd);
-	if (fonct == NULL && (*t)->index_his <= -1)
+	if (fonct == NULL)
 		fonct = set_cmd_edit(cmd);
 	if (fonct == NULL)
 		fonct = set_cmd_his(cmd);
@@ -49,8 +49,8 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 		ft_bzero(&cmd, sizeof(char[8]));
 		fonct = NULL;
 	}
-	else if (fonct == NULL && cmd[0] > 0 && cmd[0] < 127
-		&& cmd[0] != 27 && (*t)->index_his <= -1)
+	else if ((fonct == NULL && cmd[0] > 31 && cmd[0] < 127
+		&& cmd[0] != 27) || cmd[0] == 9)
 	{
 		if (!(tmp = ft_strdup(cmd)))
 			end_shell(t, cmd);
