@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 22:54:24 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 05:03:13 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void			print_buf_end(char *buf, t_term **t)
 	ft_strdel(&buf);
 }
 
+#include <stdio.h>//dhuehfeu
+
 static void		calcl_len(t_term **t, char **buf)
 {
 	int		len;
@@ -79,8 +81,14 @@ static void		calcl_len(t_term **t, char **buf)
 			(*t)->rel_line++;
 		len--;
 	}
+	if (ft_strlen(*buf) == 1)
+		go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
+	else
+	{
+		(*t)->cur.x++;
+		go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
+	}
 	ft_strdel(buf);
-	go_way(t, ((*t)->max_cur - (*t)->cur.x), LE);
 }
 
 /*

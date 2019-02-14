@@ -6,12 +6,12 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 04:22:48 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 03:09:42 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 04:43:35 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
-
+#include "get_line.h"
 void		catch_signal_kill(int signal)
 {
 	t_shell_data	*data;
@@ -19,10 +19,11 @@ void		catch_signal_kill(int signal)
 	data = shell_data_singleton();
 	if (signal == SIGINT)
 	{
+		data->ctrl_c = TRUE;
 		if (data->pid != 0)
 		{
 			kill(data->pid, SIGTERM);
-			write(1, "\n", 1);
+			write(0, "\n", 1);
 		}
 		else
 		{
@@ -34,6 +35,8 @@ void		catch_signal_kill(int signal)
 			data->t->nb_line = 0;
 			data->t->rel_line = 0;
 			data->t->hist_line = 0;
+			tputs(tgetstr("ve", NULL), 0, &put);
+			tputs(tgetstr("me", NULL), 0, &put);
 			ft_strdel(&data->t->line);
 			ft_fd_printf(0, "\n%s", PROMPT);
 		}

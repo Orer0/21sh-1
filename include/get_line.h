@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 01:25:54 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/14 03:42:57 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # define LE		1
 # define ND		2
+# define TRUE	1
+# define FALSE	0
 
 int					init_termios(void);
 int					reset_term(void);

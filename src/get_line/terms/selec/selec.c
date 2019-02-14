@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/13 00:08:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/14 04:29:06 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void			selec(t_term **t)
 	char	ky[1024];
 	int		rel_cur;
 	int		tmp;
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	ft_bzero(ky, 1024);
 	rel_cur = 0;
 	tmp = (*t)->cur.x;
@@ -85,10 +87,15 @@ void			selec(t_term **t)
 			rel_cur = selec_left(t, rel_cur);
 		else if (ky[0] == 27 && ky[1] == 91 && ky[2] == 67)
 			rel_cur = selec_right(t, rel_cur, tmp);
-		if (ky[0] == -50 && ky[1] == -87)
+		if (ky[0] == -50 && ky[1] == -87 && data->ctrl_c == FALSE)
 		{
 			go_cut(t, rel_cur, tmp);
 			break ;
+		}
+		if (data->ctrl_c == TRUE)
+		{
+			data->ctrl_c = FALSE;
+			break;
 		}
 	}
 	set_init(t, rel_cur, tmp, ky);
