@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 04:21:24 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 04:46:59 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 **	- return final line
 */
 
+#include <stdio.h>
+
 char			*manag_way(t_term **t, char *end_of_file)
 {
 	char			cmd[8];
@@ -73,6 +75,12 @@ char			*manag_way(t_term **t, char *end_of_file)
 		ft_bzero(&cmd, sizeof(char) * 8);
 		check_line(t);
 		read(0, cmd, 7);
+		int i =0;
+		while (cmd[i] != '\0')
+		{
+		//	printf("cmd[i] = %d\n", cmd[i]);
+			i++;
+		}
 		if (cmd[0] == 10 && cmd[1] == 0)
 		{
 			if (ft_end_line(t, cmd))
