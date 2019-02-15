@@ -6,12 +6,12 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 04:56:43 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 22:33:06 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
-
+#include "sh21.h"
 /*
 **	WAY - Manage tap key
 **

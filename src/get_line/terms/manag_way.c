@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 05:15:40 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 22:53:28 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,41 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 **	- return final line
 */
 
+char			*ctrl_c(t_term **t)
+{
+	t_shell_data	*data;
+
+	data = shell_data_singleton();
+	data->ctrl_c = TRUE;
+	ft_strdel(&(*t)->line);
+	(*t)->line = ft_strdup("\n");
+	put('\n');
+	reset_curse(t);
+	return (NULL);
+}
+
+#include <stdio.h>
+
 char			*manag_way(t_term **t, char *end_of_file)
 {
 	char			cmd[8];
 	void			(*fonct)(t_term **t);
+	t_shell_data	*data;
 
+	data = shell_data_singleton();
 	fonct = NULL;
 	while (666)
 	{
+//			printf("icicic \n");
 		ft_bzero(&cmd, sizeof(char) * 8);
 		check_line(t);
 		read(0, cmd, 7);
+		int i =0;
+		while (cmd[i] != '\0')
+		{
+//			printf("cmd[i] = %d\n", cmd[i]);
+			i++;
+		}
 		if (cmd[0] == 10 && cmd[1] == 0)
 		{
 			if (ft_end_line(t, cmd))
@@ -84,6 +108,12 @@ char			*manag_way(t_term **t, char *end_of_file)
 			if (ft_strequ((*t)->promtp, PROMPT_MIN))
 				if ((*t)->line == NULL)
 					return (end_quoting_heredoc(t, end_of_file));
+		}
+		else if (cmd[0] == 3)
+		{
+			ctrl_c(t);
+		ft_bzero(&cmd, sizeof(char) * 8);
+			return ((*t)->line);
 		}
 		else
 			basic_cmd(t, cmd, fonct);

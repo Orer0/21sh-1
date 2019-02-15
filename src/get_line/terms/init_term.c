@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:00:55 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/12 22:03:05 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 22:19:13 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		init_termios(void)
 	else
 	{
 		term = g_orig_termios;
-		term.c_lflag &= ~(ICANON | ECHO);
+		term.c_lflag &= ~(ICANON | ECHO | ISIG);
 		term.c_cc[VMIN] = 1;
 		term.c_cc[VTIME] = 0;
 		if (tcsetattr(0, TCSADRAIN, &term) == -1)

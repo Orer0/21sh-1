@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 05:37:25 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 22:39:57 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,9 +170,7 @@ int				lexer(char **line)
 	t_line	*line_s;
 	t_state	s_state;
 	int		expansion;
-	t_shell_data	*data;
 
-	data = shell_data_singleton();
 	constructor_line_struct(*line, &line_s);
 	s_state.current = START_STATE;
 	ft_bzero((void *)&stack, STACK);
