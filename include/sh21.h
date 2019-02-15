@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 23:48:21 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 01:35:55 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,6 @@ typedef struct		s_varenv
 }					t_varenv;
 
 void				clean_parsing(void);
-
-/*
-** Errors
-*/
-
-enum				e_err
-{
-	MALLOC_ERR = -999,
-	FORK_ERR
-};
 
 void				init_shell(char **environ);
 t_list				*ft_lstcpy(t_list *src, t_list **dest);
@@ -143,6 +133,6 @@ int					build_pwd_tab(char ***arg_tab, char ***pwd_tab,
 						int pwd_tab_len);
 int					cd_builtin(char **args);
 
-char				*get_line(char *promtp);
+char				*get_line(char *promtp, char *end_of_file);
 
 #endif

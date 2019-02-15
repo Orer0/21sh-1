@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 23:31:52 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 01:37:56 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,25 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 **	- return final line
 */
 
-char			*manag_way(t_term **t)
+char				*end_quoting_heredoc(t_term **t, char *cmd
+		, char *end_of_file)
+{
+	char *tmp;
+
+	tmp = NULL;
+	if ((*t)->line == NULL)
+	{
+		clean_line(t);
+		reset_term();
+		if (!(tmp = ft_strdup(end_of_file)))
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
+		return (tmp);
+	}
+	ft_bzero(&cmd, sizeof(char[8]));
+	return (NULL);
+}
+
+char			*manag_way(t_term **t, char *end_of_file)
 {
 	char			cmd[8];
 	void			(*fonct)(t_term **t);
@@ -99,8 +117,10 @@ char			*manag_way(t_term **t)
 		}
 		else if (cmd[0] == 4)
 		{
-			if (ft_strequ((*t)->promtp, "21sh $> "))
+			if (ft_strequ((*t)->promtp, PROMPT))
 				end_shell(t, cmd);
+			else if (ft_strequ((*t)->promtp, PROMPT_MIN))
+				return (end_quoting_heredoc(t, cmd, end_of_file));
 		}
 		else
 			basic_cmd(t, cmd, fonct);

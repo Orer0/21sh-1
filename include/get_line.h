@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 23:27:04 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 01:02:04 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@
 
 # define LE		1
 # define ND		2
-# define TRUE	1
-# define FALSE	0
 
 int					init_termios(void);
 int					reset_term(void);
 
 void				set_terms(t_term **t, char *promtp);
 
-char				*manag_way(t_term **t);
+char				*manag_way(t_term **t, char *end_of_file);
 void				*way(char *cmd);
 void				cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd);
 void				*set_cmd_his(char *cmd);

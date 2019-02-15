@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 23:34:04 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:28:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 01:38:48 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		get_the_new_line(char *argument, char **line, char **final_str)
 {
 	char	*tmp;
 
-	*line = get_line(PROMPT_MIN);
+	*line = get_line(PROMPT_MIN, argument);
 	if (final_str && !ft_strequ(*line, "\n"))
 	{
 		tmp = *final_str;
