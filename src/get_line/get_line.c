@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 01:10:58 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 03:57:10 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ char	*get_line(char *promtp, char *end_of_file)
 {
 	t_shell_data	*data;
 	char			*line;
-	char			*tmp;
 
 	data = shell_data_singleton();
 	if (!data->t)
@@ -96,9 +95,7 @@ char	*get_line(char *promtp, char *end_of_file)
 	}
 	set_terms(&data->t, promtp);
 	write(0, data->t->promtp, ft_strlen(data->t->promtp));
-	tmp = manag_way(&data->t, end_of_file);
-	line = ft_strdup(tmp);
-	ft_strdel(&tmp);
+	line = manag_way(&data->t, end_of_file);
 	clean_line(&data->t);
 	reset_term();
 	return (line);

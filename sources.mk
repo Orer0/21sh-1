@@ -37,6 +37,7 @@ SRCS+=src/exec/redir_recursion.c
 SRCS+=src/ft_lstcpy.c
 SRCS+=src/get_line/get_line.c
 SRCS+=src/get_line/terms/clean_line.c
+SRCS+=src/get_line/terms/end_shell.c
 SRCS+=src/get_line/terms/del.c
 SRCS+=src/get_line/terms/enter.c
 SRCS+=src/get_line/terms/history.c
