@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 04:20:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 04:45:01 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,12 @@ static int		reopen(t_line **line_s)
 		ft_printf("21sh: syntax error: unexpected end of file\n");
 		quit_shell(EXIT_FAILURE, 0);
 	}
-	new_line = get_line(PROMPT_MIN, NULL);
-	ft_printf("data ctrl c apres get_line = %d\n", data->ctrl_c);
+	if (!(new_line = get_line(PROMPT_MIN, NULL)))
+	{
+		ft_printf("NULL");
+		return (FALSE);
+	}
+	// ft_printf("data ctrl c apres get_line = %d\n", data->ctrl_c);
 	tmp = (*line_s)->line;
 	(*line_s)->line = ft_strjoin(tmp, "\n");
 	ft_strdel(&tmp);
