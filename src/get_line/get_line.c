@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 23:27:35 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 01:10:58 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	cmd_way(void (*fonct)(t_term **), t_term **t, char *cmd)
 **	- Return the final line
 */
 
-char	*get_line(char *promtp)
+char	*get_line(char *promtp, char *end_of_file)
 {
 	t_shell_data	*data;
 	char			*line;
@@ -96,7 +96,7 @@ char	*get_line(char *promtp)
 	}
 	set_terms(&data->t, promtp);
 	write(0, data->t->promtp, ft_strlen(data->t->promtp));
-	tmp = manag_way(&data->t);
+	tmp = manag_way(&data->t, end_of_file);
 	line = ft_strdup(tmp);
 	ft_strdel(&tmp);
 	clean_line(&data->t);

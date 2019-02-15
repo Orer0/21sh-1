@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 00:37:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 01:11:37 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		ft_shell(void)
 		{
 			clean_parsing();
 			signal(SIGINT, catch_signal_kill);
-			if (!(line = get_line(PROMPT)))
+			if (!(line = get_line(PROMPT, NULL)))
 				return (ft_minimal_shell());
 			if (shell_parser(&line))
 				exec_ast(data->ast, 1);

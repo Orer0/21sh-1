@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 02:22:51 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 23:48:26 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 01:35:51 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 
 # define PROMPT			"21sh $> "
 # define PROMPT_MIN		"> "
+
+/*
+** Errors
+*/
+
+enum				e_err
+{
+	MALLOC_ERR = -999,
+	FORK_ERR
+};
 
 typedef struct		s_cur
 {
