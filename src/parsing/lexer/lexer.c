@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 23:32:47 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 01:39:55 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,6 @@ static int		reopen(t_line **line_s)
 		quit_shell(EXIT_FAILURE, 0);
 	}
 	new_line = get_line(PROMPT_MIN);
-	if (data->ctrl_c)
-		return (FALSE);
 	tmp = (*line_s)->line;
 	(*line_s)->line = ft_strjoin(tmp, "\n");
 	ft_strdel(&tmp);
@@ -141,8 +139,7 @@ static int		loop_routine(t_state *state, t_line **line_s, int *expansion
 	}
 	if (!(*line_s)->line[(*line_s)->i + 1] && ((*state).current == D_QUOTE_STATE
 		|| (*state).current == S_QUOTE_STATE))
-		if (!reopen(line_s))
-			return (FALSE);
+		reopen(line_s);
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 23:35:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 00:50:13 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int		shell_parser(char **line)
 	{
 		if (data->ctrl_c)
 		{
+			ft_printf("ICI\n");
 			data->ctrl_c = FALSE;
 			return (FALSE);
 		}

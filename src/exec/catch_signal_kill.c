@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 04:22:48 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 23:24:41 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 01:16:33 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void		catch_signal_kill(int signal)
 		}
 		else
 		{
-			// ft_strdel(&(*t)->promtp);
 			data->t->index_his = -1;
 			data->t->cur.x = 0;
 			data->t->cur.y = 0;
