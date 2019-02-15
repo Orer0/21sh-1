@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 23:14:15 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 23:25:54 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,19 @@ static int		routine_next_state(char (*stack)[STACK], t_state *state
 	return ((*state).next);
 }
 
+static void		replace_the_line(t_line **line_s, char **new_line)
+{
+	char	*tmp;
+
+	tmp = (*line_s)->line;
+	(*line_s)->line = ft_strjoin(tmp, "\n");
+	ft_strdel(&tmp);
+	tmp = (*line_s)->line;
+	(*line_s)->line = ft_strjoin(tmp, *new_line);
+	ft_strdel(new_line);
+	ft_strdel(&tmp);
+}
+
 /*
 **	reopen
 **	The function will be called by the loop_routine when the command line is not
@@ -81,7 +94,6 @@ static int		routine_next_state(char (*stack)[STACK], t_state *state
 static int		reopen(t_line **line_s)
 {
 	char			*new_line;
-	char			*tmp;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
@@ -101,13 +113,7 @@ static int		reopen(t_line **line_s)
 		ft_strdel(&new_line);
 		return (FALSE);
 	}
-	tmp = (*line_s)->line;
-	(*line_s)->line = ft_strjoin(tmp, "\n");
-	ft_strdel(&tmp);
-	tmp = (*line_s)->line;
-	(*line_s)->line = ft_strjoin(tmp, new_line);
-	ft_strdel(&new_line);
-	ft_strdel(&tmp);
+	replace_the_line(line_s, &new_line);
 	return (TRUE);
 }
 

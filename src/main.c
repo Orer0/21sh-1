@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 04:16:35 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 23:45:05 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		ft_minimal_shell(void)
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
-	data->term = NULL;
+	ft_strdel(&data->term);
 	while (666)
 	{
 		clean_parsing();

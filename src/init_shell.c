@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 04:48:20 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 04:50:19 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 23:45:10 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void			init_shell(char **environ)
 	{
 		change_env_var(&data->env_lst, "TERM", "xterm");
 		change_env_var(&data->intern_env_lst, "TERM", "xterm");
-		data->term = ft_strdup(get_env_var_by_name(&data->env_lst
-			, "TERM")->content);
+		data->term = ft_strdup("xterm");
 	}
 	manage_shell_level();
 }

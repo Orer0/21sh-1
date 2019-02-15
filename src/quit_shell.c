@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 05:31:08 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 23:46:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	clean_line(t_term **t)
 	ft_memdel((void **)t);
 }
 
-void	quit_shell(int status, int err)
+void		quit_shell(int status, int err)
 {
 	t_shell_data	*data;
 
@@ -49,6 +49,7 @@ void	quit_shell(int status, int err)
 	if (data->ast)
 		delete_ast(&data->ast);
 	clean_line(&data->t);
+	ft_printf("data term = %s\n", data->term);
 	ft_strdel(&data->term);
 	ft_strtab_del(&data->env_tab);
 	ft_lstdel(&data->env_lst, del_env_var);
