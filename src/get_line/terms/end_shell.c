@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 03:57:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 04:21:43 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 04:46:19 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char			*end_quoting_heredoc(t_term **t, char *end_of_file)
 	tmp = NULL;
 	clean_line(t);
 	reset_term();
-	if (!(tmp = ft_strdup(end_of_file)))
-		quit_shell(EXIT_FAILURE, MALLOC_ERR);
+	if (end_of_file)
+		if (!(tmp = ft_strdup(end_of_file)))
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	return (tmp);
 }
