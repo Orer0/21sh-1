@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 22:35:57 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 22:59:24 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void				word_left(t_term **t);
 void				word_right(t_term **t);
 
 char				*enter(t_term **t);
+char				*ctrl_c(t_term **t);
 
 void				clean_line(t_term **t);
 int					end_shell(t_term **t, char *cmd);

@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 05:25:34 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 23:16:36 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,25 @@ void			selec(t_term **t)
 	data = shell_data_singleton();
 	rel_cur = 0;
 	tmp = (*t)->cur.x;
+	ft_bzero(ky, 1024);
 	while (!(ky[0] == -61 && ky[1] == -97) && !(ky[0] == -61 && ky[1] == -89))
 	{
 		ft_bzero(ky, 1024);
 		read(0, ky, 6);
 		manag_selec_direction(&rel_cur, t, &tmp, ky);
-		if (ky[0] == -50 && ky[1] == -87 && data->ctrl_c == FALSE)
+		if (ky[0] == -50 && ky[1] == -87)
 		{
 			go_cut(t, rel_cur, tmp);
 			break ;
 		}
-		if (data->ctrl_c == TRUE)
+		if (ky[0] == 3)
 		{
 			data->ctrl_c = FALSE;
+			ft_strdel(&(*t)->line);
+			ft_strdel(&(*t)->sel);
+			put('\n');
+			putst((*t)->promtp);
+			reset_curse(t);
 			break ;
 		}
 	}

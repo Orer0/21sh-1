@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 22:53:28 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 23:14:43 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,6 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 **		lauch other detection of keycode
 **	- return final line
 */
-
-char			*ctrl_c(t_term **t)
-{
-	t_shell_data	*data;
-
-	data = shell_data_singleton();
-	data->ctrl_c = TRUE;
-	ft_strdel(&(*t)->line);
-	(*t)->line = ft_strdup("\n");
-	put('\n');
-	reset_curse(t);
-	return (NULL);
-}
 
 #include <stdio.h>
 
