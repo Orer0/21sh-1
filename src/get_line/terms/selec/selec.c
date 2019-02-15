@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 04:29:06 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 05:25:34 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,18 @@ static void		go_cut(t_term **t, int rel_cur, int tmp)
 	(*t)->max_cur = ft_strlen((*t)->line);
 }
 
+static void		manag_selec_direction(int *rel_cur, t_term **t
+					, int *tmp, char *ky)
+{
+	tputs(tgetstr("vi", NULL), 0, &put);
+	if (*rel_cur == 0)
+		*tmp = mode_inver(t, *tmp);
+	if (ky[0] == 27 && ky[1] == 91 && ky[2] == 68)
+		*rel_cur = selec_left(t, *rel_cur);
+	else if (ky[0] == 27 && ky[1] == 91 && ky[2] == 67)
+		*rel_cur = selec_right(t, *rel_cur, *tmp);
+}
+
 /*
 **	SELEC - selec a part of line
 **
@@ -67,26 +79,19 @@ static void		go_cut(t_term **t, int rel_cur, int tmp)
 
 void			selec(t_term **t)
 {
-	char	ky[1024];
-	int		rel_cur;
-	int		tmp;
+	char			ky[1024];
+	int				rel_cur;
+	int				tmp;
 	t_shell_data	*data;
 
 	data = shell_data_singleton();
-	ft_bzero(ky, 1024);
 	rel_cur = 0;
 	tmp = (*t)->cur.x;
 	while (!(ky[0] == -61 && ky[1] == -97) && !(ky[0] == -61 && ky[1] == -89))
 	{
 		ft_bzero(ky, 1024);
 		read(0, ky, 6);
-		tputs(tgetstr("vi", NULL), 0, &put);
-		if (rel_cur == 0)
-			tmp = mode_inver(t, tmp);
-		if (ky[0] == 27 && ky[1] == 91 && ky[2] == 68)
-			rel_cur = selec_left(t, rel_cur);
-		else if (ky[0] == 27 && ky[1] == 91 && ky[2] == 67)
-			rel_cur = selec_right(t, rel_cur, tmp);
+		manag_selec_direction(&rel_cur, t, &tmp, ky);
 		if (ky[0] == -50 && ky[1] == -87 && data->ctrl_c == FALSE)
 		{
 			go_cut(t, rel_cur, tmp);
@@ -95,7 +100,7 @@ void			selec(t_term **t)
 		if (data->ctrl_c == TRUE)
 		{
 			data->ctrl_c = FALSE;
-			break;
+			break ;
 		}
 	}
 	set_init(t, rel_cur, tmp, ky);
