@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 01:37:56 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 01:56:23 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ char			*manag_way(t_term **t, char *end_of_file)
 			if (ft_strequ((*t)->promtp, PROMPT))
 				end_shell(t, cmd);
 			else if (ft_strequ((*t)->promtp, PROMPT_MIN))
-				return (end_quoting_heredoc(t, cmd, end_of_file));
+			{
+				if ((*t)->line == NULL)
+					return (end_quoting_heredoc(t, cmd, end_of_file));
+			}
 		}
 		else
 			basic_cmd(t, cmd, fonct);
