@@ -6,34 +6,11 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 04:45:01 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 05:22:21 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "get_line.h"
-
-void	catch_signal_lexer(int signal)
-{
-	t_shell_data	*data;
-
-	data = shell_data_singleton();
-	if (signal == SIGINT)
-	{
-		data->ctrl_c = TRUE;
-		data->t->index_his = -1;
-		data->t->cur.x = 0;
-		data->t->cur.y = 0;
-		data->t->max_cur = 0;
-		data->t->nb_line = 0;
-		data->t->rel_line = 0;
-		data->t->hist_line = 0;
-		tputs(tgetstr("ve", NULL), 0, &put);
-		tputs(tgetstr("me", NULL), 0, &put);
-		ft_strdel(&data->t->line);
-	}
-}
-
 
 /*
 **	routine_next_state
@@ -115,10 +92,10 @@ static int		reopen(t_line **line_s)
 	}
 	if (!(new_line = get_line(PROMPT_MIN, NULL)))
 	{
-		ft_printf("NULL");
+		ft_fd_printf(2
+			, "21sh: unexpected EOF while looking for matching '\"'\n");
 		return (FALSE);
 	}
-	// ft_printf("data ctrl c apres get_line = %d\n", data->ctrl_c);
 	tmp = (*line_s)->line;
 	(*line_s)->line = ft_strjoin(tmp, "\n");
 	ft_strdel(&tmp);
@@ -154,17 +131,11 @@ static int		reopen(t_line **line_s)
 static int		loop_routine(t_state *state, t_line **line_s, int *expansion
 	, char (*stack)[STACK])
 {
-	t_shell_data	*data;
-
-	data = shell_data_singleton();
 	(*state).next = automaton_transition((*state).current
 		, get_index_from_char(*line_s));
 	(*state).current = routine_next_state(stack, state, *line_s, expansion);
 	if ((*state).current == NONE_STATE)
-	{
-		ft_memdel((void **)line_s);
 		return (FALSE);
-	}
 	if (!(*line_s)->line[(*line_s)->i + 1] && ((*state).current == D_QUOTE_STATE
 		|| (*state).current == S_QUOTE_STATE))
 	{
@@ -201,7 +172,7 @@ int				lexer(char **line)
 	int		expansion;
 	t_shell_data	*data;
 
-	signal(SIGINT, SIG_IGN);
+	// signal(SIGINT, SIG_IGN);
 	data = shell_data_singleton();
 	constructor_line_struct(*line, &line_s);
 	s_state.current = START_STATE;
@@ -210,7 +181,11 @@ int				lexer(char **line)
 	while (line_s->line[++(line_s->i)])
 	{
 		if (!loop_routine(&s_state, &line_s, &expansion, &stack))
+		{
+			*line = line_s->line;
+			ft_memdel((void **)&line_s);
 			return (FALSE);
+		}
 	}
 	*line = line_s->line;
 	if (if_take_the_last(s_state.current))
