@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 04:27:12 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 23:51:58 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ static void		buf_tab(char **buf)
 	ft_strdel(buf);
 	*buf = ft_strdup("        ");
 }
-
-static void		go_new_line(t_term **t)
+/*
+void		go_new_line(t_term **t)
 {
 	put(' ');
 	tputs(tgetstr("cr", NULL), 0, put);
 	(*t)->rel_line++;
 	(*t)->nb_line++;
 }
+*/
 
 /*
 **	PRINT_BUF_END - print charactere in the end of line
@@ -52,11 +53,14 @@ void			print_buf_end(char *buf, t_term **t)
 	write(0, buf, ft_strlen(buf));
 	while (len > 0)
 	{
+		if (((*t)->cur.x + ft_strlen((*t)->promtp)) % (*t)->col == 0)
+		{
+			(*t)->rel_line++;
+			(*t)->nb_line++;
+		}
 		(*t)->cur.x++;
 		len--;
 	}
-	if (((*t)->cur.x + ft_strlen((*t)->promtp)) % (*t)->col == 0)
-		go_new_line(t);
 	if ((*t)->line == NULL)
 		(*t)->line = ft_strdup(buf);
 	else

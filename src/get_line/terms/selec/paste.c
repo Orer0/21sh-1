@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:20:32 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 01:35:34 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 23:54:36 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ void	paste(t_term **t)
 			end_shell(t, NULL);
 	}
 	if ((*t)->line != NULL && (*t)->cur.x < (*t)->max_cur)
+	{
 		print_insertion(t, tmp);
+		tputs(tgetstr("le", NULL), 0, &put);
+		(*t)->cur.x--;
+	}
 	else
 		print_buf_end(tmp, t);
-	tputs(tgetstr("le", NULL), 0, &put);
-	(*t)->cur.x--;
 }
