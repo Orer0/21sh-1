@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 22:33:06 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 23:12:04 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	*get_line(char *promtp, char *end_of_file)
 	char			*line;
 
 	data = shell_data_singleton();
+	data->ctrl_c = FALSE;
 	if (!data->t)
 	{
 		if (!(data->t = ft_memalloc(sizeof(t_term))))

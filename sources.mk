@@ -40,6 +40,7 @@ SRCS+=src/get_line/terms/clean_line.c
 SRCS+=src/get_line/terms/end_shell.c
 SRCS+=src/get_line/terms/del.c
 SRCS+=src/get_line/terms/enter.c
+SRCS+=src/get_line/terms/manag_ctrl_c.c
 SRCS+=src/get_line/terms/history.c
 SRCS+=src/get_line/terms/home_end.c
 SRCS+=src/get_line/terms/init_term.c
