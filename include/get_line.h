@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 04:02:56 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 22:35:57 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 int					init_termios(void);
 int					reset_term(void);
+void				reset_curse(t_term **t);
 
 void				set_terms(t_term **t, char *promtp);
 
