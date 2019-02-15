@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/07 02:35:39 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 22:53:36 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 03:50:50 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	replace_dollar(char **arr, char **final)
 		else
 			*final = ft_strjoin_free_s1(final, &arr[i]);
 		ft_strdel(&tmp);
+		if (ft_strlen(*final) > 4096)
+		{
+			ft_printf("21sh : command substitution interrupted");
+			ft_printf(" : argument too long\n");
+			break;
+		}
 		i++;
 	}
 }

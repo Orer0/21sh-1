@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 01:02:04 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 04:02:56 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char				*enter(t_term **t);
 
 void				clean_line(t_term **t);
 int					end_shell(t_term **t, char *cmd);
+char				*end_quoting_heredoc(t_term **t, char *end_of_file);
 
 void				multi_up(t_term **t);
 void				multi_down(t_term **t);

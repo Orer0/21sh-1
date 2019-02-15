@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 01:56:23 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 04:21:24 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,6 @@ static void		check_line(t_term **t)
 		if ((*t)->line != NULL)
 			ft_strdel(&(*t)->line);
 	}
-}
-
-int				end_shell(t_term **t, char *cmd)
-{
-	if (t == NULL)
-	{
-		reset_term();
-		quit_shell(EXIT_SUCCESS, 0);
-		return (0);
-	}
-	else if ((*t)->line == NULL)
-	{
-		clean_line(t);
-		reset_term();
-		quit_shell(EXIT_SUCCESS, 0);
-		return (0);
-	}
-	ft_bzero(&cmd, sizeof(char[8]));
-	return (1);
 }
 
 static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
@@ -81,33 +62,15 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 **	- return final line
 */
 
-char				*end_quoting_heredoc(t_term **t, char *cmd
-		, char *end_of_file)
-{
-	char *tmp;
-
-	tmp = NULL;
-	if ((*t)->line == NULL)
-	{
-		clean_line(t);
-		reset_term();
-		if (!(tmp = ft_strdup(end_of_file)))
-			quit_shell(EXIT_FAILURE, MALLOC_ERR);
-		return (tmp);
-	}
-	ft_bzero(&cmd, sizeof(char[8]));
-	return (NULL);
-}
-
 char			*manag_way(t_term **t, char *end_of_file)
 {
 	char			cmd[8];
 	void			(*fonct)(t_term **t);
 
 	fonct = NULL;
-	ft_bzero(&cmd, sizeof(char) * 8);
 	while (666)
 	{
+		ft_bzero(&cmd, sizeof(char) * 8);
 		check_line(t);
 		read(0, cmd, 7);
 		if (cmd[0] == 10 && cmd[1] == 0)
@@ -117,17 +80,13 @@ char			*manag_way(t_term **t, char *end_of_file)
 		}
 		else if (cmd[0] == 4)
 		{
-			if (ft_strequ((*t)->promtp, PROMPT))
-				end_shell(t, cmd);
-			else if (ft_strequ((*t)->promtp, PROMPT_MIN))
-			{
+			ft_strequ((*t)->promtp, PROMPT) ? end_shell(t, cmd) : 0;
+			if (ft_strequ((*t)->promtp, PROMPT_MIN))
 				if ((*t)->line == NULL)
-					return (end_quoting_heredoc(t, cmd, end_of_file));
-			}
+					return (end_quoting_heredoc(t, end_of_file));
 		}
 		else
 			basic_cmd(t, cmd, fonct);
-		ft_bzero(&cmd, sizeof(char) * 8);
 	}
 	return ((*t)->line);
 }
