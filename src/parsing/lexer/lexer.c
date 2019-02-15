@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 22:39:57 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 23:14:15 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ static int		reopen(t_line **line_s)
 	{
 		ft_fd_printf(2
 			, "21sh: unexpected EOF while looking for matching '\"'\n");
+		return (FALSE);
+	}
+	if (ft_strequ(new_line, "\n") && data->ctrl_c)
+	{
+		ft_strdel(&new_line);
 		return (FALSE);
 	}
 	tmp = (*line_s)->line;

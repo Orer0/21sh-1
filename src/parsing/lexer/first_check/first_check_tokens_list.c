@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 00:10:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/11 23:29:18 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 23:12:05 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ static int		manage_type(t_list **tmp, int *end_vars)
 				ft_fd_printf(2, "21sh: syntax error: unexpected end of file\n");
 				quit_shell(EXIT_FAILURE, 0);
 			}
-			first_check_heredoc(tmp);
+			if (!first_check_heredoc(tmp))
+				return (FALSE);
 		}
 	}
 	else
