@@ -6,14 +6,14 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 04:22:48 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 05:30:25 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 05:30:54 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "get_line.h"
 
-void		catch_signal_kill(int signal)
+void	catch_signal_kill(int signal)
 {
 	t_shell_data	*data;
 

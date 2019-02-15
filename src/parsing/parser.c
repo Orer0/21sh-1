@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 03:31:29 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 00:50:13 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 05:25:37 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ int		shell_parser(char **line)
 {
 	int				i;
 	t_shell_data	*data;
+	int				status;
 
 	data = shell_data_singleton();
 	i = -1;
+	status = 0;
 	while (ft_isspace((*line)[++i]))
 		;
 	if (!(*line)[i])
@@ -54,12 +56,6 @@ int		shell_parser(char **line)
 	if (!lexer(line) || !data->tokens_list
 		|| !first_check_tokens_list(data->tokens_list))
 	{
-		if (data->ctrl_c)
-		{
-			ft_printf("ICI\n");
-			data->ctrl_c = FALSE;
-			return (FALSE);
-		}
 		ft_strdel(line);
 		return (FALSE);
 	}

@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 05:30:20 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 05:31:29 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,12 @@ static int		reopen(t_line **line_s)
 		ft_printf("21sh: syntax error: unexpected end of file\n");
 		quit_shell(EXIT_FAILURE, 0);
 	}
-	new_line = get_line(PROMPT_MIN);
+	if (!(new_line = get_line(PROMPT_MIN, NULL)))
+	{
+		ft_fd_printf(2
+			, "21sh: unexpected EOF while looking for matching '\"'\n");
+		return (FALSE);
+	}
 	tmp = (*line_s)->line;
 	(*line_s)->line = ft_strjoin(tmp, "\n");
 	ft_strdel(&tmp);
@@ -126,20 +131,17 @@ static int		reopen(t_line **line_s)
 static int		loop_routine(t_state *state, t_line **line_s, int *expansion
 	, char (*stack)[STACK])
 {
-	t_shell_data	*data;
-
-	data = shell_data_singleton();
 	(*state).next = automaton_transition((*state).current
 		, get_index_from_char(*line_s));
 	(*state).current = routine_next_state(stack, state, *line_s, expansion);
 	if ((*state).current == NONE_STATE)
-	{
-		ft_memdel((void **)line_s);
 		return (FALSE);
-	}
 	if (!(*line_s)->line[(*line_s)->i + 1] && ((*state).current == D_QUOTE_STATE
 		|| (*state).current == S_QUOTE_STATE))
-		reopen(line_s);
+	{
+		if (!reopen(line_s))
+			return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -170,6 +172,7 @@ int				lexer(char **line)
 	int		expansion;
 	t_shell_data	*data;
 
+	// signal(SIGINT, SIG_IGN);
 	data = shell_data_singleton();
 	constructor_line_struct(*line, &line_s);
 	s_state.current = START_STATE;
@@ -178,7 +181,11 @@ int				lexer(char **line)
 	while (line_s->line[++(line_s->i)])
 	{
 		if (!loop_routine(&s_state, &line_s, &expansion, &stack))
+		{
+			*line = line_s->line;
+			ft_memdel((void **)&line_s);
 			return (FALSE);
+		}
 	}
 	*line = line_s->line;
 	if (if_take_the_last(s_state.current))
