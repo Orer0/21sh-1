@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 02:03:47 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 05:26:04 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	clean_line(t_term **t)
 	if ((*t)->history)
 		ft_lstdel(&(*t)->history, &del_history);
 	if ((*t)->sel != NULL)
-	ft_strdel(&(*t)->sel);
+		ft_strdel(&(*t)->sel);
 	ft_memdel((void **)t);
 }
 
