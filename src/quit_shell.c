@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:41:36 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/14 02:03:47 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/15 03:59:27 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	del_history(void *content, size_t size)
 
 static void	clean_line(t_term **t)
 {
+	if (!t || !(*t))
+		return ;
 	ft_strdel(&(*t)->selec);
 	ft_strdel(&(*t)->current_line);
 	ft_strdel(&(*t)->promtp);
