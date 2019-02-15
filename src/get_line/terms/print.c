@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 05:03:13 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/15 04:22:01 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void			print_buf_end(char *buf, t_term **t)
 	(*t)->max_cur = ft_strlen((*t)->line);
 	ft_strdel(&buf);
 }
-
-#include <stdio.h>//dhuehfeu
 
 static void		calcl_len(t_term **t, char **buf)
 {
