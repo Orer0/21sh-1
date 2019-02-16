@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 23:14:43 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 01:54:25 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 	ft_bzero(&cmd, sizeof(char[8]));
 }
 
+char			*check_end_cmd(char *cmd, t_term **t)
+{
+	if (cmd[0] == 10 && cmd[1] == 0)
+	{
+		if (ft_end_line(t, cmd))
+			return ((*t)->line);
+	}
+	else if (cmd[0] == 3)
+	{
+		ctrl_c(t);
+		ft_bzero(&cmd, sizeof(char) * 8);
+		return ((*t)->line);
+	}
+	return (NULL);
+}
+
 /*
 **	MANAG_WAY - read the tap keycode
 **
@@ -62,45 +78,25 @@ static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 **	- return final line
 */
 
-#include <stdio.h>
-
 char			*manag_way(t_term **t, char *end_of_file)
 {
 	char			cmd[8];
 	void			(*fonct)(t_term **t);
-	t_shell_data	*data;
 
-	data = shell_data_singleton();
 	fonct = NULL;
 	while (666)
 	{
-//			printf("icicic \n");
 		ft_bzero(&cmd, sizeof(char) * 8);
 		check_line(t);
 		read(0, cmd, 7);
-		int i =0;
-		while (cmd[i] != '\0')
-		{
-//			printf("cmd[i] = %d\n", cmd[i]);
-			i++;
-		}
-		if (cmd[0] == 10 && cmd[1] == 0)
-		{
-			if (ft_end_line(t, cmd))
-				return ((*t)->line);
-		}
+		if ((cmd[0] == 10 && cmd[1] == 0) || cmd[0] == 3)
+			return (check_end_cmd(cmd, t));
 		else if (cmd[0] == 4)
 		{
 			ft_strequ((*t)->promtp, PROMPT) ? end_shell(t, cmd) : 0;
 			if (ft_strequ((*t)->promtp, PROMPT_MIN))
 				if ((*t)->line == NULL)
 					return (end_quoting_heredoc(t, end_of_file));
-		}
-		else if (cmd[0] == 3)
-		{
-			ctrl_c(t);
-		ft_bzero(&cmd, sizeof(char) * 8);
-			return ((*t)->line);
 		}
 		else
 			basic_cmd(t, cmd, fonct);

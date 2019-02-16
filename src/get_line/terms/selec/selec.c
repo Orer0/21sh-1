@@ -6,11 +6,11 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:17:13 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 23:21:49 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 02:04:32 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../../include/get_line.h"
+#include "get_line.h"
 
 static void		set_init(t_term **t, int rel_cur, int tmp, char *cmd)
 {
@@ -33,19 +33,6 @@ static void		set_init(t_term **t, int rel_cur, int tmp, char *cmd)
 	ft_bzero(cmd, 1024);
 }
 
-static int		mode_inver(t_term **t, int tmp_cur)
-{
-	ft_strdel(&(*t)->sel);
-	tputs(tgetstr("mr", NULL), 0, &put);
-	if (&((*t)->line[(*t)->cur.x]) != '\0')
-		write(STDOUT_FILENO, &((*t)->line[(*t)->cur.x]), 1);
-	tputs(tgetstr("le", NULL), 0, &put);
-	(*t)->sel = ft_strsub((*t)->line, (*t)->cur.x, 1);
-	tputs(tgetstr("me", NULL), 0, &put);
-	tmp_cur = (*t)->cur.x;
-	return (tmp_cur);
-}
-
 static void		go_cut(t_term **t, int rel_cur, int tmp)
 {
 	cut(t, rel_cur, tmp);
@@ -62,6 +49,19 @@ static void		manag_selec_direction(int *rel_cur, t_term **t
 		*rel_cur = selec_left(t, *rel_cur);
 	else if (ky[0] == 27 && ky[1] == 91 && ky[2] == 67)
 		*rel_cur = selec_right(t, *rel_cur, *tmp);
+}
+
+static void		quit_selection_ctrl_c(t_term **t)
+{
+	t_shell_data	*data;
+
+	data = shell_data_singleton();
+	data->ctrl_c = FALSE;
+	ft_strdel(&(*t)->line);
+	ft_strdel(&(*t)->sel);
+	put('\n');
+	putst((*t)->promtp);
+	reset_curse(t);
 }
 
 /*
@@ -82,9 +82,7 @@ void			selec(t_term **t)
 	char			ky[1024];
 	int				rel_cur;
 	int				tmp;
-	t_shell_data	*data;
 
-	data = shell_data_singleton();
 	rel_cur = 0;
 	tmp = (*t)->cur.x;
 	ft_bzero(ky, 1024);
@@ -100,12 +98,7 @@ void			selec(t_term **t)
 		}
 		if (ky[0] == 3)
 		{
-			data->ctrl_c = FALSE;
-			ft_strdel(&(*t)->line);
-			ft_strdel(&(*t)->sel);
-			put('\n');
-			putst((*t)->promtp);
-			reset_curse(t);
+			quit_selection_ctrl_c(t);
 			break ;
 		}
 	}

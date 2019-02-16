@@ -6,7 +6,7 @@
 /*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 04:20:32 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 23:54:36 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 01:59:30 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@
 **	- change the curse value
 */
 
-void	paste(t_term **t)
+static void	add_cur_iter(t_term **t, char *tmp)
+{
+	print_insertion(t, tmp);
+	tputs(tgetstr("le", NULL), 0, &put);
+	(*t)->cur.x--;
+}
+
+void		paste(t_term **t)
 {
 	char			*tmp;
 	t_shell_data	*data;
@@ -44,11 +51,7 @@ void	paste(t_term **t)
 			end_shell(t, NULL);
 	}
 	if ((*t)->line != NULL && (*t)->cur.x < (*t)->max_cur)
-	{
-		print_insertion(t, tmp);
-		tputs(tgetstr("le", NULL), 0, &put);
-		(*t)->cur.x--;
-	}
+		add_cur_iter(t, tmp);
 	else
 		print_buf_end(tmp, t);
 }

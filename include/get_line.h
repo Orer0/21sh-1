@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/12 15:13:42 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 22:59:24 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 02:05:35 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int					selec_right(t_term **t, int rel_cur, int tmp_cur);
 int					selec_left(t_term **t, int rel_cur);
 void				paste(t_term **t);
 void				cut(t_term **t, int rel_cur, int tmp);
+int					mode_inver(t_term **t, int tmp_cur);
 
 void				print_buf_end(char *buf, t_term **t);
 void				print_insertion(t_term **t, char *buf);

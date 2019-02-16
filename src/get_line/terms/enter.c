@@ -6,13 +6,13 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 05:34:03 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 22:35:42 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 01:36:29 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
 
-void		reset_curse(t_term **t)
+void			reset_curse(t_term **t)
 {
 	(*t)->index_his = -1;
 	(*t)->cur.x = 0;

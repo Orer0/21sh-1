@@ -52,6 +52,7 @@ SRCS+=src/get_line/terms/print.c
 SRCS+=src/get_line/terms/selec/cut.c
 SRCS+=src/get_line/terms/selec/paste.c
 SRCS+=src/get_line/terms/selec/selec.c
+SRCS+=src/get_line/terms/selec/invert_mode.c
 SRCS+=src/get_line/terms/selec/selec_mouv.c
 SRCS+=src/get_line/terms/set_key.c
 SRCS+=src/get_line/terms/set_terms.c

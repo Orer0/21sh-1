@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/25 22:29:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 23:51:58 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 01:54:54 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,6 @@ static void		buf_tab(char **buf)
 	ft_strdel(buf);
 	*buf = ft_strdup("        ");
 }
-/*
-void		go_new_line(t_term **t)
-{
-	put(' ');
-	tputs(tgetstr("cr", NULL), 0, put);
-	(*t)->rel_line++;
-	(*t)->nb_line++;
-}
-*/
 
 /*
 **	PRINT_BUF_END - print charactere in the end of line

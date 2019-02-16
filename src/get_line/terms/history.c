@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 02:02:30 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/14 01:34:41 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 02:38:40 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,25 @@ int				history_up(t_term **t)
 	return (0);
 }
 
+static void		cur_begin(t_term **t)
+{
+	size_t		i;
+
+	i = (*t)->rel_line;
+	if (i > 0)
+	{
+		while (i > 0)
+		{
+			tputs(tgetstr("up", NULL), 0, &put);
+			i--;
+		}
+	}
+	tputs(tgetstr("cr", NULL), 0, &put);
+	go_way(t, (*t)->len_p, ND);
+	(*t)->rel_line = 0;
+	(*t)->cur.x = 0;
+}
+
 /*
 **	HISTORY_DOWN - print the previous hystory line
 **
@@ -102,7 +121,7 @@ int				history_down(t_term **t)
 		delete_all((*t)->nb_line, t);
 	if ((*t)->index_his == 0 || ft_lstlen(data->t->history) <= 1)
 	{
-		cur_begin_line(t);
+		cur_begin(t);
 		tputs(tgetstr("cd", NULL), 0, &put);
 		(*t)->index_his--;
 		(*t)->max_cur = 0;
