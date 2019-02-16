@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/16 03:20:37 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/16 03:27:44 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,19 @@ static void		check_line(t_term **t)
 	}
 }
 
-static void		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
+static int		basic_cmd(t_term **t, char *cmd, void (*fonct)(t_term **t))
 {
 	struct winsize	ws;
 
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws);
+	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1)
+		return (-1);
 	(*t)->col = ws.ws_col;
 	(*t)->nb_line = (((*t)->max_cur + (*t)->len_p) / (*t)->col);
 	fonct = way(cmd);
 	cmd_way(fonct, t, cmd);
 	fonct = NULL;
 	ft_bzero(&cmd, sizeof(char[8]));
+	return (1);
 }
 
 char			*check_end_cmd(char *cmd, t_term **t)
@@ -100,7 +102,8 @@ char			*manag_way(t_term **t, char *end_of_file)
 					return (end_quoting_heredoc(t, end_of_file));
 		}
 		else
-			basic_cmd(t, cmd, fonct);
+			if (basic_cmd(t, cmd, fonct) == -1)
+				return (NULL);
 	}
 	return ((*t)->line);
 }

@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 14:09:14 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/16 01:37:55 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 03:24:49 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ char	*get_line(char *promtp, char *end_of_file)
 	if (!data->t)
 	{
 		if (!(data->t = ft_memalloc(sizeof(t_term))))
-		{
 			end_shell(&data->t, NULL);
-			return (NULL);
-		}
 	}
 	if (init_termios() == -1)
 	{
