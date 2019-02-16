@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 23:14:43 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 02:00:39 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ char			*manag_way(t_term **t, char *end_of_file)
 {
 	char			cmd[8];
 	void			(*fonct)(t_term **t);
-	t_shell_data	*data;
 
-	data = shell_data_singleton();
 	fonct = NULL;
 	while (666)
 	{
