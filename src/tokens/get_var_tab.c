@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/18 23:30:49 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 23:55:33 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		loop_routine(t_var_token **token, t_list *tmp, char ***arr)
 	}
 }
 
-char		**get_var_tab(t_var_token **token)
+char			**get_var_tab(t_var_token **token)
 {
 	char	**arr;
 	t_list	*tmp;
