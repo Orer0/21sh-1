@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 03:29:28 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 04:00:36 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:44:31 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void		manage_expansion_var(char **str)
 	char	*equal;
 
 	equal = ft_strchr(*str, '=');
+	if (!equal)
+		return ;
 	equal[0] = 0;
 	if (!(before_equal = ft_strdup(*str)))
 		quit_shell(EXIT_FAILURE, MALLOC_ERR);
