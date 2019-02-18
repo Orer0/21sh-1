@@ -6,11 +6,12 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/16 03:29:14 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/18 21:35:01 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_line.h"
+#include "libftprintf.h"
 
 static int		ft_end_line(t_term **t, char *cmd)
 {
