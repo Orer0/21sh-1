@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   end_shell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroblin <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 03:57:48 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/15 22:20:02 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/18 22:22:41 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				end_shell(t_term **t, char *cmd)
 {
-	if (t == NULL)
+	if (t == NULL || *t == NULL)
 	{
 		reset_term();
 		quit_shell(EXIT_SUCCESS, 0);

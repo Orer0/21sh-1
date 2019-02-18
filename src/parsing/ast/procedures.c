@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 06:13:05 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/10 05:25:48 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:04:59 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void		cmd_procedure(t_ptree **tree)
 {
 	void	*data;
 
-	data = ft_memalloc(sizeof((*tree)->data));
+	if (!(data = ft_memalloc(sizeof((*tree)->data))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	ft_memcpy(data, (*tree)->data, sizeof((*tree)->data));
 	(*tree)->ast = ft_btree_create_node(data);
 }
@@ -48,6 +49,8 @@ static void		rules_procedure(t_ptree **tree)
 	{
 		data = ft_memalloc(
 				sizeof((*((t_ptree **)(tmp->next->content)))->data));
+		if (!data)
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
 		ft_memcpy(data, (*((t_ptree **)(tmp->next->content)))->data,
 			sizeof((*((t_ptree **)(tmp->next->content)))->data));
 		(*tree)->ast = ft_btree_create_node(data);

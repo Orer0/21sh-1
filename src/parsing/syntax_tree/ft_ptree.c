@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 05:41:20 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/13 18:56:25 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:37:55 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void			ft_ptree_create_node(t_ptree **tree, void *data, int type)
 	static int	id = -1;
 
 	id++;
-	*tree = ft_memalloc(sizeof(t_ptree));
+	if (!(*tree = ft_memalloc(sizeof(t_ptree))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	(*tree)->id = id;
 	(*tree)->data = data;
 	(*tree)->type = type;
@@ -35,10 +36,7 @@ int				ft_ptree_add_child(t_ptree **tree, void *data, int type)
 		return (FALSE);
 	ft_ptree_create_node(&child, data, type);
 	if (!(tmp = ft_lstnew(&child, sizeof(t_ptree *))))
-	{
-		ft_printf("erreur de lstnew dans add_child\n");
-		return (FALSE);
-	}
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	if ((*tree)->nb_childs == 0)
 	{
 		(*tree)->childs_lst = tmp;

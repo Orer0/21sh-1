@@ -1,0 +1,7 @@
+0000000100008776	e8 e5 41 03 00 	callq	_ft_lstnew
+0000000100009e33	e8 28 2b 03 00 	callq	_ft_lstnew
+0000000100010af4	e8 67 be 02 00 	callq	_ft_lstnew
+0000000100012f9b	e8 c0 99 02 00 	callq	_ft_lstnew
+00000001000306d7	e8 84 c2 00 00 	callq	_ft_lstnew
+0000000100032b4b	e8 10 9e 00 00 	callq	_ft_lstnew
+_ft_lstnew:

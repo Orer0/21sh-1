@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 20:47:47 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/13 18:53:24 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:07:55 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static t_tokens_list	*create_tokens_list_struct(t_list *lst)
 {
 	t_tokens_list	*result;
 
-	result = ft_memalloc(sizeof(t_tokens_list));
+	if (!(result = ft_memalloc(sizeof(t_tokens_list))))
+		quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	result->index = 0;
 	result->size = ft_lstlen(lst);
 	result->tokens_list = lst;

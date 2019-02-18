@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 07:11:02 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/01/28 07:12:14 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:27:02 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_shell_data	*shell_data_singleton(void)
 	if (!data)
 	{
 		if (!(data = ft_memalloc(sizeof(t_shell_data))))
-			quit_shell(EXIT_SUCCESS, MALLOC_ERR);
+			exit(EXIT_FAILURE);
 	}
 	return (data);
 }

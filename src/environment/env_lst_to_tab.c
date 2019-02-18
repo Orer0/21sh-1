@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 02:28:18 by ndubouil          #+#    #+#             */
-/*   Updated: 2018/12/20 04:08:39 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:16:51 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int				env_lst_to_tab(t_list **lst, char ***arr)
 	node = *lst;
 	if (*arr == NULL)
 		if (!(*arr = ft_memalloc(sizeof(char *) * (ft_lstlen(*lst) + 1))))
-			return (FALSE);
+			quit_shell(EXIT_FAILURE, MALLOC_ERR);
 	if (node != NULL)
 		if (!cpy_tab(node, arr))
 			return (FALSE);
