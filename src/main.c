@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:30:34 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/16 03:01:47 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 04:51:18 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int			main(int ac, char **av, char **environ)
 	char			*line;
 
 	(void)ac;
-	ft_printf("MAIN\n");
 	pos_args = 0;
 	data = shell_data_singleton();
 	options_parser(av, &data->options, &pos_args, set_options);

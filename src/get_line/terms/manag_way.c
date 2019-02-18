@@ -6,7 +6,7 @@
 /*   By: aroblin <aroblin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/02 05:06:01 by aroblin           #+#    #+#             */
-/*   Updated: 2019/02/16 03:24:07 by aroblin          ###   ########.fr       */
+/*   Updated: 2019/02/16 03:29:14 by aroblin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,10 @@ char			*manag_way(t_term **t, char *end_of_file)
 					return (end_quoting_heredoc(t, end_of_file));
 		}
 		else
+		{
 			if (basic_cmd(t, cmd, fonct) == -1)
 				return (NULL);
+		}
 	}
 	return ((*t)->line);
 }
