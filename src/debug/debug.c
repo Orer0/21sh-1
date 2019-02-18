@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 18:28:09 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/04 00:08:56 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 23:09:00 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void 	print_var_token(t_var_token *token)
 	tmp = get_var_list_token(token);
 	while (tmp)
 	{
-		ft_printf("\t\t variable = token: %s\n", get_token_token(tmp->content));
+		ft_printf("\t\t variable = token: %s, expansion[%d]\n", get_token_token(tmp->content), get_expansion_token(tmp->content));
 		tmp = tmp->next;
 	}
 }
