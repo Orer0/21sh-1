@@ -6,12 +6,28 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 04:27:56 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/12 03:51:52 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/18 23:30:49 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 #include "tokens.h"
+
+static void		loop_routine(t_var_token **token, t_list *tmp, char ***arr)
+{
+	if (get_type_token(token) == VAR_TYPE)
+	{
+		if ((*((t_var_token **)(tmp->content)))->is_expansion)
+			manage_expansion_var(&((*((t_var_token **)(tmp->content)))->token));
+		ft_strtab_addend(arr, (*((t_var_token **)(tmp->content)))->token);
+	}
+	else if (get_type_token(token) == CMD_TYPE)
+	{
+		if (((t_var_token *)(tmp->content))->is_expansion)
+			manage_expansion_var(&(((t_var_token *)(tmp->content)))->token);
+		ft_strtab_addend(arr, ((t_var_token *)(tmp->content))->token);
+	}
+}
 
 char		**get_var_tab(t_var_token **token)
 {
@@ -34,9 +50,7 @@ char		**get_var_tab(t_var_token **token)
 	tmp = (*token)->var_lst;
 	while (tmp)
 	{
-		if (((t_var_token *)(tmp->content))->is_expansion)
-			manage_expansion_var(&((t_var_token *)(tmp->content))->token);
-		ft_strtab_addend(&arr, ((t_var_token *)(tmp->content))->token);
+		loop_routine(token, tmp, &arr);
 		tmp = tmp->next;
 	}
 	return (arr);
