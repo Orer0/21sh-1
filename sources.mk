@@ -7,6 +7,7 @@ SRCS+=src/builtins/cd/ft_strjointab.c
 SRCS+=src/builtins/cd/get_final_path.c
 SRCS+=src/builtins/cd/get_pwd_for_cd.c
 SRCS+=src/builtins/echo_builtin.c
+SRCS+=src/builtins/env_builtin.c
 SRCS+=src/builtins/exit_builtin.c
 SRCS+=src/builtins/export_builtin.c
 SRCS+=src/builtins/manage_builtins.c

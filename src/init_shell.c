@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 04:48:20 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/16 03:11:23 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/20 23:40:08 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			init_shell(char **environ)
 	if (!env_tab_to_lst(&data->env_lst, environ))
 		create_minimal_env();
 	term = get_env_var_by_name(&data->env_lst, "TERM");
-	if (term && isatty(0))
+	if ((term && term->content[0]) && isatty(0))
 		data->term = ft_strdup(term->content);
 	else
 	{
