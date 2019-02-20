@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:31:39 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 03:47:46 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/20 23:16:42 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,11 @@ int					echo_builtin(char **args);
 int					is_valid_option(char c, char *options);
 void				options_parser(char **args, int *options, int *pos_args,
 						int (*set_options)(char *, int *, int));
-int					env_builtin(char **args);
 int					export_builtin(char **args);
 int					set_builtin(char **args, t_shell_data **data);
 int					setenv_builtin(char **args, t_shell_data **data);
 int					unsetenv_builtin(char **args);
+int					env_builtin(char **args, t_shell_data **data);
 void				exit_builtin(char **args);
 
 /*

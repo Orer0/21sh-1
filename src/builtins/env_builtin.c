@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_builtin.c                                     :+:      :+:    :+:   */
+/*   env_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 16:26:48 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/20 23:24:22 by ndubouil         ###   ########.fr       */
+/*   Created: 2019/02/11 22:29:09 by ndubouil          #+#    #+#             */
+/*   Updated: 2019/02/20 23:17:43 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh21.h"
 
-void		exit_builtin(char **args)
+static void		print_env(t_list *lst)
 {
-	int		ret;
+	t_list	*tmp;
 
-	if (args && args[1])
+	tmp = lst;
+	while (tmp)
 	{
-		ret = ft_atoi(args[1]);
-		ft_strtab_del(&args);
-		quit_shell(ret, 0);
+		ft_printf("%s=%s\n", ((t_varenv *)(tmp->content))->name,
+			((t_varenv *)(tmp->content))->content);
+		tmp = tmp->next;
 	}
-	else
-	{
-		ft_strtab_del(&args);
-		quit_shell(EXIT_SUCCESS, 0);
-	}
+}
+
+int				env_builtin(char **args, t_shell_data **data)
+{
+	(void)args;
+	print_env((*data)->env_lst);
+	return (EXIT_SUCCESS);
 }

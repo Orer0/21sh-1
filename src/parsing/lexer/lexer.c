@@ -6,7 +6,7 @@
 /*   By: ndubouil <ndubouil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 16:39:01 by ndubouil          #+#    #+#             */
-/*   Updated: 2019/02/15 23:25:54 by ndubouil         ###   ########.fr       */
+/*   Updated: 2019/02/20 23:10:52 by ndubouil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static int		routine_next_state(char (*stack)[STACK], t_state *state
 		&& (*state).current != DOLLAR_STATE)
 	{
 		(*expansion) = TRUE;
+		if ((*state).current == D_QUOTE_STATE)
+			return (D_QUOTE_STATE);
 		return ((*state).next);
 	}
 	else if (is_acceptor((*state).next))
